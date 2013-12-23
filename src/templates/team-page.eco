@@ -8,13 +8,13 @@
 
         <div class="team-member-title">
           <% if member.name?: %>
-            <%= member.name %>
+            <%- member.name %>
           <% end %>
         </div>
 
         <div class="team-member-description">
           <% if member.decsription?: %>
-            <%= member.decsription %>
+            <%- member.decsription %>
           <% end %>
         </div>
       </div>
