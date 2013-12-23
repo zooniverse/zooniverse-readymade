@@ -7,7 +7,6 @@ class SiteHeader extends Controller
     '.site-links': 'linksContainer'
 
   addNavLink: (href, label) ->
-    a = @linksContainer.append '<a></a>'
-    a.attr 'href', href
+    @linksContainer.append "<a href='#{href}'>#{label}</a>"
 
 module.exports = SiteHeader
