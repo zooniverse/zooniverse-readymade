@@ -1,0 +1,4 @@
+<div class="project-producer"><%= @producer %></div>
+<div class="project-title"><%= @title %></div>
+
+<div class="site-links"></div>
