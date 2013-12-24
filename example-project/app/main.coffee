@@ -26,7 +26,7 @@ new Project
 
   classification: {
     ###
-      descisionName: {
+      questionName: {
         question: 'Mark the creatures in this image.'
         choices: [
           {
@@ -51,7 +51,7 @@ new Project
 
         # Whole-image details, rendered below choices:
         details: [
-          {name: 'distorted', label: 'This image is distorted' type: 'checkbox'}
+          {value: 'distorted', label: 'This image is distorted' type: 'checkbox'}
         ]
 
         # Default "next" value:
