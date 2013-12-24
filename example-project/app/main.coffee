@@ -24,7 +24,7 @@ new Project
     {name: 'Brian Carstensen'}
   ]
 
-   classification: {
+  classification: {
     ###
       descisionName: {
         query: 'Mark the creatures in this image.'
