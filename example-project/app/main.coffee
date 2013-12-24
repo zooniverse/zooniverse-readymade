@@ -27,7 +27,7 @@ new Project
   classification: {
     ###
       descisionName: {
-        query: 'Mark the creatures in this image.'
+        question: 'Mark the creatures in this image.'
         choices: [
           {
             type: 'answer' # This is the default type.
@@ -41,6 +41,7 @@ new Project
             value: 'deer'
             label: 'Deer'
             image: './images/animals/deer.jpg'
+            color: 'red'
             # Per-marking details, rendered in tool controls:
             details: [
               {type: 'checkbox', value: 'eating', label: 'Eating'}
