@@ -8,7 +8,7 @@
 
     <% if choices?: %>
       <% for {type, value, label, image, color}, i in choices: %>
-        <div class="decision-tree-choice" data-index="<%= i %>" data-color="<%- color %>">
+        <div class="decision-tree-choice" data-index="<%= i %>" data-color="<%= color %>">
           <% shapes = ['point', 'circle', 'ellipse', 'rect'] %>
           <% if type in shapes: %>
             <button name="drawing-tool", value="<%= value %>">

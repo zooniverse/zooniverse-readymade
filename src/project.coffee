@@ -7,22 +7,33 @@ teamPageTemplate = require './templates/team-page'
 
 class Project
   parent: document.body
+  id: ''
 
-  constructor: (setup = {}) ->
-    @parent = setup.parent if 'parent' of setup
+  producer: ''
+  title: ''
+  summary: ''
+  description: ''
 
-    @connect setup.projectId
+  organizations: null
+  scientists: null
+  developers: null
+
+  constructor: (configuration = {}) ->
+    @[property] = value for property, value of configuration
+
+    if @id
+      @connect @id
 
     @header = new SiteHeader
-      template: SiteHeader::template setup
+      template: SiteHeader::template @
 
     @stack = new StackOfPages {}
 
-    if setup.producer? or setup.title? or setup.summary? or setup.description?
-      @addPage '#/', 'Home', homePageTemplate setup
+    if @producer or @title or @summary or @description
+      @addPage '#/', 'Home', homePageTemplate @
 
-    if setup.organizations? or setup.scientists? or setup.developers?
-      @addPage '#/team', 'Team', teamPageTemplate setup
+    if @organizations or @scientists or @developers
+      @addPage '#/team', 'Team', teamPageTemplate @
 
     @header.el.appendTo @parent if @parent?
     @parent?.appendChild @stack.el

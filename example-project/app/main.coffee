@@ -1,7 +1,4 @@
 Project = require '../../src/project'
-# IdentificationClassifier = require 'zooniverse-readymade/identification-classifier'
-# MarkingClassifier = require 'zooniverse-readymade/marking-classifier'
-# DecisionTreeClassifier = require 'zooniverse-readymade/decision-tree-classifier'
 
 new Project
   id: 'lpz_wildlife'
@@ -25,37 +22,35 @@ new Project
   ]
 
   classification: {
-    ###
-      questionName: {
-        question: 'Mark the creatures in this image.'
-        choices: [
-          {
-            type: 'answer' # This is the default type.
-            value: 'nothing'
-            label: 'Nothing to mark'
-            next: '' # Answer-specific "next" value
-          }
+    questionName: {
+      question: 'Mark the creatures in this image.'
+      choices: [
+        {
+          type: 'answer' # This is the default type.
+          value: 'nothing'
+          label: 'Nothing to mark'
+          next: '' # Answer-specific "next" value
+        }
 
-          {
-            type: 'point'
-            value: 'deer'
-            label: 'Deer'
-            image: './images/animals/deer.jpg'
-            color: 'red'
-            # Per-marking details, rendered in tool controls:
-            details: [
-              {type: 'checkbox', value: 'eating', label: 'Eating'}
-            ]
-          }
-        ]
+        {
+          type: 'point'
+          value: 'deer'
+          label: 'Deer'
+          image: './images/animals/deer.jpg'
+          color: 'red'
+          # Per-marking details, rendered in tool controls:
+          details: [
+            {type: 'checkbox', value: 'eating', label: 'Eating'}
+          ]
+        }
+      ]
 
-        # Whole-image details, rendered below choices:
-        details: [
-          {value: 'distorted', label: 'This image is distorted' type: 'checkbox'}
-        ]
+      # Whole-image details, rendered below choices:
+      details: [
+        {value: 'distorted', label: 'This image is distorted' type: 'checkbox'}
+      ]
 
-        # Default "next" value:
-        next: ''
-      }
-    ###
+      # Default "next" value:
+      next: ''
+    }
    }
