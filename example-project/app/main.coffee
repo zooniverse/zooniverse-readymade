@@ -24,44 +24,37 @@ new Project
     {name: 'Brian Carstensen'}
   ]
 
-#   classifier: new IdentificationClassifier
-#     options: [
-#       {value: 'wolf', label: 'Wolf', image: '//placehold.it/100.png'}
-#       {value: 'coyote', label: 'Coyote', image: '//placehold.it/100.png'}
-#       {value: 'cat', label: 'Cat', image: '//placehold.it/100.png'}
-#       {value: 'squirrel', label: 'Squirrel', image: '//placehold.it/100.png'}
-#     ]
+   classification: {
+    ###
+      descisionName: {
+        query: 'Mark the creatures in this image.'
+        choices: [
+          {
+            type: 'answer' # This is the default type.
+            value: 'nothing'
+            label: 'Nothing to mark'
+            next: '' # Answer-specific "next" value
+          }
 
-#   classifier2: new MarkingClassifier
-#     options: [
-#       {value: 'wolf', label: 'Wolf', image: '//placehold.it/100.png', tool: 'point'}
-#       {value: 'coyote', label: 'Coyote', image: '//placehold.it/100.png', tool: 'circle'}
-#       {value: 'cat', label: 'Cat', image: '//placehold.it/100.png', tool: 'ellipse'}
-#       {value: 'squirrel', label: 'Squirrel', image: '//placehold.it/100.png', tool: 'rect'}
-#     ]
+          {
+            type: 'point'
+            value: 'deer'
+            label: 'Deer'
+            image: './images/animals/deer.jpg'
+            # Per-marking details, rendered in tool controls:
+            details: [
+              {type: 'checkbox', value: 'eating', label: 'Eating'}
+            ]
+          }
+        ]
 
-#   classifier3: new DecisionTreeClassifier
-#     questions:
-#       FIRST:
-#         question: 'How many things are there?'
-#         answers: [
-#           {value: 0, label: 'Zero'}
-#           {value: 1, label: 'One', next: 'color'}
-#           {value: 'many', label: 'Several', next: 'averageColor'}
-#         ]
+        # Whole-image details, rendered below choices:
+        details: [
+          {name: 'distorted', label: 'This image is distorted' type: 'checkbox'}
+        ]
 
-#       color:
-#         question: 'What color is it?'
-#         answers: [
-#           {value: 'red', label: 'Red', image: '//placehold.it/100.png'}
-#           {value: 'green', label: 'Green', image: '//placehold.it/100.png'}
-#           {value: 'blue', label: 'Blue', image: '//placehold.it/100.png'}
-#         ]
-
-#       averageColor:
-#         question: 'What color are they, on average?'
-#         answers: [
-#           {value: 'red', label: 'Red', image: '//placehold.it/100.png'}
-#           {value: 'green', label: 'Green', image: '//placehold.it/100.png'}
-#           {value: 'blue', label: 'Blue', image: '//placehold.it/100.png'}
-#         ]
+        # Default "next" value:
+        next: ''
+      }
+    ###
+   }
