@@ -19,10 +19,10 @@ class Project
     @stack = new StackOfPages {}
 
     if setup.producer? or setup.title? or setup.summary? or setup.description?
-      @addHomePage setup
+      @addPage '#/', 'Home', homePageTemplate setup
 
     if setup.organizations? or setup.scientists? or setup.developers?
-      @addTeamPage setup
+      @addPage '#/team', 'Team', teamPageTemplate setup
 
     @header.el.appendTo @parent if @parent?
     @parent?.appendChild @stack.el
@@ -37,12 +37,8 @@ class Project
     @topBar = new TopBar
     @topBar.el.appendTo document.body
 
-  addHomePage: (setup) ->
-    @stack.add '#/', homePageTemplate setup
-    @header.addNavLink '#/', 'Home'
-
-  addTeamPage: (setup)->
-    @stack.add '#/team', teamPageTemplate setup
-    @header.addNavLink '#/team', 'Team'
+  addPage: (href, label, content) ->
+    @stack.add href, content
+    @header.addNavLink href, label
 
 module.exports = Project
