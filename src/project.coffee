@@ -29,7 +29,7 @@ class Project
 
     @stack = new StackOfPages {}
 
-    if @producer or @title or @summary or @description
+    if @summary or @description
       @addPage '#/', 'Home', homePageTemplate @
 
     if @organizations or @scientists or @developers

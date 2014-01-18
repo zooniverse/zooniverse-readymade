@@ -1,1 +1,11 @@
-HOME
+<% if @summary: %>
+  <div class="project-summary">
+    <%- @summary %>
+  </div>
+<% end %>
+
+<% if @description: %>
+  <div class="project-description">
+    <%- @description %>
+  </div>
+<% end %>
