@@ -1,7 +1,7 @@
 Project = require '../../src/project'
 
 new Project
-  id: 'lpz_wildlife'
+  id: 'asteroid'
 
   producer: 'Lincoln Park Zoo'
   title: 'Urban Wildlife'

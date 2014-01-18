@@ -1,2 +1,6 @@
 <div class="marking-surface-container"></div>
-<div class="frame-toggles"></div>
+<div class="frame-toggles">
+  <button name="play-frames">Play</button>
+  <button name="pause-frames">Pause</button>
+  <ul></ul>
+</div>

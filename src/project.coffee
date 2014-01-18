@@ -3,7 +3,9 @@ TopBar = require 'zooniverse/controllers/top-bar'
 SiteHeader = require './site-header'
 StackOfPages = require 'stack-of-pages'
 homePageTemplate = require './templates/home-page'
+ClassifyPage = require './classify-page'
 teamPageTemplate = require './templates/team-page'
+User = require 'zooniverse/models/user'
 
 class Project
   parent: document.body
@@ -13,6 +15,8 @@ class Project
   title: ''
   summary: ''
   description: ''
+
+  classification: null
 
   organizations: null
   scientists: null
@@ -32,6 +36,9 @@ class Project
     if @summary or @description
       @addPage '#/', 'Home', homePageTemplate @
 
+    if @classification?
+      @addPage '#/classify', 'Classify', new ClassifyPage @classification
+
     if @organizations or @scientists or @developers
       @addPage '#/team', 'Team', teamPageTemplate @
 
@@ -42,6 +49,8 @@ class Project
 
     if +location.port > 1023
       window.zooniverseReadymadeProject = @
+
+    User.fetch()
 
   connect: (project) ->
     @api = new Api {project}

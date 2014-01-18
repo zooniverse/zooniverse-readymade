@@ -2,6 +2,7 @@
   "name": "zooniverse-readymade",
   "version": "0.0.1",
   "dependencies": {
+    "marking-surface": "~0.4.16",
     "stack-of-pages": "~0.0.10",
     "zooniverse": "~0.3.8"
   },
