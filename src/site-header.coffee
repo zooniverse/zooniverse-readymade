@@ -4,9 +4,9 @@ class SiteHeader extends Controller
   className: 'site-navigation'
   template: require './templates/site-header'
   elements:
-    '.site-links': 'linksContainer'
+    '.site-links ul': 'linksList'
 
   addNavLink: (href, label) ->
-    @linksContainer.append "<a href='#{href}'>#{label}</a>"
+    @linksList.append "<li class='site-link'><a href='#{href}'>#{label}</a></li>"
 
 module.exports = SiteHeader
