@@ -47,17 +47,20 @@
     <% if details?: %>
       <hr />
 
-      <% for {type, name, value}, i in details: %>
+      <% for {type, label, image, value}, i in details: %>
         <div class="decision-tree-detail">
           <% if type in ['radio', 'checkbox']: %>
-            <button data-type="<%= type %>" value="<%= value %>">
-              <% if image?: %>
-                <img src="<%= image %>" />
-              <% end %>
-              <% if label?: %>
-                <div class="label"><%- label %></div>
-              <% end %>
-            </button>
+            <label>
+              <input type="<%= type %>" name="<%= value %>" />
+              <span class="input-clickable">
+                <% if image?: %>
+                  <img src="<%= image %>" />
+                <% end %>
+                <% if label?: %>
+                  <span class="label"><%- label %></span>
+                <% end %>
+              </span>
+            </label>
           <% end %>
         </div>
       <% end %>

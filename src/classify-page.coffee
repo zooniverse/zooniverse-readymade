@@ -6,13 +6,13 @@ Subject = require 'zooniverse/models/subject'
 Classification = require 'zooniverse/models/classification'
 
 class ClassifyPage extends Controller
-  constructor: (@steps) ->
+  constructor: (@questions) ->
     super null
 
     @subjectViewer = new SubjectViewer
     @el.append @subjectViewer.el
 
-    @decisionTree = new DecisionTree
+    @decisionTree = new DecisionTree @questions
     @el.append @decisionTree.el
 
     User.on 'change', (e, user) =>

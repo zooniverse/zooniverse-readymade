@@ -22,7 +22,9 @@ new Project
   ]
 
   classification: {
-    questionName: {
+    first: 'questionName'
+
+    mark: {
       question: 'Mark the creatures in this image.'
       choices: [
         {
