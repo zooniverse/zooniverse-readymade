@@ -22,18 +22,30 @@ new Project
   ]
 
   classification: {
-    first: 'questionName'
-
-    mark: {
-      question: 'Mark the creatures in this image.'
+    first: 'substrate'
+    substrate: {
+      question: 'Mark all substrates visible in this image'
       choices: [
-        {
-          type: 'answer' # This is the default type.
-          value: 'nothing'
-          label: 'Nothing to mark'
-          next: '' # Answer-specific "next" value
-        }
+        {type: 'checkbox', value: 'sand', label: 'Sand'}
+        {type: 'checkbox', value: 'gravel', label: 'Gravel'}
+        {type: 'checkbox', value: 'rocks', label: 'Rocks'}
+      ]
+      next: 'testRadios'
+    }
 
+    testRadios: {
+      question: 'Pick one.'
+      choices: [
+        {type: 'radio', value: 'foo', label: 'Foo'}
+        {type: 'radio', value: 'bar', label: 'Bar'}
+      ]
+
+      next: 'animals'
+    }
+
+    animals: {
+      question: 'Mark the animals in this image.'
+      choices: [
         {
           type: 'point'
           value: 'deer'
@@ -44,6 +56,13 @@ new Project
           details: [
             {type: 'checkbox', value: 'eating', label: 'Eating'}
           ]
+        }
+
+        {
+          type: 'answer' # This is the default type.
+          value: 'nothing'
+          label: 'Nothing to mark'
+          next: '' # Answer-specific "next" value
         }
       ]
 
