@@ -50,7 +50,7 @@ new Project
           type: 'point'
           value: 'deer'
           label: 'Deer'
-          image: './images/animals/deer.jpg'
+          image: '//placehold.it/64x32.png'
           color: 'red'
           # Per-marking details, rendered in tool controls:
           details: [
@@ -70,8 +70,5 @@ new Project
       details: [
         {value: 'distorted', label: 'This image is distorted', type: 'checkbox'}
       ]
-
-      # Default "next" value:
-      next: ''
     }
    }

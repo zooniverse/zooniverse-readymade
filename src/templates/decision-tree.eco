@@ -1,4 +1,4 @@
-<% for stepId, {question, choices, details} of @steps: %>
+<% for stepId, {question, choices, details: stepDetails, next: stepNext} of @steps: %>
   <% continue unless question? or choices? or details? %>
 
   <div class="decision-tree-step" data-step-id="<%= stepId %>">
@@ -9,11 +9,11 @@
     <% end %>
 
     <% if choices?: %>
-      <% for {type, value, label, image, color}, i in choices: %>
+      <% for {type, value, label, image, color, next: choiceNext}, i in choices: %>
         <div class="decision-tree-choice" data-color="<%= color %>">
           <% shapes = ['point', 'circle', 'ellipse', 'rect'] %>
           <% if type in shapes: %>
-            <button data-shape="<%= type %>" name="<%= stepId %>" value="<%= value %>">
+            <button data-shape="<%= type %>" data-color="<%= color %>" name="<%= stepId %>" value="<%= value %>">
               <% if image?: %>
                 <img src="<%= image %>" />
               <% end %>
@@ -36,7 +36,7 @@
             </label>
           <% else if type is 'answer' or not type?: %>
             <% answerProvided = true %>
-            <button name="<%= stepId %>" value="<%= value %>" class="decision-tree-answer">
+            <button name="<%= stepId %>" value="<%= value %>" class="decision-tree-answer" data-next="<%= choiceNext || stepNext  %>">
               <% if image?: %>
                 <img src="<%= image %>" />
               <% end %>
@@ -51,16 +51,16 @@
 
     <% unless answerProvided: %>
       <div class="decision-tree-choice default-choice">
-        <button name="<%= stepId %>" value="NO_VALUE" class="decision-tree-answer default-answer">
+        <button name="<%= stepId %>" value="NO_VALUE" class="decision-tree-answer default-answer" data-next="<%= stepNext  %>">
           <span class="label"><%- @defaultContinueLabel %></span>
         </button>
       </div>
     <% end %>
 
-    <% if details?: %>
+    <% if stepDetails?: %>
       <hr />
 
-      <% for {type, label, image, value}, i in details: %>
+      <% for {type, label, image, value}, i in stepDetails: %>
         <div class="decision-tree-detail">
           <% if type in ['radio', 'checkbox']: %>
             <label>

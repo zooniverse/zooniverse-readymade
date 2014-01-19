@@ -12,25 +12,24 @@ class DecisionTree extends Controller
 
     stepKeys = Object.keys @steps
     if stepKeys.length is 1
-      first = stepKeys[0]
+      @firstStep = stepKeys[0]
     else
-      first = @steps.first
-      unless first?
+      @firstStep = @steps.first
+      unless @firstStep?
         throw new Error 'There is no "first" classification step defined.'
-
-    @goTo first
 
   goTo: (stepId) ->
     stepElement = @stepElements.filter "[data-step-id='#{stepId}']"
-    console.log "Going to #{stepId}", stepElement
+    console.log "Going to #{stepId}"
     @stepElements.removeClass 'selected'
     stepElement.addClass 'selected'
 
   events:
     'click button[data-shape]': (e) ->
       shape = e.currentTarget.getAttribute 'data-shape'
-      console.log "Changing drawing tool to #{shape} for #{e.currentTarget.value} in #{e.currentTarget.name}"
-      @trigger 'select-tool', [shape]
+      color = e.currentTarget.getAttribute 'data-color'
+      console.log "Changing drawing tool to #{color} #{shape} for #{e.currentTarget.value} in #{e.currentTarget.name}"
+      @trigger 'select-tool', [shape, {color}]
 
     'change input[type="radio"], input[type="checkbox"]': (e) ->
       {name, type} = e.currentTarget
@@ -42,6 +41,7 @@ class DecisionTree extends Controller
 
     'click button.decision-tree-answer': (e) ->
       {name, value} = e.currentTarget
+      next = e.currentTarget.getAttribute 'data-next'
       unless value is 'NO_VALUE'
         console.log "Set #{name} to #{value}"
         @trigger 'answer', [e.currentTarget.name, e.currentTarget.value]
@@ -52,6 +52,6 @@ class DecisionTree extends Controller
       if next?
         @goTo next
       else
-        @trigger 'finished'
+        @trigger 'finished-all-steps'
 
 module.exports = DecisionTree

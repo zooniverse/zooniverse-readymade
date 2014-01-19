@@ -20,6 +20,12 @@ class ClassifyPage extends Controller
     @decisionTree = new DecisionTree @steps
     @interfaceContainer.append @decisionTree.el
 
+    @decisionTree.on 'select-tool', (e, tool, options) =>
+      @subjectViewer.setTool tool, options
+
+    @decisionTree.on 'finished-all-steps', (e) =>
+      @onFinished()
+
     User.on 'change', (e, user) =>
       @onUserChange user
 
@@ -35,6 +41,12 @@ class ClassifyPage extends Controller
   onSelectSubject: (subject) ->
     @classification = new Classification {subject}
     @subjectViewer.loadSubject subject
-    # @decisionTree.classification = @classification
+    @decisionTree.goTo @decisionTree.firstStep
+
+  onFinished: ->
+    Subject.next()
+
+    # Send classification
+    # Load next subject
 
 module.exports = ClassifyPage

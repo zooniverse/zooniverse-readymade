@@ -1,6 +1,13 @@
 Controller = require 'zooniverse/controllers/base-controller'
 MarkingSurface = require 'marking-surface'
 
+TOOLS =
+  point: require 'marking-surface/lib/tools/magnifier-point' # TODO
+  circle: null
+  ellipse: null
+  rect: null
+  polygon: null
+
 loadImage = (src, callback) ->
   img = new Image
   img.onload = -> callback? img
@@ -79,6 +86,9 @@ class SubjectViewer extends Controller
     @playButton.prop 'disabled', false
     @pauseButton.prop 'disabled', true
     # TODO
+
+  setTool: (tool, options) ->
+    @markingSurface.tool = TOOLS[tool]
 
   events:
     'click button[name="play-frames"]': ->
