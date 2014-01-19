@@ -1,8 +1,36 @@
 @import "../../node_modules/zooniverse/src/css/top-bar"
 @import "../../node_modules/zooniverse/src/css/dialog"
 
+.main-stack
+  margin: 0 auto
+  width: 80%
+
+.classify-page
+  .classification-interface
+    display: table
+    table-layout: fixed
+    width: 100%
+
+    .subject-viewer
+      display: table-cell
+      text-align: center
+      vertical-align: middle
+      width: 75%
+
+      .frame-toggles
+        ul
+          display: inline
+
+          li
+            display: inline
+
+    .decision-tree
+      display: table-cell
+      vertical-align: middle
+      width: 25%
+
 [data-step-id]
-  outline: 1px dotted gray
+  display: none
 
   &.selected
-    outline: 1px solid green
+    display: block

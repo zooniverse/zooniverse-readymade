@@ -7,7 +7,7 @@ loadImage = (src, callback) ->
   img.src = src
 
 class SubjectViewer extends Controller
-  className: ''
+  className: 'subject-viewer'
   template: require './templates/subject-viewer'
 
   elements:
@@ -32,8 +32,18 @@ class SubjectViewer extends Controller
     @frames.pop().remove() until @frames.length is 0
     @togglesList.empty()
 
+    widths = []
+    heights = []
     for imgSrc, i in @subject.location.standard then do (i) =>
-      @addFrame imgSrc, =>
+      @addFrame imgSrc, (image) =>
+        widths.push image.attr 'width'
+        heights.push image.attr 'height'
+        maxWidth = Math.max widths...
+        maxHeight = Math.max heights...
+        @markingSurface.el.style.width = "#{maxWidth}px"
+        @markingSurface.el.style.height = "#{maxHeight}px"
+        @frameGroup.attr transform: "translate(#{maxWidth / 2}, #{maxHeight / 2})"
+
         @addToggle i
 
     @playButton.prop 'disabled', @subject.location.standard.length is 1
@@ -44,6 +54,9 @@ class SubjectViewer extends Controller
         'xlink:href': src
         width: width
         height: height
+        x: width / -2
+        y: height / -2
+
       @frames.push image
       callback? image
 

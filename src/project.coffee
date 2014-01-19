@@ -31,7 +31,8 @@ class Project
     @header = new SiteHeader
       template: SiteHeader::template @
 
-    @stack = new StackOfPages {}
+    @stack = new StackOfPages
+    @stack.el.className += ' main-stack'
 
     if @summary or @description
       @addPage '#/', 'Home', homePageTemplate @
