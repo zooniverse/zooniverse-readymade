@@ -30,10 +30,12 @@ class DecisionTree extends Controller
 
   events:
     'click button[data-shape]': (e) ->
+      # TODO: Get the entire choice and send that along with the shape.
+      value = e.currentTarget.value
       shape = e.currentTarget.getAttribute 'data-shape'
       color = e.currentTarget.getAttribute 'data-color'
       # console.log "Changing drawing tool to #{color} #{shape} for #{e.currentTarget.value} in #{e.currentTarget.name}"
-      @trigger 'select-tool', [shape, {color}]
+      @trigger 'select-tool', [shape, {value, color}]
 
     'change input[type="radio"], input[type="checkbox"]': (e) ->
       {name, type} = e.currentTarget

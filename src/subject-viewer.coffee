@@ -13,9 +13,16 @@ loadImage = (src, callback) ->
   img.onload = -> callback? img
   img.src = src
 
+mod = (a, b) ->
+  ((a % b) + b) % b
+
 class SubjectViewer extends Controller
   className: 'subject-viewer'
   template: require './templates/subject-viewer'
+
+  currentFrame: 0
+
+  toolOptions: null
 
   elements:
     '.marking-surface-container': 'markingSurfaceContainer'
@@ -28,6 +35,13 @@ class SubjectViewer extends Controller
 
     @markingSurface = new MarkingSurface
     @markingSurfaceContainer.append @markingSurface.el
+
+    @markingSurface.on 'create-mark', (mark) =>
+      mark.set 'frame', @currentFrame
+
+    @markingSurface.on 'create-tool', (tool) =>
+      if @toolOptions?
+        tool[property] = value for property, value of @toolOptions
 
     @frameGroup = @markingSurface.addShape 'g.frames'
     @frames = []
@@ -73,12 +87,16 @@ class SubjectViewer extends Controller
   addToggle: (index) ->
     @togglesList.append "<li><button name='toggle-frame', value='#{index}'>#{index}</button></li>"
 
-  goTo: (index) ->
-    @frames[index].toFront()
+  goTo: (@currentFrame) ->
+    @currentFrame = mod @currentFrame, @frames.length
+
+    @frames[@currentFrame].toFront()
 
     buttons = @togglesList.find 'button'
     buttons.attr 'data-selected', null
-    buttons.eq(index).attr 'data-selected', true
+    buttons.eq(@currentFrame).attr 'data-selected', true
+
+    @trigger 'go-to', [@currentFrame]
 
   playFrames: ->
     @playButton.prop 'disabled', true
@@ -95,6 +113,7 @@ class SubjectViewer extends Controller
       tool = TOOLS[tool]
 
     @markingSurface.tool = tool
+    @toolOptions = options
 
   getMarks: ->
     marks = @markingSurface.marks.slice()
