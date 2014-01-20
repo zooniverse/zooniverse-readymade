@@ -48,27 +48,24 @@ new Project
       choices: [
         {
           type: 'point'
-          value: 'deer'
-          label: 'Deer'
-          image: '//placehold.it/64x32.png'
+          value: 'fish'
+          label: 'Fish'
           color: 'red'
-          # Per-marking details, rendered in tool controls:
           details: [
             {type: 'checkbox', value: 'eating', label: 'Eating'}
           ]
         }
-
         {
-          type: 'answer' # This is the default type.
-          value: 'nothing'
-          label: 'Nothing to mark'
-          next: '' # Answer-specific "next" value
+          type: 'point'
+          value: 'lobster'
+          label: 'Lobster'
+          color: 'green'
         }
-      ]
-
-      # Whole-image details, rendered below choices:
-      details: [
-        {value: 'distorted', label: 'This image is distorted', type: 'checkbox'}
+        {
+          type: 'answer'
+          value: 'done'
+          label: 'Done'
+        }
       ]
     }
    }

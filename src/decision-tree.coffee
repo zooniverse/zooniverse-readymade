@@ -20,15 +20,19 @@ class DecisionTree extends Controller
 
   goTo: (stepId) ->
     stepElement = @stepElements.filter "[data-step-id='#{stepId}']"
-    console.log "Going to #{stepId}"
+    # console.log "Going to #{stepId}"
     @stepElements.removeClass 'selected'
     stepElement.addClass 'selected'
+    @trigger 'go-to', [stepId]
+
+  reset: ->
+    @el.find('input:checked').prop 'checked', false
 
   events:
     'click button[data-shape]': (e) ->
       shape = e.currentTarget.getAttribute 'data-shape'
       color = e.currentTarget.getAttribute 'data-color'
-      console.log "Changing drawing tool to #{color} #{shape} for #{e.currentTarget.value} in #{e.currentTarget.name}"
+      # console.log "Changing drawing tool to #{color} #{shape} for #{e.currentTarget.value} in #{e.currentTarget.name}"
       @trigger 'select-tool', [shape, {color}]
 
     'change input[type="radio"], input[type="checkbox"]': (e) ->
@@ -36,18 +40,18 @@ class DecisionTree extends Controller
       checkedOptions = @el.find "input[name='#{name}']:checked"
       value = (input.value for input in checkedOptions)
       value = value[0] if type is 'radio'
-      console.log "Set #{name} to #{value}"
+      # console.log "Set #{name} to #{value}"
       @trigger 'answer', [e.currentTarget.name, value]
 
     'click button.decision-tree-answer': (e) ->
       {name, value} = e.currentTarget
       next = e.currentTarget.getAttribute 'data-next'
       unless value is 'NO_VALUE'
-        console.log "Set #{name} to #{value}"
+        # console.log "Set #{name} to #{value}"
         @trigger 'answer', [e.currentTarget.name, e.currentTarget.value]
 
       next = @steps[name].next
-      console.log "Next is #{next}"
+      # console.log "Next is #{next}"
 
       if next?
         @goTo next

@@ -32,7 +32,7 @@ class SubjectViewer extends Controller
     @frameGroup = @markingSurface.addShape 'g.frames'
     @frames = []
 
-  loadSubject: (@subject) ->
+  loadSubject: (@subject, callback) ->
     @pauseFrames()
 
     @markingSurface.reset()
@@ -51,7 +51,10 @@ class SubjectViewer extends Controller
         @markingSurface.el.style.height = "#{maxHeight}px"
         @frameGroup.attr transform: "translate(#{maxWidth / 2}, #{maxHeight / 2})"
 
-        @addToggle i
+        if i + 1 is @subject.location.standard.length
+          callback()
+
+      @addToggle i
 
     @playButton.prop 'disabled', @subject.location.standard.length is 1
 
@@ -88,7 +91,15 @@ class SubjectViewer extends Controller
     # TODO
 
   setTool: (tool, options) ->
-    @markingSurface.tool = TOOLS[tool]
+    if typeof tool is 'string'
+      tool = TOOLS[tool]
+
+    @markingSurface.tool = tool
+
+  getMarks: ->
+    marks = @markingSurface.marks.slice()
+    console.log {marks}
+    marks
 
   events:
     'click button[name="play-frames"]': ->

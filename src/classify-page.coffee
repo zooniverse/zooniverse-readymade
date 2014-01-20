@@ -20,6 +20,12 @@ class ClassifyPage extends Controller
     @decisionTree = new DecisionTree @steps
     @interfaceContainer.append @decisionTree.el
 
+    @decisionTree.on 'go-to', (e, step) =>
+      @subjectViewer.setTool null
+
+    @decisionTree.on 'answer', (e, key, value) =>
+      @classification.set key, value
+
     @decisionTree.on 'select-tool', (e, tool, options) =>
       @subjectViewer.setTool tool, options
 
@@ -29,8 +35,11 @@ class ClassifyPage extends Controller
     User.on 'change', (e, user) =>
       @onUserChange user
 
+    Subject.on 'getting-next', (e, subject) =>
+      @onSubjectGettingNext()
+
     Subject.on 'select', (e, subject) =>
-      @onSelectSubject subject
+      @onSubjectSelect subject
 
     if +location.port > 1023
       window.classifyPage = @
@@ -38,15 +47,18 @@ class ClassifyPage extends Controller
   onUserChange: (user) ->
     Subject.next()
 
-  onSelectSubject: (subject) ->
+  onSubjectGettingNext: ->
+    @el.addClass 'loading'
+
+  onSubjectSelect: (subject) ->
     @classification = new Classification {subject}
-    @subjectViewer.loadSubject subject
     @decisionTree.goTo @decisionTree.firstStep
+    @subjectViewer.loadSubject subject, =>
+      @el.removeClass 'loading'
 
   onFinished: ->
+    @classification.set 'marks', @subjectViewer.getMarks()
+    console.log JSON.stringify @classification
     Subject.next()
-
-    # Send classification
-    # Load next subject
 
 module.exports = ClassifyPage
