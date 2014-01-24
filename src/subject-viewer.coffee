@@ -22,6 +22,7 @@ class SubjectViewer extends Controller
 
   currentFrame: 0
 
+  step: ''
   toolOptions: null
 
   elements:
@@ -37,6 +38,7 @@ class SubjectViewer extends Controller
     @markingSurfaceContainer.append @markingSurface.el
 
     @markingSurface.on 'create-mark', (mark) =>
+      mark.set 'step', @step
       mark.set 'frame', @currentFrame
 
     @markingSurface.on 'create-tool', (tool) =>
@@ -108,6 +110,9 @@ class SubjectViewer extends Controller
     @pauseButton.prop 'disabled', true
     # TODO
 
+  setStep: (step) ->
+    @step = step
+
   setTool: (tool, options) ->
     if typeof tool is 'string'
       tool = TOOLS[tool]
@@ -116,8 +121,10 @@ class SubjectViewer extends Controller
     @toolOptions = options
 
   getMarks: ->
-    marks = @markingSurface.marks.slice()
-    console.log {marks}
+    marks = {}
+    for mark in @markingSurface.marks
+      marks[mark.step] ?= []
+      marks[mark.step].push mark
     marks
 
   events:

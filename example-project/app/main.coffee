@@ -22,28 +22,39 @@ new Project
   ]
 
   classification: {
-    first: 'substrate'
-    substrate: {
-      question: 'Mark all substrates visible in this image'
+    first: 'buttons'
+
+    buttons: {
+      question: 'Choose a button'
       choices: [
-        {type: 'checkbox', value: 'sand', label: 'Sand'}
-        {type: 'checkbox', value: 'gravel', label: 'Gravel'}
-        {type: 'checkbox', value: 'rocks', label: 'Rocks'}
+        {type: 'button', value: 'default', label: 'Default',}
+        {type: 'button', value: 'specific', label: 'Specific', next: 'checkboxes'}
+        {type: 'button', value: 'random', label: 'Random', next: -> if Math.random() < 0.5 then 'radios' else 'checkboxes'}
       ]
-      next: 'testRadios'
+      next: 'radios'
     }
 
-    testRadios: {
-      question: 'Pick one.'
+    radios: {
+      question: 'You picked "default". Now pick a radio button.'
       choices: [
         {type: 'radio', value: 'foo', label: 'Foo'}
         {type: 'radio', value: 'bar', label: 'Bar'}
+        {type: 'radio', value: 'lol', label: 'LOL'}
       ]
-
-      next: 'animals'
+      next: 'drawing'
     }
 
-    animals: {
+    checkboxes: {
+      question: 'You picked "specific". Now pick some checkboxes.'
+      choices: [
+        {type: 'checkbox', value: 'foo', label: 'Foo'}
+        {type: 'checkbox', value: 'bar', label: 'Bar'}
+        {type: 'checkbox', value: 'lol', label: 'LOL'}
+      ]
+      next: 'drawing'
+    }
+
+    drawing: {
       question: 'Mark the animals in this image.'
       choices: [
         {
@@ -60,11 +71,6 @@ new Project
           value: 'lobster'
           label: 'Lobster'
           color: 'green'
-        }
-        {
-          type: 'answer'
-          value: 'done'
-          label: 'Done'
         }
       ]
     }

@@ -3,7 +3,8 @@ Controller = require 'zooniverse/controllers/base-controller'
 class DecisionTree extends Controller
   className: 'decision-tree'
   template: require './templates/decision-tree'
-  defaultContinueLabel: 'Continue'
+  defaultNextLabel: 'Continue'
+  defaultFinishLabel: 'Done'
 
   constructor: (@steps) ->
     super null
@@ -28,32 +29,46 @@ class DecisionTree extends Controller
   reset: ->
     @el.find('input:checked').prop 'checked', false
 
+  getStepAndChoice: (e) ->
+    stepId = e.currentTarget.name
+    choiceIndex = parseFloat e.currentTarget.value
+
+    step = @steps[stepId]
+    choice = step.choices[choiceIndex]
+
+    [step, choice]
+
   events:
     'click button[data-shape]': (e) ->
-      # TODO: Get the entire choice and send that along with the shape.
-      value = e.currentTarget.value
-      shape = e.currentTarget.getAttribute 'data-shape'
-      color = e.currentTarget.getAttribute 'data-color'
-      # console.log "Changing drawing tool to #{color} #{shape} for #{e.currentTarget.value} in #{e.currentTarget.name}"
-      @trigger 'select-tool', [shape, {value, color}]
+      [step, choice] = @getStepAndChoice e
+      @trigger 'select-tool', [choice.type, choice]
 
     'change input[type="radio"], input[type="checkbox"]': (e) ->
-      {name, type} = e.currentTarget
-      checkedOptions = @el.find "input[name='#{name}']:checked"
-      value = (input.value for input in checkedOptions)
-      value = value[0] if type is 'radio'
-      # console.log "Set #{name} to #{value}"
-      @trigger 'answer', [e.currentTarget.name, value]
+      stepId = e.currentTarget.name
+      [step, choice] = @getStepAndChoice e
+
+      checkedOptions = @el.find "input[name='#{stepId}']:visible:checked"
+      checkedIndices = (input.value for input in checkedOptions)
+      value = (step.choices[index].value for index in checkedIndices)
+      if choice.type is 'radio'
+        value = value[0]
+
+      @trigger 'answer', [stepId, value]
 
     'click button.decision-tree-answer': (e) ->
-      {name, value} = e.currentTarget
-      next = e.currentTarget.getAttribute 'data-next'
-      unless value is 'NO_VALUE'
-        # console.log "Set #{name} to #{value}"
-        @trigger 'answer', [e.currentTarget.name, e.currentTarget.value]
+      stepId = e.currentTarget.name
+      [step, choice] = @getStepAndChoice e
 
-      next = @steps[name].next
-      # console.log "Next is #{next}"
+      if choice? and 'value' of choice
+        @trigger 'answer', [stepId, choice.value]
+
+      if choice? and 'next' of choice
+        next = choice.next
+      else
+        next = step.next
+
+      if typeof next is 'function'
+        next = next.call this, e
 
       if next?
         @goTo next

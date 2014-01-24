@@ -22,15 +22,16 @@ class ClassifyPage extends Controller
 
     @decisionTree.on 'go-to', (e, step) =>
       @subjectViewer.setTool null
+      @subjectViewer.setStep step
 
     @decisionTree.on 'answer', (e, key, value) =>
       @classification.set key, value
 
-    @decisionTree.on 'select-tool', (e, tool, options) =>
-      @subjectViewer.setTool tool, options
+    @decisionTree.on 'select-tool', (e, tool, step) =>
+      @subjectViewer.setTool tool, step
 
     @decisionTree.on 'finished-all-steps', (e) =>
-      @onFinished()
+      @finishSubject()
 
     User.on 'change', (e, user) =>
       @onUserChange user
@@ -56,7 +57,7 @@ class ClassifyPage extends Controller
     @subjectViewer.loadSubject subject, =>
       @el.removeClass 'loading'
 
-  onFinished: ->
+  finishSubject: ->
     @classification.set 'marks', @subjectViewer.getMarks()
     console.log JSON.stringify @classification
     Subject.next()
