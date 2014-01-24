@@ -57,7 +57,9 @@ class SubjectViewer extends Controller
 
     widths = []
     heights = []
-    for imgSrc, i in @subject.location.standard then do (i) =>
+
+    subjectImages = [].concat @subject.location.standard
+    for imgSrc, i in subjectImages then do (i) =>
       @addFrame imgSrc, (image) =>
         widths.push image.attr 'width'
         heights.push image.attr 'height'
@@ -67,12 +69,14 @@ class SubjectViewer extends Controller
         @markingSurface.el.style.height = "#{maxHeight}px"
         @frameGroup.attr transform: "translate(#{maxWidth / 2}, #{maxHeight / 2})"
 
-        if i + 1 is @subject.location.standard.length
+        if i + 1 is subjectImages.length
+          @goTo 0
           callback?()
 
       @addToggle i
 
-    @playButton.prop 'disabled', @subject.location.standard.length is 1
+    @playButton.prop 'disabled', subjectImages.length is 1
+    @togglesList.find('button').prop 'disabled', subjectImages.length is 1
 
   addFrame: (imgSrc, callback) ->
     loadImage imgSrc, ({src, width, height}) =>
