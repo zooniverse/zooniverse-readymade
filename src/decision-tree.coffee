@@ -6,10 +6,11 @@ class DecisionTree extends Controller
   defaultNextLabel: 'Continue'
   defaultFinishLabel: 'Done'
 
+  elements:
+    '.decision-tree-step': 'stepElements'
+
   constructor: (@steps) ->
     super null
-
-    @stepElements = @el.find '[data-step-id]'
 
     stepKeys = Object.keys @steps
     if stepKeys.length is 1
@@ -28,24 +29,24 @@ class DecisionTree extends Controller
 
   reset: ->
     @el.find('input:checked').prop 'checked', false
-
-  getStepAndChoice: (e) ->
-    stepId = e.currentTarget.name
-    choiceIndex = parseFloat e.currentTarget.value
-
-    step = @steps[stepId]
-    choice = step.choices[choiceIndex]
-
-    [step, choice]
+    @goTo @firstStep
 
   events:
-    'click button[data-shape]': (e) ->
-      [step, choice] = @getStepAndChoice e
+    'change .decision-tree-shape': (e) ->
+      stepId = e.target.name
+      choiceIndex = parseFloat e.target.value
+
+      step = @steps[stepId]
+      choice = step.choices[choiceIndex]
+
       @trigger 'select-tool', [choice.type, choice]
 
-    'change input[type="radio"], input[type="checkbox"]': (e) ->
-      stepId = e.currentTarget.name
-      [step, choice] = @getStepAndChoice e
+    'change .decision-tree-radio, .decision-tree-checkbox': (e) ->
+      stepId = e.target.name
+      choiceIndex = parseFloat e.target.value
+
+      step = @steps[stepId]
+      choice = step.choices[choiceIndex]
 
       checkedOptions = @el.find "input[name='#{stepId}']:visible:checked"
       checkedIndices = (input.value for input in checkedOptions)
@@ -55,9 +56,14 @@ class DecisionTree extends Controller
 
       @trigger 'answer', [stepId, value]
 
-    'click button.decision-tree-answer': (e) ->
+    'click .decision-tree-answer': (e) ->
       stepId = e.currentTarget.name
-      [step, choice] = @getStepAndChoice e
+      choiceIndex = parseFloat e.currentTarget.value
+
+      step = @steps[stepId]
+      choice = step.choices[choiceIndex]
+
+      console.log choiceIndex
 
       if choice? and 'value' of choice
         @trigger 'answer', [stepId, choice.value]

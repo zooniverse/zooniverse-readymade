@@ -11,6 +11,7 @@ class ClassifyPage extends Controller
 
   elements:
     '.classification-interface': 'interfaceContainer'
+
   constructor: (@steps) ->
     super null
 
@@ -24,8 +25,8 @@ class ClassifyPage extends Controller
       @subjectViewer.setTool null
       @subjectViewer.setStep step
 
-    @decisionTree.on 'answer', (e, key, value) =>
-      @classification.set key, value
+    @decisionTree.on 'answer', (e, step, value) =>
+      @classification.set step, value
 
     @decisionTree.on 'select-tool', (e, tool, step) =>
       @subjectViewer.setTool tool, step
@@ -53,7 +54,7 @@ class ClassifyPage extends Controller
 
   onSubjectSelect: (subject) ->
     @classification = new Classification {subject}
-    @decisionTree.goTo @decisionTree.firstStep
+    @decisionTree.reset()
     @subjectViewer.loadSubject subject, =>
       @el.removeClass 'loading'
 

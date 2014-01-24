@@ -68,7 +68,7 @@ class SubjectViewer extends Controller
         @frameGroup.attr transform: "translate(#{maxWidth / 2}, #{maxHeight / 2})"
 
         if i + 1 is @subject.location.standard.length
-          callback()
+          callback?()
 
       @addToggle i
 
