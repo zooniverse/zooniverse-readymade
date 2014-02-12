@@ -1,6 +1,9 @@
 Controller = require 'zooniverse/controllers/base-controller'
 
 class DecisionTree extends Controller
+  steps: null
+  firstStep: ''
+
   className: 'decision-tree'
   template: require './templates/decision-tree'
   defaultNextLabel: 'Continue'
@@ -9,23 +12,29 @@ class DecisionTree extends Controller
   elements:
     '.decision-tree-step': 'stepElements'
 
-  constructor: (@steps) ->
-    super null
+  constructor: ->
+    @steps = {}
 
-    stepKeys = Object.keys @steps
-    if stepKeys.length is 1
-      @firstStep = stepKeys[0]
-    else
-      @firstStep = @steps.first
-      unless @firstStep?
-        throw new Error 'There is no "first" classification step defined.'
+    super
+
+    unless @firstStep
+      stepKeys = Object.keys @steps
+      if stepKeys.length is 1
+        @firstStep = stepKeys[0]
+
+    unless @firstStep of @steps
+      throw new Error 'There is no "first" classification step defined.'
 
   goTo: (stepId) ->
-    stepElement = @stepElements.filter "[data-step-id='#{stepId}']"
-    # console.log "Going to #{stepId}"
-    @stepElements.removeClass 'selected'
-    stepElement.addClass 'selected'
-    @trigger 'go-to', [stepId]
+    if typeof stepId is 'function'
+      @goTo stepId.call this
+    else if stepId of @steps
+      stepElement = @stepElements.filter "[data-step-id='#{stepId}']"
+      @stepElements.removeClass 'selected'
+      stepElement.addClass 'selected'
+      @trigger 'go-to', [stepId]
+    else
+      @trigger 'finished-all-steps'
 
   reset: ->
     @el.find('input:checked').prop 'checked', false
@@ -63,22 +72,14 @@ class DecisionTree extends Controller
       step = @steps[stepId]
       choice = step.choices[choiceIndex]
 
-      console.log choiceIndex
-
       if choice? and 'value' of choice
         @trigger 'answer', [stepId, choice.value]
 
-      if choice? and 'next' of choice
-        next = choice.next
+      next = if choice? and 'next' of choice
+        choice.next
       else
-        next = step.next
+        step.next
 
-      if typeof next is 'function'
-        next = next.call this, e
-
-      if next?
-        @goTo next
-      else
-        @trigger 'finished-all-steps'
+      @goTo next
 
 module.exports = DecisionTree

@@ -23,7 +23,8 @@ class Project
   developers: null
 
   constructor: (configuration = {}) ->
-    @[property] = value for property, value of configuration
+    for property, value of configuration
+      @[property] = value
 
     if @id
       @connect @id
@@ -38,7 +39,9 @@ class Project
       @addPage '#/', 'Home', homePageTemplate @
 
     if @classification?
-      @addPage '#/classify', 'Classify', new ClassifyPage @classification
+      @addPage '#/classify', 'Classify', new ClassifyPage
+        steps: @classification
+        firstStep: @classification.firstStep
 
     if @organizations or @scientists or @developers
       @addPage '#/team', 'Team', teamPageTemplate @

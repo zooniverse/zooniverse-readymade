@@ -6,19 +6,22 @@ Subject = require 'zooniverse/models/subject'
 Classification = require 'zooniverse/models/classification'
 
 class ClassifyPage extends Controller
+  steps: null
+  firstStep: ''
+
   className: 'classify-page'
   template: require './templates/classify-page'
 
   elements:
     '.classification-interface': 'interfaceContainer'
 
-  constructor: (@steps) ->
-    super null
+  constructor: ->
+    super
 
     @subjectViewer = new SubjectViewer
     @interfaceContainer.append @subjectViewer.el
 
-    @decisionTree = new DecisionTree @steps
+    @decisionTree = new DecisionTree {@steps, @firstStep}
     @interfaceContainer.append @decisionTree.el
 
     @decisionTree.on 'go-to', (e, step) =>

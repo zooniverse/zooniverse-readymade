@@ -22,7 +22,7 @@ new Project
   ]
 
   classification: {
-    first: 'buttons'
+    firstStep: 'buttons'
 
     buttons: {
       question: 'Choose a button'
