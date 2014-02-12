@@ -4,7 +4,7 @@ MarkingSurface = require 'marking-surface'
 TOOLS =
   point: require 'marking-surface/lib/tools/magnifier-point' # TODO
   circle: null
-  ellipse: null
+  ellipse: require 'marking-surface/lib/tools/ellipse'
   rect: null
   polygon: null
 

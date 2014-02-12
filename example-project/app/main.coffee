@@ -27,9 +27,9 @@ new Project
     buttons: {
       question: 'Choose a button'
       choices: [
-        {type: 'button', value: 'default', label: 'Default',}
-        {type: 'button', value: 'specific', label: 'Specific', next: 'checkboxes'}
-        {type: 'button', value: 'random', label: 'Random', next: -> if Math.random() < 0.5 then 'radios' else 'checkboxes'}
+        {type: 'button', image: '//placehold.it/100.png', value: 'default', label: 'Default',}
+        {type: 'button', image: '//placehold.it/100.png', value: 'specific', label: 'Specific', next: 'checkboxes'}
+        {type: 'button', image: '//placehold.it/100.png', value: 'random', label: 'Random', next: -> if Math.random() < 0.5 then 'radios' else 'checkboxes'}
       ]
       next: 'radios'
     }
@@ -58,7 +58,7 @@ new Project
       question: 'Mark the animals in this image.'
       choices: [
         {
-          type: 'point'
+          type: 'ellipse'
           value: 'fish'
           label: 'Fish'
           color: 'red'
@@ -74,4 +74,4 @@ new Project
         }
       ]
     }
-   }
+  }
