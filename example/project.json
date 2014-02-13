@@ -1,5 +1,7 @@
 {
   "id": "asteroid",
+  "css": ["./custom.styl"],
+  "js": ["./custom.coffee"],
 
   "producer": "Lincoln Park Zoo",
   "title": "Urban Wildlife",

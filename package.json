@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "dependencies": {
     "coffee-script": "~1.7.1",
-    "haw": "~0.3.5",
+    "haw": "~0.3.8",
     "marking-surface": "~0.4.16",
     "stack-of-pages": "~0.0.10",
     "zooniverse": "~0.3.8"
