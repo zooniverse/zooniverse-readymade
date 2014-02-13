@@ -2,12 +2,11 @@
   "name": "zooniverse-readymade",
   "version": "0.0.1",
   "dependencies": {
+    "coffee-script": "~1.7.1",
+    "haw": "~0.3.5",
     "marking-surface": "~0.4.16",
     "stack-of-pages": "~0.0.10",
     "zooniverse": "~0.3.8"
-  },
-  "devDependencies": {
-    "haw": "~0.2.17"
   },
   "scripts": {
     "start": "haw serve --root example-project --port 2005"
