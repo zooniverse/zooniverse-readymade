@@ -1,29 +1,31 @@
-<% for group in ['organizations', 'scientists', 'developers'] when @[group]?: %>
-  <div class="<%= group %> team-group">
-    <% for member, i in @[group]: %>
-      <div class="team-member">
-        <% if member.image?: %>
-          <img src="<%= member.image %>" class="team-member-photo" />
-        <% end %>
-
-        <div class="team-member-title">
-          <% if member.name?: %>
-            <%- member.name %>
+<div clas="team-page">
+  <% for group in ['organizations', 'scientists', 'developers'] when @[group]?: %>
+    <div class="<%= group %> team-group">
+      <% for member, i in @[group]: %>
+        <div class="team-member">
+          <% if member.image?: %>
+            <img src="<%= member.image %>" class="team-member-photo" />
           <% end %>
+
+          <div class="team-member-title">
+            <% if member.name?: %>
+              <%- member.name %>
+            <% end %>
+          </div>
+
+          <div class="team-member-description">
+            <% if member.description?: %>
+              <%- member.description %>
+            <% end %>
+          </div>
         </div>
 
-        <div class="team-member-description">
-          <% if member.decsription?: %>
-            <%- member.decsription %>
+        <% for grouping in [2...5]: %>
+          <% if (i + 1) % grouping is 0: %>
+            <span class="set-of-<%= grouping %>"></span>
           <% end %>
-        </div>
-      </div>
-
-      <% for grouping in [2...5]: %>
-        <% if (i + 1) % grouping is 0 :%>
-          <span class="set-of-<%= grouping %>"></span>
         <% end %>
       <% end %>
-    <% end %>
-  </div>
-<% end %>
+    </div>
+  <% end %>
+</div>

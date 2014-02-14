@@ -1,11 +1,13 @@
-<% if @summary: %>
-  <div class="project-summary">
-    <%- @summary %>
-  </div>
-<% end %>
+<div class="home-page">
+  <% if @summary: %>
+    <div class="project-summary">
+      <%- @summary %>
+    </div>
+  <% end %>
 
-<% if @description: %>
-  <div class="project-description">
-    <%- @description %>
-  </div>
-<% end %>
+  <% if @description: %>
+    <div class="project-description">
+      <%- @description %>
+    </div>
+  <% end %>
+</div>
