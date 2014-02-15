@@ -1,7 +1,7 @@
 {
   "id": "asteroid",
-  "css": ["./custom.styl"],
-  "js": ["./custom.coffee"],
+  "css": [],
+  "js": [],
 
   "producer": "Lincoln Park Zoo",
   "title": "Urban Wildlife",
@@ -39,95 +39,35 @@
   ],
 
   "classification": {
-    "firstStep": "buttons",
+    "firstStep": "pickOne",
 
-    "buttons": {
-      "question": "Choose a button",
-      "choices": [
-        {
-          "type": "button",
-          "image": "//placehold.it/100.png",
-          "value": "default",
-          "label": "Default"
-        },
-        {
-          "type": "button",
-          "image": "//placehold.it/100.png",
-          "value": "specific",
-          "label": "Specific",
-          "next": "checkboxes"
-        }
-      ],
-      "next": "radios"
+    "pickOne": {
+      "type": "button",
+      "question": "Choose one",
+      "choices": [{
+        "value": "default",
+        "image": "//placehold.it/100.png",
+        "label": "Default"
+      }, {
+        "value": "specific",
+        "image": "//placehold.it/100.png",
+        "label": "Specific"
+      }],
+      "next": "pickAnotherOne"
     },
 
-    "radios": {
-      "question": "You picked \"default\". Now pick a radio button.",
-      "choices": [
-        {
-          "type": "radio",
-          "value": "foo",
-          "label": "Foo"
-        },
-        {
-          "type": "radio",
-          "value": "bar",
-          "label": "Bar"
-        },
-        {
-          "type": "radio",
-          "value": "lol",
-          "label": "LOL"
-        }
-      ],
-      "next": "drawing"
-    },
-
-    "checkboxes": {
-      "question": "You picked \"specific\". Now pick some checkboxes.",
-      "choices": [
-        {
-          "type": "checkbox",
-          "value": "foo",
-          "label": "Foo"
-        },
-        {
-          "type": "checkbox",
-          "value": "bar",
-          "label": "Bar"
-        },
-        {
-          "type": "checkbox",
-          "value": "lol",
-          "label": "LOL"
-        }
-      ],
-      "next": "drawing"
-    },
-
-    "drawing": {
-      "question": "Mark the animals in this image.",
-      "choices": [
-        {
-          "type": "ellipse",
-          "value": "fish",
-          "label": "Fish",
-          "color": "red",
-          "details": [
-            {
-              "type": "checkbox",
-              "value": "eating",
-              "label": "Eating"
-            }
-          ]
-        },
-        {
-          "type": "point",
-          "value": "lobster",
-          "label": "Lobster",
-          "color": "green"
-        }
-      ]
+    "pickAnotherOne": {
+      "type": "radio",
+      "question": "Choose another one",
+      "choices": [{
+        "value": "default",
+        "image": "//placehold.it/100.png",
+        "label": "Default"
+      }, {
+        "value": "specific",
+        "image": "//placehold.it/100.png",
+        "label": "Specific"
+      }]
     }
   }
 }

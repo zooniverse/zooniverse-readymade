@@ -102,7 +102,7 @@ class SubjectViewer extends Controller
     buttons.attr 'data-selected', null
     buttons.eq(@currentFrame).attr 'data-selected', true
 
-    @trigger 'go-to', [@currentFrame]
+    @el.trigger 'change-frame', [@currentFrame]
 
   playFrames: ->
     @playButton.prop 'disabled', true

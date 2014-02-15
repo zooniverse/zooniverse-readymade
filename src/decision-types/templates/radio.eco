@@ -1,0 +1,30 @@
+<div class="decision-tree-question">
+  <%- @question %>
+</div>
+
+<% if @choices?: %>
+  <% for choice, i in @choices: %>
+    <div class="decision-tree-choice radio-choice" data-color="<%= @color || 'none' %>">
+      <label>
+        <input type="radio" name="<%= @key %>" value="<%= i %>" />
+
+        <div class="input-clickable">
+          <% if choice.image?: %>
+            <img src="<%= choice.image %>" />
+          <% end %>
+
+          <% if choice.label?: %>
+            <div class="label"><%- choice.label %></div>
+          <% end %>
+        </div>
+      </label>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="decision-tree-confirm-selection">
+  <button name="confirm-and-continue">
+    <span class="label-for-next">Next</span>
+    <span class="label-for-done">Done</span>
+  </button>
+</div>

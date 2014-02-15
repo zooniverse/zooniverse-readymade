@@ -24,18 +24,9 @@ class ClassifyPage extends Controller
     @decisionTree = new DecisionTree {@steps, @firstStep}
     @interfaceContainer.append @decisionTree.el
 
-    @decisionTree.on 'go-to', (e, step) =>
+    @decisionTree.on 'change-step', (e, step) =>
       @subjectViewer.setTool null
       @subjectViewer.setStep step
-
-    @decisionTree.on 'answer', (e, step, value) =>
-      @classification.set step, value
-
-    @decisionTree.on 'select-tool', (e, tool, step) =>
-      @subjectViewer.setTool tool, step
-
-    @decisionTree.on 'finished-all-steps', (e) =>
-      @finishSubject()
 
     User.on 'change', (e, user) =>
       @onUserChange user
@@ -65,5 +56,15 @@ class ClassifyPage extends Controller
     @classification.set 'marks', @subjectViewer.getMarks()
     console.log JSON.stringify @classification
     Subject.next()
+
+  events:
+    'change-annotation': (e, key, value) ->
+      @classification.set key, value
+
+    'select-tool': (e, tool, step) ->
+      @subjectViewer.setTool tool, step
+
+    'finished-all-steps': ->
+      @finishSubject()
 
 module.exports = ClassifyPage

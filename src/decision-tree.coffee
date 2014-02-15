@@ -5,16 +5,15 @@ class DecisionTree extends Controller
   firstStep: ''
 
   className: 'decision-tree'
-  template: require './templates/decision-tree'
   defaultNextLabel: 'Continue'
   defaultFinishLabel: 'Done'
 
-  elements:
-    '.decision-tree-step': 'stepElements'
+  stepTypes:
+    radio: require './decision-types/radio'
+    button: require './decision-types/button'
 
   constructor: ->
     @steps = {}
-
     super
 
     unless @firstStep
@@ -25,6 +24,15 @@ class DecisionTree extends Controller
     unless @firstStep of @steps
       throw new Error 'There is no "first" classification step defined.'
 
+    for stepId, step of @steps when typeof step isnt 'string'
+      step = Object.create step
+      step.key ?= stepId
+      instance = new @stepTypes[step.type] step
+      instance.el.attr 'data-step-id', stepId
+      @el.append instance.el
+
+    @stepElements = @el.children()
+
   goTo: (stepId) ->
     if typeof stepId is 'function'
       @goTo stepId.call this
@@ -32,54 +40,16 @@ class DecisionTree extends Controller
       stepElement = @stepElements.filter "[data-step-id='#{stepId}']"
       @stepElements.removeClass 'selected'
       stepElement.addClass 'selected'
-      @trigger 'go-to', [stepId]
+      @el.trigger 'change-step', [stepId]
     else
-      @trigger 'finished-all-steps'
+      @el.trigger 'finished-all-steps'
 
   reset: ->
-    @el.find('input:checked').prop 'checked', false
     @goTo @firstStep
+    @stepElements.trigger 'reset-step'
 
   events:
-    'change .decision-tree-shape': (e) ->
-      stepId = e.target.name
-      choiceIndex = parseFloat e.target.value
-
-      step = @steps[stepId]
-      choice = step.choices[choiceIndex]
-
-      @trigger 'select-tool', [choice.type, choice]
-
-    'change .decision-tree-radio, .decision-tree-checkbox': (e) ->
-      stepId = e.target.name
-      choiceIndex = parseFloat e.target.value
-
-      step = @steps[stepId]
-      choice = step.choices[choiceIndex]
-
-      checkedOptions = @el.find "input[name='#{stepId}']:visible:checked"
-      checkedIndices = (input.value for input in checkedOptions)
-      value = (step.choices[index].value for index in checkedIndices)
-      if choice.type is 'radio'
-        value = value[0]
-
-      @trigger 'answer', [stepId, value]
-
-    'click .decision-tree-answer': (e) ->
-      stepId = e.currentTarget.name
-      choiceIndex = parseFloat e.currentTarget.value
-
-      step = @steps[stepId]
-      choice = step.choices[choiceIndex]
-
-      if choice? and 'value' of choice
-        @trigger 'answer', [stepId, choice.value]
-
-      next = if choice? and 'next' of choice
-        choice.next
-      else
-        step.next
-
-      @goTo next
+    'request-step': (e, stepId) ->
+      @goTo stepId
 
 module.exports = DecisionTree
