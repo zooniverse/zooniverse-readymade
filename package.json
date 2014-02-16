@@ -4,6 +4,7 @@
   "dependencies": {
     "coffee-script": "~1.7.1",
     "haw": "~0.3.8",
+    "jquery": "~2.1.0",
     "marking-surface": "~0.4.16",
     "stack-of-pages": "~0.1.3",
     "zooniverse": "~0.3.8"

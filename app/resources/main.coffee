@@ -4,6 +4,8 @@ require 'zooniverse/views/group-icon-svg'
 require 'zooniverse/views/language-icon-svg'
 require 'zooniverse/views/mail-icon-svg'
 
+window.jQuery = require 'jquery'
+
 Project = require '../../src/project'
 
 window.zooniverseProject = new Project window.zooniverseProjectConfig
