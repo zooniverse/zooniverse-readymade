@@ -11,23 +11,27 @@
     table-layout: fixed
     width: 100%
 
-    .subject-viewer
-      display: table-cell
-      text-align: center
-      vertical-align: middle
-      width: 75%
+  .subject-viewer
+    display: table-cell
+    overflow: hidden
+    text-align: center
+    vertical-align: middle
+    width: 75%
 
-      .frame-toggles
-        ul
-          display: inline
+  .marking-surface
+    max-width: 100%
 
-          li
-            display: inline
+  .frame-toggles
+    ul
+      display: inline
 
-    .decision-tree
-      display: table-cell
-      vertical-align: middle
-      width: 25%
+    li
+      display: inline
+
+  .decision-tree
+    display: table-cell
+    vertical-align: middle
+    width: 25%
 
 .decision-tree-step:not(.selected)
     display: none
