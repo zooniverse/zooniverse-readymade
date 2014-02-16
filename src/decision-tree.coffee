@@ -11,6 +11,7 @@ class DecisionTree extends Controller
   stepTypes:
     radio: require './decision-types/radio'
     button: require './decision-types/button'
+    draw: require './decision-types/draw'
 
   constructor: ->
     @steps = {}

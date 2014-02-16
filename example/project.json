@@ -39,7 +39,22 @@
   ],
 
   "classification": {
-    "firstStep": "pickOne",
+    "firstStep": "drawSomething",
+
+    "drawSomething": {
+      "type": "draw",
+      "question": "Draw something.",
+      "choices": [{
+        "shape": "point",
+        "key": "point",
+        "label": "Point"
+      }, {
+        "shape": "ellipse",
+        "key": "ellipse",
+        "label": "Ellipse"
+      }],
+      "next": "pickOne"
+    },
 
     "pickOne": {
       "type": "button",

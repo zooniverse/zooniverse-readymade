@@ -1,8 +1,9 @@
 Controller = require 'zooniverse/controllers/base-controller'
 MarkingSurface = require 'marking-surface'
 
+# TODO
 TOOLS =
-  point: require 'marking-surface/lib/tools/magnifier-point' # TODO
+  point: require 'marking-surface/lib/tools/point'
   circle: null
   ellipse: require 'marking-surface/lib/tools/ellipse'
   rect: null
@@ -127,7 +128,7 @@ class SubjectViewer extends Controller
 
   getMarks: ->
     marks = {}
-    for mark in @markingSurface.marks
+    for {mark} in @markingSurface.tools
       marks[mark.step] ?= []
       marks[mark.step].push mark
     marks
