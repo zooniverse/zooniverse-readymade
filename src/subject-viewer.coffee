@@ -6,7 +6,8 @@ TOOLS =
   point: require 'marking-surface/lib/tools/point'
   circle: null
   ellipse: require 'marking-surface/lib/tools/ellipse'
-  rect: null
+  rect: require 'marking-surface/lib/tools/rectangle'
+  text: require 'marking-surface/lib/tools/transcription'
   polygon: null
 
 loadImage = (src, callback) ->
