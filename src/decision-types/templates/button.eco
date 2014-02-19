@@ -3,19 +3,21 @@
 </div>
 
 <% if @choices?: %>
-  <% for choice, i in @choices: %>
-    <div class="decision-tree-choice button-choice" data-color="<%= @color || 'none' %>">
-      <button type="button" name="<%= @key %>" value="<%= i %>">
-        <div class="input-clickable">
-          <% if choice.image?: %>
-            <img src="<%= choice.image %>" />
-          <% end %>
+  <ul class="decision-tree-choices">
+    <% for choice, i in @choices: %>
+      <li class="decision-tree-choice button-choice" data-color="<%= @color || 'none' %>">
+        <button type="button" name="<%= @key %>" value="<%= i %>">
+          <div class="input-clickable">
+            <% if choice.image?: %>
+              <img src="<%= choice.image %>" />
+            <% end %>
 
-          <% if choice.label?: %>
-            <div class="label"><%- choice.label %></div>
-          <% end %>
-        </div>
-      </button>
-    </div>
-  <% end %>
+            <% if choice.label?: %>
+              <div class="label"><%- choice.label %></div>
+            <% end %>
+          </div>
+        </button>
+      </li>
+    <% end %>
+  </ul>
 <% end %>
