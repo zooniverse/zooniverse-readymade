@@ -10,6 +10,6 @@
     "zooniverse": "~0.3.8"
   },
   "scripts": {
-    "start": "haw serve --config app/haw-config --project example/project"
+    "start": "haw serve --config ./app/haw-config --project ./example/project"
   }
 }
