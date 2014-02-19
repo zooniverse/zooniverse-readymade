@@ -22,14 +22,12 @@ class DrawDecisionType extends Controller
   events:
     'reset-step': ->
       @radioInputs.prop 'checked', false
-      @confirmButton.prop 'disabled', true
       @nextLabel.toggle true
       @doneLabel.toggle false
 
     'change input': (e) ->
       choice = @choices[e.currentTarget.value]
       @el.trigger 'select-tool', [choice.shape, choice]
-      @confirmButton.prop 'disabled', false
 
       @nextLabel.toggle @next?
       @doneLabel.toggle !@next?
