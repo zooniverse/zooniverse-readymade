@@ -52,6 +52,10 @@
         "shape": "ellipse",
         "key": "ellipse",
         "label": "Ellipse"
+      }, {
+        "shape": "text",
+        "key": "text",
+        "label": "Text"
       }],
       "next": "pickOne"
     },
