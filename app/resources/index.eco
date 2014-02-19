@@ -9,7 +9,7 @@
 
   <body>
     <script>
-      window.zooniverseProjectConfig = <%- JSON.stringify @project %>;
+      window.zooniverseProjectConfig = <%- JSON.stringify @projectConfig %>;
     </script>
 
     <!--<script src="//code.jquery.com/jquery-2.1.0.js"></script>-->
