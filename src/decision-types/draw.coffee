@@ -27,7 +27,7 @@ class DrawDecisionType extends Controller
 
     'change input': (e) ->
       choice = @choices[e.currentTarget.value]
-      @el.trigger 'select-tool', [choice.shape, choice]
+      @el.trigger 'choose-tool', [choice.shape, choice]
 
       @nextLabel.toggle @next?
       @doneLabel.toggle !@next?

@@ -61,7 +61,7 @@ class ClassifyPage extends Controller
     'change-annotation': (e, key, value) ->
       @classification.set key, value
 
-    'select-tool': (e, tool, choice) ->
+    'choose-tool': (e, tool, choice) ->
       @subjectViewer.setTool tool, choice
 
     'finished-all-steps': ->
