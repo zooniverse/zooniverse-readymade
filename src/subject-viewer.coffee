@@ -15,14 +15,12 @@ loadImage = (src, callback) ->
   img.onload = -> callback? img
   img.src = src
 
-mod = (a, b) ->
-  ((a % b) + b) % b
-
 class SubjectViewer extends Controller
   className: 'subject-viewer'
   template: require './templates/subject-viewer'
 
   currentFrame: 0
+  advanceTimeout: NaN
 
   step: ''
   toolOptions: null
@@ -94,10 +92,10 @@ class SubjectViewer extends Controller
       callback? image
 
   addToggle: (index) ->
-    @togglesList.append "<li><button name='toggle-frame', value='#{index}'>#{index}</button></li>"
+    @togglesList.append "<li><button name='toggle-frame' value='#{index}'>#{index}</button></li>"
 
   goTo: (@currentFrame) ->
-    @currentFrame = mod @currentFrame, @frames.length
+    @currentFrame %%= @frames.length
 
     @frames[@currentFrame].toFront()
 
@@ -110,12 +108,16 @@ class SubjectViewer extends Controller
   playFrames: ->
     @playButton.prop 'disabled', true
     @pauseButton.prop 'disabled', false
-    # TODO
+    @advanceFrames()
+
+  advanceFrames: ->
+    @goTo @currentFrame + 1
+    @advanceTimeout = setTimeout @advanceFrames.bind(@), 250
 
   pauseFrames: ->
+    clearTimeout @advanceTimeout
     @playButton.prop 'disabled', false
     @pauseButton.prop 'disabled', true
-    # TODO
 
   setStep: (step) ->
     @step = step
