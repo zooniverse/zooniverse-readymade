@@ -1,5 +1,13 @@
 Controller = require 'zooniverse/controllers/base-controller'
 
+TOOLS =
+  point: require 'marking-surface/lib/tools/point'
+  circle: null
+  ellipse: require 'marking-surface/lib/tools/ellipse'
+  rect: require 'marking-surface/lib/tools/rectangle'
+  text: require 'marking-surface/lib/tools/transcription'
+  polygon: null
+
 class DrawDecisionType extends Controller
   className: 'decision-tree-step draw-step'
   template: require './templates/draw'
@@ -27,7 +35,12 @@ class DrawDecisionType extends Controller
 
     'change input': (e) ->
       choice = @choices[e.currentTarget.value]
-      @el.trigger 'choose-tool', [choice.shape, choice]
+
+      shape = choice.shape
+      if typeof shape is 'string'
+        shape = TOOLS[shape]
+
+      @el.trigger 'choose-tool', [shape, choice]
 
       @nextLabel.toggle @next?
       @doneLabel.toggle !@next?

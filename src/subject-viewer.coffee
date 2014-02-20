@@ -1,15 +1,6 @@
 Controller = require 'zooniverse/controllers/base-controller'
 MarkingSurface = require 'marking-surface'
 
-# TODO
-TOOLS =
-  point: require 'marking-surface/lib/tools/point'
-  circle: null
-  ellipse: require 'marking-surface/lib/tools/ellipse'
-  rect: require 'marking-surface/lib/tools/rectangle'
-  text: require 'marking-surface/lib/tools/transcription'
-  polygon: null
-
 loadImage = (src, callback) ->
   img = new Image
   img.onload = -> callback? img
@@ -123,9 +114,6 @@ class SubjectViewer extends Controller
     @step = step
 
   setTool: (tool, options) ->
-    if typeof tool is 'string'
-      tool = TOOLS[tool]
-
     @markingSurface.tool = tool
     @toolOptions = options
 
