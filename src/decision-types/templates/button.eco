@@ -3,9 +3,9 @@
 </div>
 
 <% if @choices?: %>
-  <ul class="decision-tree-choices">
+  <div class="decision-tree-choices">
     <% for choice, i in @choices: %>
-      <li class="decision-tree-choice button-choice" data-color="<%= @color || 'none' %>">
+      <div class="decision-tree-choice button-choice" data-color="<%= @color || 'none' %>">
         <button type="button" name="<%= @key %>" value="<%= i %>">
           <div class="input-clickable">
             <% if choice.image?: %>
@@ -17,7 +17,7 @@
             <% end %>
           </div>
         </button>
-      </li>
+      </div>
     <% end %>
-  </ul>
+  </div>
 <% end %>

@@ -1,8 +1,54 @@
 @require '../../node_modules/zooniverse/css/top-bar.css'
 @require '../../node_modules/zooniverse/css/dialog.css'
 
-.main-stack
-  margin: 0 auto
+#_RESET_BUTTON
+  background: transparent
+  border: 0
+  color: inherit
+  cursor: pointer
+  font: inherit
+  line-height: inherit
+  margin: 0
+  padding: 0
+  text-shadow: inherit
+
+  &:disabled
+    pointer-events: none
+
+html
+  background: #555
+  color: white
+  font: 14px/2 "Helvetica Neue", Arial, sans-serif
+
+body
+  margin: 0
+
+.readymade-site-header
+  background: #eee
+  border-bottom: 1px solid #fff
+  box-shadow: 0 1px 2px rgba(black, 0.5)
+  color: black
+  padding: 20px 5vw 0
+
+  .readymade-project-producer
+    display: inline-block
+
+  .readymade-project-title
+    display: inline-block
+    font-weight: bold
+
+  .readymade-site-links
+    display: inline-block
+    margin: 0
+    padding: 0
+
+  .readymade-site-link
+    color: inherit
+    display: inline-block
+    text-decoration: none
+
+.readymade-main-stack
+  margin: 20px auto
   width: 80%
 
 .classify-page
@@ -26,17 +72,86 @@
     height: 100%
     width: 100%
 
-  .frame-toggles
-    ul
-      display: inline
+  .frame-controls
+    line-height: 1
 
-    li
-      display: inline
+  .frame-play-controls
+    display: inline-block
+    margin-right: 10px
+
+    button
+      @extends #_RESET_BUTTON
+      text-shadow: 0 1px 3px black
+      width: 1.5em
+      height: 1.5em
+
+      &:disabled
+        display: none
+
+  .frame-toggles-list
+    display: inline-block
+
+    button
+      @extends #_RESET_BUTTON
+      background: rgba(black, 0.25)
+      border-radius: 50%
+      box-shadow:
+        0 1px 3px black inset,
+        0 1px 0 rgba(white, 0.25)
+      color: transparent
+      height: 1em
+      width: 1em
+      overflow: hidden
+      position: relative
+
+      &[data-selected]:before
+        background: white
+        border-radius: 50%
+        content: ""
+        height: 50%
+        left: 50%
+        position: absolute
+        top: 50%
+        width: 50%
+        transform: translate(-50%, -50%)
 
   .decision-tree
     display: table-cell
     vertical-align: middle
     width: 25%
+
+  .has-clickable
+    opacity: 0
+    position: fixed
+    right: 0
+    top: 0
+
+    & + .input-clickable
+      border-bottom: 1px solid rgba(black, 0.5)
+      box-shadow: 0 4px 0 -3px rgba(white, 0.25)
+      cursor: pointer
+      padding: 5px 0 5px 10px
+      position: relative
+
+    &:focus + .input-clickable
+      outline: 1px dotted // TODO: Glow? Probably depends on the browser.
+
+    &:checked + .input-clickable
+      &:before
+        border: 5px solid transparent
+        border-left-width: 0
+        border-right-color: inherit
+        content: ""
+        height: 0
+        left: 0
+        margin-top: -5px
+        position: absolute
+        top: 50%
+        width: 0
+
+  .decision-tree-confirm-selection
+    margin-top: 5px
+    text-align: center
 
 .decision-tree-step:not(.selected)
     display: none

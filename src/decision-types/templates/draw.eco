@@ -3,11 +3,12 @@
 </div>
 
 <% if @choices?: %>
-  <ul class="decision-tree-choices">
+  <div class="decision-tree-choices">
     <% for choice, i in @choices: %>
-      <li class="decision-tree-choice draw-choice" data-color="<%= @color || 'none' %>">
+      <% console.log choice %>
+      <div class="decision-tree-choice draw-choice" data-color="<%= @color || 'none' %>">
         <label>
-          <input type="radio" name="<%= @key %>" value="<%= i %>" />
+          <input type="radio" name="<%= @key %>" value="<%= i %>" class="has-clickable" />
 
           <div class="input-clickable">
             <% if choice.image?: %>
@@ -19,9 +20,9 @@
             <% end %>
           </div>
         </label>
-      </li>
+      </div>
     <% end %>
-  </ul>
+  </div>
 <% end %>
 
 <div class="decision-tree-confirm-selection">

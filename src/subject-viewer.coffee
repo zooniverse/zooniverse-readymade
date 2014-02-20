@@ -20,7 +20,7 @@ class SubjectViewer extends Controller
     '.marking-surface-container': 'markingSurfaceContainer'
     'button[name="play-frames"]': 'playButton'
     'button[name="pause-frames"]': 'pauseButton'
-    '.frame-toggles ul': 'togglesList'
+    '.frame-toggles-list': 'togglesList'
 
   constructor: ->
     super
@@ -83,7 +83,7 @@ class SubjectViewer extends Controller
       callback? image
 
   addToggle: (index) ->
-    @togglesList.append "<li><button name='toggle-frame' value='#{index}'>#{index}</button></li>"
+    @togglesList.append "<button name='toggle-frame' value='#{index}' class='toggle-frame'>#{index + 1}</button>\n"
 
   goTo: (@currentFrame) ->
     @currentFrame %%= @frames.length

@@ -47,14 +47,17 @@
       "choices": [{
         "shape": "point",
         "key": "point",
+        "image": "//placehold.it/30.png",
         "label": "Point"
       }, {
         "shape": "ellipse",
         "key": "ellipse",
+        "image": "//placehold.it/30.png",
         "label": "Ellipse"
       }, {
         "shape": "text",
         "key": "text",
+        "image": "//placehold.it/30.png",
         "label": "Text"
       }],
       "next": "pickOne"

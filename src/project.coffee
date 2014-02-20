@@ -33,7 +33,7 @@ class Project
       template: SiteHeader::template @
 
     @stack = new StackOfPages
-    @stack.el.className += ' main-stack'
+    @stack.el.className += ' readymade-main-stack'
 
     if @summary or @description
       @addPage '#/', 'Home', homePageTemplate @

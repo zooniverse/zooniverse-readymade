@@ -1,12 +1,12 @@
 Controller = require 'zooniverse/controllers/base-controller'
 
 class SiteHeader extends Controller
-  className: 'site-navigation'
+  className: 'readymade-site-header'
   template: require './templates/site-header'
   elements:
-    '.site-links ul': 'linksList'
+    '.readymade-site-links': 'linksList'
 
   addNavLink: (href, label) ->
-    @linksList.append "<li class='site-link'><a href='#{href}'>#{label}</a></li>"
+    @linksList.append "<a href='#{href}' class='readymade-site-link'>#{label}</a>\n"
 
 module.exports = SiteHeader

@@ -1,6 +1,4 @@
-<div class="project-producer"><%- @producer %></div>
-<div class="project-title"><%- @title %></div>
+<div class="readymade-project-producer"><%- @producer %></div>
+<div class="readymade-project-title"><%- @title %></div>
 
-<div class="site-links">
-  <ul></ul>
-</div>
+<div class="readymade-site-links"></div>
