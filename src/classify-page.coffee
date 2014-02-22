@@ -54,7 +54,7 @@ class ClassifyPage extends Controller
 
   finishSubject: ->
     @classification.set 'marks', @subjectViewer.getMarks()
-    console.log JSON.stringify @classification
+    console?.log JSON.stringify @classification
     Subject.next()
 
   events:

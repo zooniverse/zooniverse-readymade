@@ -5,7 +5,6 @@
 <% if @choices?: %>
   <div class="decision-tree-choices">
     <% for choice, i in @choices: %>
-      <% console.log choice %>
       <div class="decision-tree-choice draw-choice" data-color="<%= @color || 'none' %>">
         <label>
           <input type="radio" name="<%= @key %>" value="<%= i %>" class="has-clickable" />
