@@ -9,11 +9,11 @@ class ClassifyPage extends Controller
   steps: null
   firstStep: ''
 
-  className: 'classify-page'
+  className: 'readymade-classify-page'
   template: require './templates/classify-page'
 
   elements:
-    '.classification-interface': 'interfaceContainer'
+    '.readymade-classification-interface': 'interfaceContainer'
 
   constructor: ->
     super

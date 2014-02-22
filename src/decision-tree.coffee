@@ -4,7 +4,7 @@ class DecisionTree extends Controller
   steps: null
   firstStep: ''
 
-  className: 'decision-tree'
+  className: 'readymade-decision-tree'
   defaultNextLabel: 'Continue'
   defaultFinishLabel: 'Done'
 

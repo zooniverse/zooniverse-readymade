@@ -7,7 +7,7 @@ loadImage = (src, callback) ->
   img.src = src
 
 class SubjectViewer extends Controller
-  className: 'subject-viewer'
+  className: 'readymade-subject-viewer'
   template: require './templates/subject-viewer'
 
   currentFrame: 0
@@ -17,10 +17,10 @@ class SubjectViewer extends Controller
   toolOptions: null
 
   elements:
-    '.marking-surface-container': 'markingSurfaceContainer'
+    '.readymade-marking-surface-container': 'markingSurfaceContainer'
     'button[name="play-frames"]': 'playButton'
     'button[name="pause-frames"]': 'pauseButton'
-    '.frame-toggles-list': 'togglesList'
+    '.readymade-frame-toggles-list': 'togglesList'
 
   constructor: ->
     super
