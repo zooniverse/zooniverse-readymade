@@ -127,9 +127,11 @@ class SubjectViewer extends Controller
   events:
     'click button[name="play-frames"]': ->
       @playFrames()
+      @pauseButton.focus()
 
     'click button[name="pause-frames"]': ->
       @pauseFrames()
+      @playButton.focus()
 
     'click button[name="toggle-frame"]': (e) ->
       @goTo e.currentTarget.value
