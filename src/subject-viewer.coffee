@@ -56,10 +56,13 @@ class SubjectViewer extends Controller
         heights.push image.attr 'height'
         maxWidth = Math.max widths...
         maxHeight = Math.max heights...
-        @markingSurface.el.style.width = "#{maxWidth}px"
-        @frameGroup.attr transform: "translate(#{maxWidth / 2}, #{maxHeight / 2})"
-        @markingSurface.svg.attr 'viewBox', " 0 0 #{maxWidth} #{maxHeight}"
 
+        @markingSurface.svg.attr
+          width: maxWidth
+          height: maxHeight
+          viewBox: "0 0 #{maxWidth} #{maxHeight}"
+
+        @frameGroup.attr transform: "translate(#{maxWidth / 2}, #{maxHeight / 2})"
 
         if i + 1 is subjectImages.length
           @goTo 0
