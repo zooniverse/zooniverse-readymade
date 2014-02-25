@@ -1,7 +1,7 @@
 Controller = require 'zooniverse/controllers/base-controller'
 
 class DecisionTree extends Controller
-  steps: null
+  stepSpecs: null
   firstStep: ''
 
   className: 'readymade-decision-tree'
@@ -9,45 +9,55 @@ class DecisionTree extends Controller
   defaultFinishLabel: 'Done'
 
   stepTypes:
+    _base: require './decision-types/base' # Just include this here for testing.
     radio: require './decision-types/radio'
     button: require './decision-types/button'
     draw: require './decision-types/draw'
 
+  currentDecision: null
+
   constructor: ->
-    @steps = {}
+    @stepSpecs = {}
     super
 
     unless @firstStep
-      stepKeys = Object.keys @steps
+      stepKeys = Object.keys @stepSpecs
       if stepKeys.length is 1
         @firstStep = stepKeys[0]
 
-    unless @firstStep of @steps
+    unless @firstStep of @stepSpecs
       throw new Error 'There is no "first" classification step defined.'
 
-    for stepId, step of @steps when typeof step isnt 'string'
+    @decisions = {}
+    for stepId, step of @stepSpecs when typeof step isnt 'string'
       step = Object.create step
       step.key ?= stepId
-      instance = new @stepTypes[step.type] step
-      instance.el.attr 'data-step-id', stepId
-      @el.append instance.el
+      step.type = @stepTypes[step.type] if typeof step.type is 'string'
+
+      @decisions[stepId] = new step.type step
+      @el.append @decisions[stepId].el
 
     @stepElements = @el.children()
 
   goTo: (stepId) ->
     if typeof stepId is 'function'
       @goTo stepId.call this
-    else if stepId of @steps
-      stepElement = @stepElements.filter "[data-step-id='#{stepId}']"
-      @stepElements.removeClass 'selected'
-      stepElement.addClass 'selected'
-      @el.trigger 'change-step', [stepId]
+    else if stepId of @decisions
+      decision = @decisions[stepId]
+      unless decision is @currentDecision
+        @currentDecision?.exit()
+        @currentDecision = null
+
+        decision.enter()
+        @el.trigger 'change-step', [stepId]
+        @currentDecision = decision
     else
       @el.trigger 'finished-all-steps'
 
   reset: ->
     @goTo @firstStep
-    @stepElements.trigger 'reset-step'
+    for stepId, decision of @decisions
+      decision.reset()
 
   events:
     'request-step': (e, stepId) ->

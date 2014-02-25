@@ -1,0 +1,11 @@
+<button type="button" name="make-choice" value="<%= @value %>" data-index="<%= @index %>">
+  <div class="input-clickable">
+    <% if @image?: %>
+      <img src="<%= @image %>" />
+    <% end %>
+
+    <% if @label?: %>
+      <div class="label"><%- @label %></div>
+    <% end %>
+  </div>
+</button>

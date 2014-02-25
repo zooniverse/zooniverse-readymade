@@ -1,45 +1,20 @@
-Controller = require 'zooniverse/controllers/base-controller'
+BaseDecisionType = require './base'
 
-class RadioDecisionType extends Controller
-  className: 'decision-tree-step radio-step'
-  template: require './templates/radio'
+class RadioDecisionType extends BaseDecisionType
+  choiceClassName: 'radio-step'
+  choiceTemplate: require './templates/radio-choice'
 
-  question: ''
-  choices: null
-  next: null
-
-  elements:
-    'input[type="radio"]': 'radioInputs'
-    'button[name="confirm-and-continue"]': 'confirmButton'
-    '.label-for-next': 'nextLabel'
-    '.label-for-done': 'doneLabel'
-
-  constructor: (options = {}) ->
-    # TODO: Fix this in zooniverse/controllers/base-controller
-    @[key] = value for key, value of options
+  reset: ->
     super
+    @el.find(':checked').prop 'checked', false
 
-  events:
-    'reset-step': ->
-      @radioInputs.prop 'checked', false
-      @confirmButton.prop 'disabled', true
-      @nextLabel.toggle true
-      @doneLabel.toggle false
+  getNext: ->
+    choice = @choices[@el.find(':checked').attr 'data-index']
+    if choice? and 'next' of choice then choice.next else @next
 
-    'change input': (e) ->
-      choice = @choices[e.currentTarget.value]
-      value = choice.value
-      @el.trigger 'change-annotation', [@key, value]
-
-      @confirmButton.prop 'disabled', false
-
-      next = if 'next' of choice then choice.next else @next
-      @nextLabel.toggle next?
-      @doneLabel.toggle !next?
-
-    'click button[name="confirm-and-continue"]': ->
-      selectedIndex = @el.find(':checked').val()
-      choice = @choices[selectedIndex]
-      @el.trigger 'request-step', [if 'next' of choice then choice.next else @next]
+  events: @extend @::events,
+    'change input[name="choose-radio"]': (e) ->
+      choice = @choices[e.currentTarget.getAttribute 'data-index']
+      @el.trigger 'change-annotation', [@key, choice.value]
 
 module.exports = RadioDecisionType

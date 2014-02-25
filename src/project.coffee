@@ -40,7 +40,7 @@ class Project
 
     if @classification?
       @addPage '#/classify', 'Classify', new ClassifyPage
-        steps: @classification
+        stepSpecs: @classification
         firstStep: @classification.firstStep
 
     if @organizations or @scientists or @developers

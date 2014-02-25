@@ -1,0 +1,13 @@
+<label>
+  <input type="radio" name="choose-tool" value="<%= @value %>" data-index="<%= @index %>" class="has-clickable" />
+
+  <div class="input-clickable">
+    <% if @image?: %>
+      <img src="<%= @image %>" />
+    <% end %>
+
+    <% if @label?: %>
+      <div class="label"><%- @label %></div>
+    <% end %>
+  </div>
+</label>

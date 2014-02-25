@@ -6,7 +6,7 @@ Subject = require 'zooniverse/models/subject'
 Classification = require 'zooniverse/models/classification'
 
 class ClassifyPage extends Controller
-  steps: null
+  stepSpecs: null
   firstStep: ''
 
   className: 'readymade-classify-page'
@@ -21,7 +21,7 @@ class ClassifyPage extends Controller
     @subjectViewer = new SubjectViewer
     @interfaceContainer.append @subjectViewer.el
 
-    @decisionTree = new DecisionTree {@steps, @firstStep}
+    @decisionTree = new DecisionTree {@stepSpecs, @firstStep}
     @interfaceContainer.append @decisionTree.el
 
     @decisionTree.on 'change-step', (e, step) =>

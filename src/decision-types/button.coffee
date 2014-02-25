@@ -1,25 +1,21 @@
-Controller = require 'zooniverse/controllers/base-controller'
+BaseDecisionType = require './base'
 
-class ButtonDecisionType extends Controller
-  className: 'decision-tree-step button-step'
-  template: require './templates/button'
+class ButtonDecisionType extends BaseDecisionType
+  choiceClassName: 'button-step'
+  choiceTemplate: require './templates/button-choice'
 
-  key: ''
-  question: ''
-  choices: null
-  color: ''
-  next: null
-
-  constructor: (options = {}) ->
-    # TODO: Fix this in zooniverse/controllers/base-controller
-    @[key] = value for key, value of options
+  enter: ->
     super
+    @confirmButton.css 'display', 'none'
 
-  events:
-    'click button': (e) ->
-      choice = @choices[e.currentTarget.value]
-      value = choice.value
-      @el.trigger 'change-annotation', [@key, value]
-      @el.trigger 'request-step', [if 'next' of choice then choice.next else @next]
+  exit: ->
+    super
+    @confirmButton.css 'display', ''
+
+  events: @extend @::events,
+    'click button[name="make-choice"]': (e) ->
+      choice = @choices[e.currentTarget.getAttribute 'data-index']
+      @el.trigger 'change-annotation', [@key, choice.value]
+      @confirm choice.next ? @next
 
 module.exports = ButtonDecisionType
