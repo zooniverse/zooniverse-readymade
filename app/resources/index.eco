@@ -9,7 +9,7 @@
 
   <body>
     <script>
-      window.zooniverseProjectConfig = <%- @projectConfigString %>;
+      window.zooniverseProjectConfig = <%- @projectConfig %>;
     </script>
 
     <!--<script src="//code.jquery.com/jquery-2.1.0.js"></script>-->

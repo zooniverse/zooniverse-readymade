@@ -14,13 +14,12 @@ module.exports = ->
 
   @project = '' # Pass this in.
   @projectConfig = {} # This is re-required every time a file is generated.
-  @projectConfigString = '{}' # For use in index.html template
 
   @generateFile = ->
     @project = require.resolve path.resolve @project
     delete require.cache[@project]
     @projectConfig = require @project
-    @projectConfigString = toSource @projectConfig
+    @projectConfig.toString = -> toSource this
     Server::generateFile.apply @, arguments
 
   @modifyStylus = (styl) ->
