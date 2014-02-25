@@ -17,8 +17,9 @@ module.exports = ->
   @projectConfigString = '{}' # For use in index.html template
 
   @generateFile = ->
+    @project = require.resolve path.resolve @project
     delete require.cache[@project]
-    @projectConfig = require path.resolve @project
+    @projectConfig = require @project
     @projectConfigString = toSource @projectConfig
     Server::generateFile.apply @, arguments
 
