@@ -1,4 +1,5 @@
 path = require 'path'
+toSource = require 'tosource'
 Server = require 'haw/lib/server'
 
 module.exports = ->
@@ -13,10 +14,12 @@ module.exports = ->
 
   @project = '' # Pass this in.
   @projectConfig = {} # This is re-required every time a file is generated.
+  @projectConfigString = '{}' # For use in index.html template
 
   @generateFile = ->
     delete require.cache[@project]
     @projectConfig = require path.resolve @project
+    @projectConfigString = toSource @projectConfig
     Server::generateFile.apply @, arguments
 
   @modifyStylus = (styl) ->
