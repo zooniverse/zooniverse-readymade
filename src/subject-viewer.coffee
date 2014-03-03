@@ -13,7 +13,7 @@ class SubjectViewer extends Controller
   currentFrame: 0
   advanceTimeout: NaN
 
-  step: ''
+  taskIndex: -1
   toolOptions: null
 
   elements:
@@ -29,7 +29,7 @@ class SubjectViewer extends Controller
     @markingSurfaceContainer.append @markingSurface.el
 
     @markingSurface.on 'create-mark', (mark) =>
-      mark.set 'step', @step
+      mark.set 'taskIndex', @taskIndex
       mark.set 'frame', @currentFrame
 
     @markingSurface.on 'create-tool', (tool) =>
@@ -39,7 +39,7 @@ class SubjectViewer extends Controller
     @frameGroup = @markingSurface.addShape 'g.frames'
     @frames = []
 
-  loadSubject: (@subject, callback) ->
+  loadSubject: (@subject, classification, callback) ->
     @pauseFrames()
 
     @markingSurface.reset()
@@ -113,8 +113,8 @@ class SubjectViewer extends Controller
     @playButton.prop 'disabled', false
     @pauseButton.prop 'disabled', true
 
-  setStep: (step) ->
-    @step = step
+  setTaskIndex: (taskIndex) ->
+    @taskIndex = taskIndex
 
   setTool: (tool, options) ->
     @markingSurface.tool = tool

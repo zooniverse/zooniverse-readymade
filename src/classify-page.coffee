@@ -1,6 +1,10 @@
 Controller = require 'zooniverse/controllers/base-controller'
 SubjectViewer = require './subject-viewer'
-DecisionTree = require './decision-tree'
+DecisionTree = require 'zooniverse-decision-tree'
+DrawingTask = require './tasks/drawing'
+require 'zooniverse-decision-tree/lib/radio-task'
+require 'zooniverse-decision-tree/lib/checkbox-task'
+require 'zooniverse-decision-tree/lib/button-task'
 User = require 'zooniverse/models/user'
 Subject = require 'zooniverse/models/subject'
 Classification = require 'zooniverse/models/classification'
@@ -18,20 +22,13 @@ class ClassifyPage extends Controller
   constructor: ->
     super
 
-    @subjectViewer = new SubjectViewer
-    @interfaceContainer.append @subjectViewer.el
-
-    @decisionTree = new DecisionTree {@stepSpecs, @firstStep}
-    @interfaceContainer.append @decisionTree.el
-
-    @decisionTree.on 'change-step', (e, step) =>
-      @subjectViewer.setTool null
-      @subjectViewer.setStep step
+    @createSubjectViewer()
+    @createDecisionTree()
 
     User.on 'change', (e, user) =>
       @onUserChange user
 
-    Subject.on 'getting-next', (e, subject) =>
+    Subject.on 'getting-next', =>
       @onSubjectGettingNext()
 
     Subject.on 'select', (e, subject) =>
@@ -40,31 +37,47 @@ class ClassifyPage extends Controller
     if +location.port > 1023
       window.classifyPage = @
 
+  createSubjectViewer: ->
+    @subjectViewer = new SubjectViewer
+    @interfaceContainer.append @subjectViewer.el
+
+  createDecisionTree: ->
+    @decisionTree = new DecisionTree
+      tasks: @stepSpecs
+      firstTask: @firstStep
+    @interfaceContainer.append @decisionTree.el
+
+    @el.on @decisionTree.LOAD_TASK, ({originalEvent: e}) =>
+      @subjectViewer.setTaskIndex = e.detail.index
+
+    @el.on DrawingTask::SELECT_TOOL, ({originalEvent: e}) =>
+      {tool, choice} = e.detail
+      @subjectViewer.setTool tool, choice
+
+    @el.on @decisionTree.COMPLETE, =>
+      @finishSubject()
+
   onUserChange: (user) ->
-    Subject.next()
+    @loadSubject() unless @classification?
 
   onSubjectGettingNext: ->
     @el.addClass 'loading'
 
   onSubjectSelect: (subject) ->
     @classification = new Classification {subject}
-    @decisionTree.reset()
-    @subjectViewer.loadSubject subject, =>
+    @loadSubject subject, null, =>
       @el.removeClass 'loading'
 
+  loadSubject: (subject, classification, callback) ->
+    if subject?
+      @subjectViewer.loadSubject subject, classification, callback
+      @decisionTree.reset classification
+    else
+      Subject.next()
+
   finishSubject: ->
-    @classification.set 'marks', @subjectViewer.getMarks()
+    # @classification.set 'marks', @subjectViewer.getMarks()
     console?.log JSON.stringify @classification
     Subject.next()
-
-  events:
-    'change-annotation': (e, key, value) ->
-      @classification.set key, value
-
-    'choose-tool': (e, tool, choice) ->
-      @subjectViewer.setTool tool, choice
-
-    'finished-all-steps': ->
-      @finishSubject()
 
 module.exports = ClassifyPage

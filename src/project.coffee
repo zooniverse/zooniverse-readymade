@@ -16,7 +16,8 @@ class Project
   summary: ''
   description: ''
 
-  classification: null
+  tasks: null
+  firstTask: ''
 
   organizations: null
   scientists: null
@@ -38,10 +39,10 @@ class Project
     if @summary or @description
       @addPage '#/', 'Home', homePageTemplate @
 
-    if @classification?
+    if @tasks?
       @addPage '#/classify', 'Classify', new ClassifyPage
-        stepSpecs: @classification
-        firstStep: @classification.firstStep
+        stepSpecs: @tasks
+        firstStep: @firstTask
 
     if @organizations or @scientists or @developers
       @addPage '#/team', 'Team', teamPageTemplate @

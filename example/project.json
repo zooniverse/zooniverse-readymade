@@ -38,24 +38,22 @@
     }
   ],
 
-  "classification": {
-    "firstStep": "drawSomething",
-
+  "tasks": {
     "drawSomething": {
-      "type": "draw",
+      "type": "drawing",
       "question": "Draw something.",
       "choices": [{
-        "shape": "point",
+        "tool": "point",
         "key": "point",
         "image": "//placehold.it/30.png",
         "label": "Point"
       }, {
-        "shape": "ellipse",
+        "tool": "ellipse",
         "key": "ellipse",
         "image": "//placehold.it/30.png",
         "label": "Ellipse"
       }, {
-        "shape": "text",
+        "tool": "text",
         "key": "text",
         "image": "//placehold.it/30.png",
         "label": "Text"
@@ -91,5 +89,7 @@
         "label": "Specific"
       }]
     }
-  }
+  },
+
+  "firstTask": "drawSomething"
 }
