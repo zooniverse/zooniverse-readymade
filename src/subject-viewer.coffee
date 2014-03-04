@@ -25,25 +25,31 @@ class SubjectViewer extends Controller
   constructor: ->
     super
 
+    @createMarkingSurface()
+
+  createMarkingSurface: ->
     @markingSurface = new MarkingSurface
-    @markingSurfaceContainer.append @markingSurface.el
-
-    @markingSurface.on 'create-mark', (mark) =>
-      mark.set 'taskIndex', @taskIndex
-      mark.set 'frame', @currentFrame
-
-    @markingSurface.on 'create-tool', (tool) =>
-      if @toolOptions?
-        tool[property] = value for property, value of @toolOptions
-
     @frameGroup = @markingSurface.addShape 'g.frames'
     @frames = []
+
+    @markingSurface.on 'add-tool', (tool) =>
+      if @toolOptions?
+        for property, value of @toolOptions
+          tool[property] = value
+
+      tool.mark.set '_taskIndex', @taskIndex
+      tool.mark.set 'frame', @currentFrame
+
+
+    @markingSurfaceContainer.append @markingSurface.el
 
   loadSubject: (@subject, classification, callback) ->
     @pauseFrames()
 
     @markingSurface.reset()
+
     @frames.pop().remove() until @frames.length is 0
+
     @togglesList.empty()
 
     widths = []
@@ -113,11 +119,15 @@ class SubjectViewer extends Controller
     @playButton.prop 'disabled', false
     @pauseButton.prop 'disabled', true
 
-  setTaskIndex: (taskIndex) ->
-    @taskIndex = taskIndex
+  setTaskIndex: (@taskIndex) ->
+    for tool in @markingSurface.tools by -1
+      if tool.mark._taskIndex is @taskIndex
+        # Tasks are reset when selected, so delete any associated tools.
+        tool.destroy()
 
   setTool: (tool, options) ->
     @markingSurface.tool = tool
+    # Tool options will be applied to any newly-created tool.
     @toolOptions = options
 
   getMarks: ->
