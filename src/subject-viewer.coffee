@@ -16,6 +16,8 @@ class SubjectViewer extends Controller
   taskIndex: -1
   toolOptions: null
 
+  FROM_CURRENT_TASK: 'data-from-current-task'
+
   elements:
     '.readymade-marking-surface-container': 'markingSurfaceContainer'
     'button[name="play-frames"]': 'playButton'
@@ -33,6 +35,8 @@ class SubjectViewer extends Controller
     @frames = []
 
     @markingSurface.on 'add-tool', (tool) =>
+      tool.attr @FROM_CURRENT_TASK, true
+
       if @toolOptions?
         for property, value of @toolOptions
           tool[property] = value
@@ -121,9 +125,7 @@ class SubjectViewer extends Controller
 
   setTaskIndex: (@taskIndex) ->
     for tool in @markingSurface.tools by -1
-      if tool.mark._taskIndex is @taskIndex
-        # Tasks are reset when selected, so delete any associated tools.
-        tool.destroy()
+      tool.attr @FROM_CURRENT_TASK, (tool.mark._taskIndex is @taskIndex) or null
 
   setTool: (tool, options) ->
     @markingSurface.tool = tool

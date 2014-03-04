@@ -43,18 +43,15 @@
       "type": "drawing",
       "question": "Draw something.",
       "choices": [{
-        "tool": "point",
-        "key": "point",
+        "value": "point",
         "image": "//placehold.it/30.png",
         "label": "Point"
       }, {
-        "tool": "ellipse",
-        "key": "ellipse",
+        "value": "ellipse",
         "image": "//placehold.it/30.png",
         "label": "Ellipse"
       }, {
-        "tool": "text",
-        "key": "text",
+        "value": "text",
         "image": "//placehold.it/30.png",
         "label": "Text"
       }],
@@ -80,13 +77,25 @@
       "type": "radio",
       "question": "Choose another one",
       "choices": [{
-        "value": "default",
+        "value": "end",
         "image": "//placehold.it/100.png",
-        "label": "Default"
+        "label": "End"
       }, {
-        "value": "specific",
+        "value": "more",
         "image": "//placehold.it/100.png",
-        "label": "Specific"
+        "label": "More",
+        "next": "pickSomeMore"
+      }]
+    },
+
+    "pickSomeMore": {
+      "type": "checkbox",
+      "choices": [{
+        "value": "foo",
+        "label": "Foo"
+      }, {
+        "value": "bar",
+        "label": "Bar"
       }]
     }
   },
