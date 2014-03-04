@@ -1,8 +1,7 @@
-RadioTask = require 'zooniverse-decision-tree/lib/radio-task'
-DecisionTree = require 'zooniverse-decision-tree'
+RadioTask = require './radio'
 
 class DrawingTask extends RadioTask
-  type: 'drawing'
+  @type: 'drawing'
 
   tools:
     point: require 'marking-surface/lib/tools/point'
@@ -32,5 +31,4 @@ class DrawingTask extends RadioTask
     tool = @tools[tool] if typeof tool is 'string'
     @dispatchEvent @SELECT_TOOL, {tool, choice}
 
-DecisionTree.registerTask DrawingTask
 module.exports = DrawingTask

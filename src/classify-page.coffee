@@ -2,9 +2,6 @@ Controller = require 'zooniverse/controllers/base-controller'
 SubjectViewer = require './subject-viewer'
 DecisionTree = require 'zooniverse-decision-tree'
 DrawingTask = require './tasks/drawing'
-require 'zooniverse-decision-tree/lib/radio-task'
-require 'zooniverse-decision-tree/lib/checkbox-task'
-require 'zooniverse-decision-tree/lib/button-task'
 User = require 'zooniverse/models/user'
 Subject = require 'zooniverse/models/subject'
 Classification = require 'zooniverse/models/classification'
@@ -43,6 +40,11 @@ class ClassifyPage extends Controller
 
   createDecisionTree: ->
     @decisionTree = new DecisionTree
+      taskTypes:
+        radio: require './tasks/radio'
+        checkbox: require './tasks/checkbox'
+        button: require './tasks/button'
+        drawing: DrawingTask
       tasks: @stepSpecs
       firstTask: @firstStep
 
