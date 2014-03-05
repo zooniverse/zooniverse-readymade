@@ -1,12 +1,12 @@
-<div class="home-page">
+<div class="readymade-home-page">
   <% if @summary: %>
-    <div class="project-summary">
+    <div class="readymade-project-summary">
       <%- @summary %>
     </div>
   <% end %>
 
   <% if @description: %>
-    <div class="project-description">
+    <div class="readymade-project-description">
       <%- @description %>
     </div>
   <% end %>
