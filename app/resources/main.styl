@@ -2,6 +2,7 @@
 @require '../../node_modules/zooniverse/css/dialog.css'
 
 BLUE = #08f
+MEDIUM_GRAY = #555
 
 #_RESET_BUTTON
   background: transparent
@@ -18,7 +19,7 @@ BLUE = #08f
     pointer-events: none
 
 html
-  background: #555
+  background: MEDIUM_GRAY
   color: white
   font: 14px/2 "Helvetica Neue", Arial, sans-serif
 
@@ -27,7 +28,6 @@ body
 
 a
   color: BLUE
-  text-decoration: none
 
 .readymade-site-header
   padding: 20px 10vw 0
@@ -38,6 +38,7 @@ a
 
     a
       color: inherit
+      text-decoration: none
 
   .readymade-project-producer
     border-bottom: 1px solid
@@ -73,9 +74,10 @@ a
     font-size: 12px
     font-weight: bold
     letter-spacing: 2px
-    padding: 0.5em 1em
-    text-transform: uppercase
     margin-bottom: -0.5em
+    padding: 0.5em 1em
+    text-decoration: none
+    text-transform: uppercase
 
     &:hover
       background: rgba(white, 0.1)
@@ -88,6 +90,24 @@ a
   .readymade-project-summary
     font-size: 36px
     font-weight: lighter
+
+  .readymade-footer
+    margin-top: 1em
+    text-align: center
+
+  .readymade-call-to-action
+    background: rgba(white, 0.9)
+    border-radius: 0.25em
+    color: MEDIUM_GRAY
+    display: inline-block
+    font-size: 24px
+    font-weight: bold
+    line-height: 1
+    padding: 0.5em 1.5em
+    text-decoration: none
+
+    &:hover
+      background: white
 
 .readymade-classification-interface
   display: table

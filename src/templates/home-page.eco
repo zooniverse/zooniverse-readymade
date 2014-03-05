@@ -10,4 +10,8 @@
       <%- @description %>
     </div>
   <% end %>
+
+  <div class="readymade-footer">
+    <a href="#/classify" class="readymade-call-to-action">Get started!</a>
+  </div>
 </div>
