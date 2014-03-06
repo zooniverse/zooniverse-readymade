@@ -1,4 +1,4 @@
-window.jQuery = require 'jquery'
+# window.jQuery = require 'jquery'
 
 Project = require '../../src/project'
 

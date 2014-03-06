@@ -18,7 +18,7 @@
       window.zooniverseProjectConfig = <%- @project %>;
     </script>
 
-    <!--<script src="//code.jquery.com/jquery-2.1.0.js"></script>-->
+    <script src="//code.jquery.com/jquery-2.1.0.js"></script>
     <script src="./main.js"></script>
   </body>
 </html>
