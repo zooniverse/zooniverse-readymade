@@ -80,16 +80,21 @@ class ClassifyPage extends Controller
       Subject.next()
 
   finishSubject: ->
-    # @classification.set 'marks', @subjectViewer.getMarks()
+    for annotation in @composeClassification()
+      @classification.annotate annotation
     console?.log JSON.stringify @classification
     Subject.next()
 
   composeClassification: ->
-    annotations = @decisionTree.getValues()
+    annotations = []
+
+    decisionTreeValues = @decisionTree.getValues()
+    for keyAndValue in decisionTreeValues then for key, value of keyAndValue
+      annotations.push {key, value}
 
     for {mark} in @subjectViewer.markingSurface.tools
-      annotations[mark._taskIndex]._marks ?= []
-      annotations[mark._taskIndex]._marks.push mark
+      annotations[mark._taskIndex].marks ?= []
+      annotations[mark._taskIndex].marks.push mark
 
     annotations
 
