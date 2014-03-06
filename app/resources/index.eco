@@ -3,6 +3,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=1200" />
     <title><%= @project.title %></title>
     <link rel="stylesheet" href="./main.css" />
   </head>
