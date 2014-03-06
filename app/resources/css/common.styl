@@ -1,0 +1,29 @@
+MEDIUM_GRAY = #555
+
+#_RESET_BUTTON
+  background: transparent
+  border: 0
+  color: inherit
+  cursor: pointer
+  font: inherit
+  line-height: inherit
+  margin: 0
+  padding: 0
+  text-shadow: inherit
+
+  &:disabled
+    opacity: 0.5
+    pointer-events: none
+
+#_DECISION_TREE_META_BUTTON
+  @extends #_RESET_BUTTON
+  background: rgba(MEDIUM_GRAY, 0.5)
+  display: block
+  margin: 0 auto
+  border: 1px solid
+  border-radius: 3px
+  font-size: 12px
+  font-weight: bold
+  line-height: 1
+  padding: 0.25em 1em
+  text-transform: uppercase

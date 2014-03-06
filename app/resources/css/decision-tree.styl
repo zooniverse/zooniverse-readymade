@@ -1,0 +1,118 @@
+.readymade-decision-tree-container
+  .decision-tree
+    padding-left: 15px
+
+    button[name="decision-tree-go-back"]
+      @extends #_DECISION_TREE_META_BUTTON
+
+    .decision-tree-question
+      text-align: center
+
+    .decision-tree-input-wrapper
+      position: relative
+
+      input
+        position: absolute
+        visibility: hidden
+
+    .decision-tree-clickable
+      border-radius: 3px
+      cursor: pointer
+      margin-bottom: 5px
+      padding: 5px 10px
+      position: relative
+      width: 100%
+
+      &:hover
+        background rgba(black, 0.25)
+
+    :focus + .decision-tree-clickable
+      outline: 1px dotted // TODO: Glow? Probably depends on the browser.
+
+    :active + .decision-tree-clickable
+      background: rgba(black, 0.5)
+      color: white
+
+    .decision-tree-radio,
+    .decision-tree-checkbox
+      .decision-tree-tickbox
+        border: 2px solid
+        display: inline-block
+        vertical-align: middle
+        height: 1em
+        position: relative
+        width: 1em
+
+    .decision-tree-radio
+      .decision-tree-tickbox
+        border-radius: 50%
+
+      .decision-tree-tick
+        SPACE = 3px
+        border-radius: 50%
+        bottom: SPACE
+        left: SPACE
+        position: absolute
+        right: SPACE
+        top: SPACE
+
+    :checked + .decision-tree-radio .decision-tree-tick
+      background: white
+
+    .decision-tree-checkbox
+      .decision-tree-tick:before,
+      .decision-tree-tick:after
+        background: white
+        display: none
+        content: ""
+        height: 0.8em
+        left: 50%
+        position: absolute
+        top: 50%
+        transform: translate(-50%, -50%) rotate(45deg)
+        width: 2px
+
+      .decision-tree-tick:after
+        transform: translate(-50%, -50%) rotate(-45deg)
+
+    :checked + .decision-tree-checkbox
+      .decision-tree-tick:before,
+      .decision-tree-tick:after
+        display: block
+
+    .decision-tree-drawing .decision-tree-tickbox
+      border: 0.5em solid transparent
+      border-left-width: 0
+      border-right-color: rgba(black, 0.5)
+      display: none
+      position: absolute
+      left: -0.5em
+      top: 50%
+      width: 0
+      height: 0
+      transform: translate(0, -50%)
+
+    :checked + .decision-tree-drawing
+      background: rgba(black, 0.5)
+      color: white
+
+      .decision-tree-tickbox
+        display: block
+
+    .decision-tree-image
+      display: inline-block
+      line-height: 1
+      vertical-align: middle
+
+      img
+        display: block
+
+    .decision-tree-label
+      display: inline-block
+      vertical-align: middle
+
+    .decision-tree-button .decision-tree-tickbox
+      display: none
+
+    button[name="decision-tree-confirm-task"]
+      @extends #_DECISION_TREE_META_BUTTON
