@@ -16,6 +16,9 @@ class Project
   summary: ''
   description: ''
 
+  about: ''
+  pages: null
+
   tasks: null
   firstTask: ''
 
@@ -43,6 +46,14 @@ class Project
       @addPage '#/classify', 'Classify', new ClassifyPage
         stepSpecs: @tasks
         firstStep: @firstTask
+
+    if @about
+      @addPage '#/about', 'About', "<div>#{@about}</div>"
+
+    if @pages?
+      for page in @pages
+        for title, content of page
+          @addPage "#/#{title.toLowerCase().replace /\W+/g, '-'}", title, content
 
     if @organizations or @scientists or @developers
       @addPage '#/team', 'Team', teamPageTemplate @
