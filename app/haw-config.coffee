@@ -20,8 +20,8 @@ module.exports = (options) ->
 
   @generate =
     '/index.html': 'index.eco'
-    '/main.css': 'main.styl'
-    '/main.js': 'main.coffee'
+    '/main.css': 'css/main.styl'
+    '/main.js': 'js/main.coffee'
 
   @generateFile = ->
     @project = freshRequire options.project
@@ -32,6 +32,7 @@ module.exports = (options) ->
       styl.import path.resolve path.dirname(@project), file
 
   @modifyBrowserify = (b) ->
-    b.require options.project, expose: 'project'
+    b.require options.project, expose: 'readymade-project-configuration'
+
     for file in @project.js || []
       b.add path.resolve path.dirname(@project), file
