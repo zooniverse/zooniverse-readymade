@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=1200" />
     <title><%= @project.title %></title>
     <link rel="stylesheet" href="./main.css" />
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
   </head>
 
   <body>
