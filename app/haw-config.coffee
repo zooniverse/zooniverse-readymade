@@ -25,7 +25,6 @@ module.exports = (options) ->
 
   @generateFile = ->
     @project = freshRequire options.project
-    @project.toString = -> toSource this
     Server::generateFile.apply @, arguments
 
   @modifyStylus = (styl) ->
@@ -33,5 +32,6 @@ module.exports = (options) ->
       styl.import path.resolve path.dirname(@project), file
 
   @modifyBrowserify = (b) ->
+    b.require options.project, expose: 'project'
     for file in @project.js || []
       b.add path.resolve path.dirname(@project), file
