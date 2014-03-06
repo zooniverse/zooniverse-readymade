@@ -1,7 +1,6 @@
 @require '../../node_modules/zooniverse/css/top-bar.css'
 @require '../../node_modules/zooniverse/css/dialog.css'
 
-BLUE = #08f
 MEDIUM_GRAY = #555
 
 #_RESET_BUTTON
@@ -21,6 +20,7 @@ MEDIUM_GRAY = #555
 
 #_DECISION_TREE_META_BUTTON
   @extends #_RESET_BUTTON
+  background: rgba(MEDIUM_GRAY, 0.5)
   display: block
   margin: 0 auto
   border: 1px solid
@@ -41,7 +41,7 @@ body
   margin: 0
 
 a
-  color: BLUE
+  color: lime
 
 #readymade-site-background
   background-position: 50% 33%
@@ -90,7 +90,7 @@ a
     margin-left: -1em
     padding-bottom: 1px
     text-transform: uppercase
-    transition: font-size 0.25s
+    transition: font-size 0.5s
 
     [data-location-hash="#/"] &
       font-size: 24px
@@ -100,7 +100,7 @@ a
     font-weight: lighter
     letter-spacing: 2px
     text-transform: uppercase
-    transition: font-size 0.25s
+    transition: font-size 0.5s
 
     [data-location-hash="#/"] &
       font-size: 64px
@@ -122,7 +122,7 @@ a
     text-transform: uppercase
 
     &:hover
-      background: rgba(white, 0.1)
+      background: rgba(black, 0.25)
 
 .readymade-main-stack
   margin: 20px auto
@@ -255,13 +255,13 @@ a
     width: 100%
 
     &:hover
-      background rgba(white, 0.1)
+      background rgba(black, 0.25)
 
   :focus + .decision-tree-clickable
     outline: 1px dotted // TODO: Glow? Probably depends on the browser.
 
   :active + .decision-tree-clickable
-    background: BLUE
+    background: black
     color: white
 
   .decision-tree-radio,
@@ -322,7 +322,7 @@ a
     transform: translate(-50%, -50%) rotate(45deg)
 
   :checked + .decision-tree-drawing
-    background: BLUE
+    background: black
     color: white
 
     .decision-tree-tickbox
