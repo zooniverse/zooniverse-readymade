@@ -90,6 +90,7 @@
 
     "pickSomeMore": {
       "type": "checkbox",
+      "question": "Check as many as you want.",
       "choices": [{
         "value": "foo",
         "label": "Foo"

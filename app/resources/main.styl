@@ -196,8 +196,6 @@ a
   .decision-tree-clickable
     border-radius: 3px
     cursor: pointer
-    font: inherit
-    font-weight: bold
     margin-bottom: 5px
     padding: 5px 10px
     position: relative
@@ -206,21 +204,76 @@ a
     &:hover
       background rgba(white, 0.1)
 
-  .decision-tree-tickbox
-    background: inherit
-    box-shadow: inherit
-    border: 3px solid transparent
-    display: inline-block
-    vertical-align: middle
-    height: 1em
-    position: relative
-    width: 1em
+  :focus + .decision-tree-clickable
+    outline: 1px dotted // TODO: Glow? Probably depends on the browser.
 
-  .decision-tree-tick
-    box-sizing: border-box
-    border: 2px solid
-    height: 100%
-    width: 100%
+  :active + .decision-tree-clickable
+    background: BLUE
+    color: white
+
+  .decision-tree-radio,
+  .decision-tree-checkbox
+    .decision-tree-tickbox
+      border: 2px solid
+      display: inline-block
+      vertical-align: middle
+      height: 1em
+      position: relative
+      width: 1em
+
+  .decision-tree-radio
+    .decision-tree-tickbox
+      border-radius: 50%
+
+    .decision-tree-tick
+      SPACE = 3px
+      border-radius: 50%
+      bottom: SPACE
+      left: SPACE
+      position: absolute
+      right: SPACE
+      top: SPACE
+
+  :checked + .decision-tree-radio .decision-tree-tick
+    background: white
+
+  .decision-tree-checkbox
+    .decision-tree-tick:before,
+    .decision-tree-tick:after
+      background: white
+      display: none
+      content: ""
+      height: 0.8em
+      left: 50%
+      position: absolute
+      top: 50%
+      transform: translate(-50%, -50%) rotate(45deg)
+      width: 2px
+
+    .decision-tree-tick:after
+      transform: translate(-50%, -50%) rotate(-45deg)
+
+  :checked + .decision-tree-checkbox
+    .decision-tree-tick:before,
+    .decision-tree-tick:after
+      display: block
+
+  .decision-tree-drawing .decision-tree-tickbox
+    background: inherit
+    display: none
+    position: absolute
+    left: 0
+    top: 50%
+    width: 1em
+    height: 1em
+    transform: translate(-50%, -50%) rotate(45deg)
+
+  :checked + .decision-tree-drawing
+    background: BLUE
+    color: white
+
+    .decision-tree-tickbox
+      display: block
 
   .decision-tree-image
     display: inline-block
@@ -234,24 +287,8 @@ a
     display: inline-block
     vertical-align: middle
 
-  .decision-tree-radio,
-  .decision-tree-drawing
-    .decision-tree-tickbox,
-    .decision-tree-tick
-      border-radius: 50%
-
   .decision-tree-button .decision-tree-tickbox
     display: none
-
-  :focus + .decision-tree-clickable
-    outline: 1px dotted // TODO: Glow? Probably depends on the browser.
-
-  :checked + .decision-tree-clickable
-    background: BLUE
-    color: white
-
-    .decision-tree-tick
-      background: rgba(white, 0.5)
 
   .decision-tree-confirmation
     text-align: center
