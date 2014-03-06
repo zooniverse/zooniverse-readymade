@@ -14,7 +14,8 @@ class ClassifyPage extends Controller
   template: require './templates/classify-page'
 
   elements:
-    '.readymade-classification-interface': 'interfaceContainer'
+    '.readymade-subject-viewer-container': 'subjectViewerContainer'
+    '.readymade-decision-tree-container': 'decisionTreeContainer'
 
   constructor: ->
     super
@@ -36,7 +37,7 @@ class ClassifyPage extends Controller
 
   createSubjectViewer: ->
     @subjectViewer = new SubjectViewer
-    @interfaceContainer.append @subjectViewer.el
+    @subjectViewerContainer.append @subjectViewer.el
 
   createDecisionTree: ->
     @decisionTree = new DecisionTree
@@ -58,7 +59,7 @@ class ClassifyPage extends Controller
     @el.on @decisionTree.COMPLETE, =>
       @finishSubject()
 
-    @interfaceContainer.append @decisionTree.el
+    @decisionTreeContainer.append @decisionTree.el
 
   onUserChange: (user) ->
     @loadSubject() unless @classification?

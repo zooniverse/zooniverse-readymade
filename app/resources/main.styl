@@ -16,7 +16,21 @@ MEDIUM_GRAY = #555
   text-shadow: inherit
 
   &:disabled
+    opacity: 0.5
     pointer-events: none
+
+#_DECISION_TREE_META_BUTTON
+  @extends #_RESET_BUTTON
+  display: block
+  margin: 0 auto
+  border: 1px solid
+  border-radius: 3px
+  font-size: 12px
+  font-weight: bold
+  line-height: 1
+  padding: 0.25em 1em
+  text-transform: uppercase
+
 
 html
   background: MEDIUM_GRAY
@@ -114,9 +128,13 @@ a
   table-layout: fixed
   width: 100%
 
-  .readymade-subject-viewer
+  .readymade-subject-viewer-container
+    background: rgba(black, 0.1)
+    border-radius: 5px
+    box-shadow: 0 1px 5px -3px black inset
     display: table-cell
     overflow: hidden
+    padding: 1em
     text-align: center
     vertical-align: middle
     width: 75%
@@ -139,7 +157,7 @@ a
 
     button
       @extends #_RESET_BUTTON
-      text-shadow: 0 1px 3px black
+      text-shadow: 0 1px 1px rgba(black, 0.5)
       width: 1.5em
       height: 1.5em
 
@@ -154,8 +172,8 @@ a
       background: rgba(black, 0.25)
       border-radius: 50%
       box-shadow:
-        0 1px 3px black inset,
-        0 1px 0 rgba(white, 0.25)
+        0 1px 1px rgba(black, 0.5) inset,
+        0 1px 0 rgba(white, 0.1)
       color: transparent
       height: 1em
       width: 1em
@@ -163,25 +181,26 @@ a
       position: relative
 
       &[data-selected]:before
+        SPACE = 4px
         background: white
         border-radius: 50%
+        bottom: SPACE
         content: ""
-        height: 50%
-        left: 50%
+        left: SPACE
         position: absolute
-        top: 50%
-        width: 50%
-        transform: translate(-50%, -50%)
+        right: SPACE
+        top: SPACE
 
-  .decision-tree
+  .readymade-decision-tree-container
     display: table-cell
-    padding-left: 15px
     vertical-align: middle
     width: 25%
 
+  .decision-tree
+    padding-left: 15px
+
   button[name="decision-tree-go-back"]
-    // @extends #_RESET_BUTTON
-    // TODO
+    @extends #_DECISION_TREE_META_BUTTON
 
   .decision-tree-question
     text-align: center
@@ -290,9 +309,5 @@ a
   .decision-tree-button .decision-tree-tickbox
     display: none
 
-  .decision-tree-confirmation
-    text-align: center
-
   button[name="decision-tree-confirm-task"]
-    // @extends #_RESET_BUTTON
-    // TODO
+    @extends #_DECISION_TREE_META_BUTTON
