@@ -1,5 +1,6 @@
 {
   "id": "asteroid",
+  "static": ".",
   "css": [],
   "js": [],
 
@@ -7,6 +8,7 @@
   "title": "Urban Wildlife",
   "summary": "Discover the wildlife in your neighborhood!",
   "description": "We're looking at camera traps set up around Chicago to learn... We're looking at camera traps set up around Chicago to learn... We're looking at camera traps set up around Chicago to learn... We're looking at camera traps set up around Chicago to learn... ",
+  "background": "raccoons.jpg",
 
   "organizations": [
     {

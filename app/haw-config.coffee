@@ -2,30 +2,36 @@ path = require 'path'
 toSource = require 'tosource'
 Server = require 'haw/lib/server'
 
-module.exports = ->
+freshRequire = (modulePath) ->
+  modulePath = require.resolve path.resolve modulePath
+  delete require.cache[modulePath]
+  require modulePath
+
+module.exports = (options) ->
+  @project = freshRequire options.project
+
   @port = 2005
 
   @root = path.resolve path.dirname(module.filename), 'resources'
+
+  # A restart is required to change static directories, but that shouldn't happen too often.
+  if @project.static?
+    @mount[path.resolve path.dirname(path.resolve(options.project)), @project.static] = '/'
 
   @generate =
     '/index.html': 'index.eco'
     '/main.css': 'main.styl'
     '/main.js': 'main.coffee'
 
-  @project = '' # Pass this in.
-  @projectConfig = {} # This is re-required every time a file is generated.
-
   @generateFile = ->
-    @project = require.resolve path.resolve @project
-    delete require.cache[@project]
-    @projectConfig = require @project
-    @projectConfig.toString = -> toSource this
+    @project = freshRequire options.project
+    @project.toString = -> toSource this
     Server::generateFile.apply @, arguments
 
   @modifyStylus = (styl) ->
-    for file in @projectConfig.css || []
+    for file in @project.css || []
       styl.import path.resolve path.dirname(@project), file
 
   @modifyBrowserify = (b) ->
-    for file in @projectConfig.js || []
+    for file in @project.js || []
       b.add path.resolve path.dirname(@project), file

@@ -43,6 +43,34 @@ body
 a
   color: BLUE
 
+#readymade-site-background
+  background-position: 50% 33%
+  background-size: cover
+  bottom: 0
+  left: 0
+  opacity: 0.33
+  position: fixed
+  right: 0
+  top: 0
+  transition: opacity 0.5s
+  z-index: -1
+
+  [data-location-hash="#/"] &
+    opacity: 1
+
+#readymade-site-background-effect
+  background: radial-gradient(rgba(MEDIUM_GRAY, 0), black)
+  bottom: 0
+  left: 0
+  opacity: 0
+  position: absolute
+  right: 0
+  top: 0
+  transition: opacity 1s
+
+  [data-location-hash="#/"] &
+    opacity: 1
+
 .readymade-site-header
   padding: 20px 10vw 0
 
@@ -101,6 +129,12 @@ a
   width: 80vw
 
 .readymade-home-page
+    // TODO: Implement this more robustly.
+    bottom: 10vh;
+    left: 10vw;
+    position: absolute;
+    right: 10vw;
+
   .readymade-project-summary
     font-size: 36px
     font-weight: lighter
@@ -129,7 +163,7 @@ a
   width: 100%
 
   .readymade-subject-viewer-container
-    background: rgba(black, 0.1)
+    background: rgba(MEDIUM_GRAY, 0.67)
     border-radius: 5px
     box-shadow: 0 1px 5px -3px black inset
     display: table-cell

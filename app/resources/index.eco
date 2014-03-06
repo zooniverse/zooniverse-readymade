@@ -3,13 +3,19 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title><%= @projectConfig.title %></title>
+    <title><%= @project.title %></title>
     <link rel="stylesheet" href="./main.css" />
   </head>
 
   <body>
+    <% if @project.background?: %>
+      <div id="readymade-site-background" style="background-image: url('<%= @project.background %>');">
+        <div id="readymade-site-background-effect"></div>
+      </div>
+    <% end %>
+
     <script>
-      window.zooniverseProjectConfig = <%- @projectConfig %>;
+      window.zooniverseProjectConfig = <%- @project %>;
     </script>
 
     <!--<script src="//code.jquery.com/jquery-2.1.0.js"></script>-->
