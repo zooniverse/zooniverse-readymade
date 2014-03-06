@@ -27,3 +27,16 @@ MEDIUM_GRAY = #555
   line-height: 1
   padding: 0.25em 1em
   text-transform: uppercase
+
+is-a-column(cols, gutter=3vw)
+  float: left
+  margin-left: gutter
+
+  // TODO: This isn't quite wide enough.
+  column-width = unit(100 / cols, '%')
+  column-extra = unit(1 / cols, unit(gutter))
+  width: "calc((%s + %s) - %s)" % (column-width column-extra gutter)
+
+  &:nth-of-type({cols}n+1)
+    clear: left
+    margin-left: 0

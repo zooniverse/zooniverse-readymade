@@ -8,37 +8,37 @@
   "title": "Urban Wildlife",
   "summary": "Discover the wildlife in your neighborhood!",
   "description": "We're looking at camera traps set up around Chicago to learn... We're looking at camera traps set up around Chicago to learn... We're looking at camera traps set up around Chicago to learn... We're looking at camera traps set up around Chicago to learn... ",
-  "background": "raccoons.jpg",
+  "background": "./raccoons.jpg",
 
-  "organizations": [
-    {
-      "name": "Lincoln Park Zoo",
-      "location": "Chicago, IL",
-      "description": "",
-      "url": ""
-    },
-    {
-      "name": "Adler Planetarium",
-      "location": "Chicago, IL",
-      "description": "",
-      "url": ""
-    }
-  ],
+  "organizations": [{
+    "name": "Lincoln Park Zoo",
+    "location": "Chicago, IL",
+    "description": "Park Zoo is a free 35-acre (14 ha) zoo located in Lincoln Park in Chicago, Illinois. The zoo was founded in 1868, making it one of the oldest zoos in the U.S. The zoo is an accredited member of the Association of Zoos and Aquariums (AZA).",
+    "url": ["http://www.lpzoo.org/", "https://twitter.com/lincolnparkzoo"]
+  }, {
+    "name": "Adler Planetarium",
+    "location": "Chicago, IL",
+    "description": "The Adler Planetarium was founded in 1930 by Chicago business leader, Max Adler. Located on Northerly Island in Chicago, Illinois the Adler is America's first planetarium and part of Chicago's Museum Campus, which includes the John G. Shedd Aquarium and The Field Museum. The Adler's mission is to inspire exploration and understanding of the Universe.",
+    "url": "http://www.adlerplanetarium.org/"
+  }, {
+    "name": "Zooniverse",
+    "description": "Zooniverse is a citizen science web portal owned and operated by the Citizen Science Alliance. The organization grew from the original Galaxy Zoo project and now hosts dozens of projects which allow volunteers to participate in scientific research.",
+    "url": ["https://www.zooniverse.org/", "https://github.com/zooniverse"]
+  }],
 
-  "scientists": [
-    {
-      "name": "John Doe",
-      "location": "Chicago, IL",
-      "description": "",
-      "url": ""
-    }
-  ],
+  "scientists": [{
+    "name": "Mrs. Science",
+    "location": "Chicago, IL",
+    "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.",
+    "url": ["https://github.com/brian-c", "https://twitter.com/__brian_c__"]
+  }],
 
-  "developers": [
-    {
-      "name": "Brian Carstensen"
-    }
-  ],
+  "developers": [{
+    "name": "Mr. Developer",
+    "location": "Chicago, IL",
+    "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.",
+    "url": ["https://github.com/brian-c", "https://twitter.com/__brian_c__"]
+  }],
 
   "tasks": {
     "drawSomething": {
