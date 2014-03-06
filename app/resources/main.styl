@@ -59,7 +59,7 @@ a
     opacity: 1
 
 #readymade-site-background-effect
-  background: radial-gradient(rgba(MEDIUM_GRAY, 0), black)
+  background: radial-gradient(rgba(MEDIUM_GRAY, 0), black), url("./black-pixel-screen.png")
   bottom: 0
   left: 0
   opacity: 0
@@ -126,14 +126,16 @@ a
 
 .readymade-main-stack
   margin: 20px auto
+  transition: margin-top 0.5s
   width: 80vw
 
+  [data-location-hash="#/"] &
+    margin-top: 45vh
+
 .readymade-home-page
-    // TODO: Implement this more robustly.
-    bottom: 10vh;
-    left: 10vw;
-    position: absolute;
-    right: 10vw;
+  text-shadow:
+    0 1px 3px black,
+    0 1px 5px black
 
   .readymade-project-summary
     font-size: 36px
@@ -146,13 +148,15 @@ a
   .readymade-call-to-action
     background: rgba(white, 0.9)
     border-radius: 0.25em
-    color: MEDIUM_GRAY
+    box-shadow: 0 5px 5px -5px
+    color: black
     display: inline-block
     font-size: 24px
     font-weight: bold
     line-height: 1
     padding: 0.5em 1.5em
     text-decoration: none
+    text-shadow: none
 
     &:hover
       background: white
@@ -261,7 +265,7 @@ a
     outline: 1px dotted // TODO: Glow? Probably depends on the browser.
 
   :active + .decision-tree-clickable
-    background: black
+    background: rgba(black, 0.5)
     color: white
 
   .decision-tree-radio,
@@ -312,17 +316,19 @@ a
       display: block
 
   .decision-tree-drawing .decision-tree-tickbox
-    background: inherit
+    border: 0.5em solid transparent
+    border-left-width: 0
+    border-right-color: rgba(black, 0.5)
     display: none
     position: absolute
-    left: 0
+    left: -0.5em
     top: 50%
-    width: 1em
-    height: 1em
-    transform: translate(-50%, -50%) rotate(45deg)
+    width: 0
+    height: 0
+    transform: translate(0, -50%)
 
   :checked + .decision-tree-drawing
-    background: black
+    background: rgba(black, 0.5)
     color: white
 
     .decision-tree-tickbox
