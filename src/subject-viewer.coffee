@@ -36,6 +36,8 @@ class SubjectViewer extends Controller
 
     @markingSurface.on 'add-tool', (tool) =>
       tool.attr @FROM_CURRENT_TASK, true
+      color = @toolOptions?.color
+      tool.el.style.color = color if color?
 
       if @toolOptions?
         for property, value of @toolOptions

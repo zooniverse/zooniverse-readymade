@@ -53,15 +53,18 @@
       "choices": [{
         "value": "point",
         "image": "//placehold.it/30.png",
-        "label": "Point"
+        "label": "Point",
+        "color": "#f00"
       }, {
         "value": "ellipse",
         "image": "//placehold.it/30.png",
-        "label": "Ellipse"
+        "label": "Ellipse",
+        "color": "#ff0"
       }, {
         "value": "text",
         "image": "//placehold.it/30.png",
-        "label": "Text"
+        "label": "Text",
+        "color": "#0f0"
       }],
       "next": "pickOne"
     },
