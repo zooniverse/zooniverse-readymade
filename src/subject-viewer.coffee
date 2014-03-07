@@ -68,14 +68,9 @@ class SubjectViewer extends Controller
         maxHeight = Math.max heights...
 
         @markingSurface.svg.attr
-          width: null
-          height: null
+          width: maxWidth
+          height: maxHeight
           viewBox: "0 0 #{maxWidth} #{maxHeight}"
-
-        if maxWidth >= maxHeight
-          @markingSurface.svg.attr 'width', maxWidth
-        else
-          @markingSurface.svg.attr 'height', maxHeight
 
         @frameGroup.attr transform: "translate(#{maxWidth / 2}, #{maxHeight / 2})"
 
