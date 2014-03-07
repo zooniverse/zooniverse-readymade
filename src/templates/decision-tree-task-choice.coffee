@@ -15,6 +15,8 @@ module.exports = (choice, i) -> "
       #{if choice.image? then "<div class='decision-tree-image'><img src='#{choice.image}' /></div>" else ''}
 
       <div class='decision-tree-label'>#{choice.label ? choice.value ? i}</div>
+
+      #{if choice.color? then "<div class='decision-tree-color' style='background: #{choice.color};'></div>" else ''}
     </div>
   </label>
 "
