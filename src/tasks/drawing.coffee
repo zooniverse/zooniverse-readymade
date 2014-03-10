@@ -4,7 +4,7 @@ class DrawingTask extends RadioTask
   @type: 'drawing'
 
   tools:
-    point: require 'marking-surface/lib/tools/point'
+    point: require '../drawing-tools/point'
     ellipse: require 'marking-surface/lib/tools/ellipse'
     rect: require 'marking-surface/lib/tools/rectangle'
     text: require 'marking-surface/lib/tools/transcription'

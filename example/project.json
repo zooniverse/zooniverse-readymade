@@ -54,7 +54,33 @@
         "value": "point",
         "image": "//placehold.it/30.png",
         "label": "Point",
-        "color": "#f00"
+        "color": "#f00",
+        "details": [{
+          "type": "radio",
+          "question": "What size is this?",
+          "key": "size",
+          "choices": [{
+            "value": 0,
+            "label": "Small"
+          }, {
+            "value": 1,
+            "label": "Medium"
+          }, {
+            "value": 2,
+            "label": "Large"
+          }]
+        }, {
+          "type": "checkbox",
+          "question": "Is it eating?",
+          "key": "eating",
+          "choices": [{
+            "value": false,
+            "label": "No"
+          }, {
+            "value": true,
+            "label": "Yes"
+          }]
+        }]
       }, {
         "value": "ellipse",
         "image": "//placehold.it/30.png",

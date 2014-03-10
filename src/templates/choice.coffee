@@ -5,9 +5,9 @@ typeMap =
 
 module.exports = (choice, i) -> "
   <label class='readymade-choice-input-wrapper'>
-    <input type='#{typeMap[@constructor?.type] ? @constructor?.type ? @type}' name='#{@key}' value='#{choice.value}' data-choice-index='#{i}' />
+    <input type='#{typeMap[@constructor?.type] ? typeMap[@type] ? @constructor?.type ? @type}' name='#{@key}' value='#{choice.value}' data-choice-index='#{i}' />
 
-    <div class='readymade-choice-clickable readymade-choice-#{@constructor.type}'>
+    <div class='readymade-choice-clickable readymade-choice-#{@constructor.type ? @type}'>
       <div class='readymade-choice-tickbox'>
         <div class='readymade-choice-tick'></div>
       </div>
@@ -16,7 +16,7 @@ module.exports = (choice, i) -> "
 
       <div class='readymade-choice-label'>#{choice.label ? choice.value ? i}</div>
 
-      #{if choice.color? then "<div class='readymade-choice-color' style='background: #{choice.color};'></div>" else ''}
+      #{if choice.color? then "<div class='readymade-choice-color' style='color: #{choice.color};'></div>" else ''}
     </div>
   </label>
 "
