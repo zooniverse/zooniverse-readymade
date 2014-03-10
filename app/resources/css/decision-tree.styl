@@ -8,14 +8,14 @@
     .decision-tree-question
       text-align: center
 
-    .decision-tree-input-wrapper
+    .readymade-choice-input-wrapper
       position: relative
 
       input
         position: absolute
         visibility: hidden
 
-    .decision-tree-clickable
+    .readymade-choice-clickable
       border-radius: 3px
       box-sizing: border-box
       cursor: pointer
@@ -27,16 +27,16 @@
       &:hover
         background rgba(black, 0.25)
 
-    :focus + .decision-tree-clickable
+    :focus + .readymade-choice-clickable
       outline: 1px dotted // TODO: Glow? Probably depends on the browser.
 
-    :active + .decision-tree-clickable
+    :active + .readymade-choice-clickable
       background: rgba(black, 0.5)
       color: white
 
-    .decision-tree-radio,
-    .decision-tree-checkbox
-      .decision-tree-tickbox
+    .readymade-choice-radio,
+    .readymade-choice-checkbox
+      .readymade-choice-tickbox
         border: 2px solid
         display: inline-block
         vertical-align: middle
@@ -44,11 +44,11 @@
         position: relative
         width: 1em
 
-    .decision-tree-radio
-      .decision-tree-tickbox
+    .readymade-choice-radio
+      .readymade-choice-tickbox
         border-radius: 50%
 
-      .decision-tree-tick
+      .readymade-choice-tick
         SPACE = 3px
         border-radius: 50%
         bottom: SPACE
@@ -57,12 +57,12 @@
         right: SPACE
         top: SPACE
 
-    :checked + .decision-tree-radio .decision-tree-tick
+    :checked + .readymade-choice-radio .readymade-choice-tick
       background: white
 
-    .decision-tree-checkbox
-      .decision-tree-tick:before,
-      .decision-tree-tick:after
+    .readymade-choice-checkbox
+      .readymade-choice-tick:before,
+      .readymade-choice-tick:after
         background: white
         display: none
         content: ""
@@ -73,15 +73,15 @@
         transform: translate(-50%, -50%) rotate(45deg)
         width: 2px
 
-      .decision-tree-tick:after
+      .readymade-choice-tick:after
         transform: translate(-50%, -50%) rotate(-45deg)
 
-    :checked + .decision-tree-checkbox
-      .decision-tree-tick:before,
-      .decision-tree-tick:after
+    :checked + .readymade-choice-checkbox
+      .readymade-choice-tick:before,
+      .readymade-choice-tick:after
         display: block
 
-    .decision-tree-drawing .decision-tree-tickbox
+    .readymade-choice-drawing .readymade-choice-tickbox
       border: 0.5em solid transparent
       border-left-width: 0
       border-right-color: rgba(black, 0.5)
@@ -93,14 +93,14 @@
       height: 0
       transform: translate(0, -50%)
 
-    :checked + .decision-tree-drawing
+    :checked + .readymade-choice-drawing
       background: rgba(black, 0.5)
       color: white
 
-      .decision-tree-tickbox
+      .readymade-choice-tickbox
         display: block
 
-    .decision-tree-image
+    .readymade-choice-image
       display: inline-block
       line-height: 1
       vertical-align: middle
@@ -108,11 +108,11 @@
       img
         display: block
 
-    .decision-tree-label
+    .readymade-choice-label
       display: inline-block
       vertical-align: middle
 
-    .decision-tree-color
+    .readymade-choice-color
       OFFSET = 3px
       bottom: OFFSET
       border-radius: 1em
@@ -121,7 +121,7 @@
       top: OFFSET
       width: 5px
 
-    .decision-tree-button .decision-tree-tickbox
+    .readymade-choice-button .readymade-choice-tickbox
       display: none
 
     button[name="decision-tree-confirm-task"]
