@@ -14,7 +14,7 @@
   "scripts": {
     "start": "haw serve --verbose --config ./app/haw-config --project ./example/project",
     "stage": "npm run build && publisssh ./build demo.zooniverse.org/readymade && npm run cleanup",
-    "build": "haw build ./build --verbose --force --no-optimize --config ./app/haw-config --project ./example/project",
+    "build": "haw build ./build --verbose --force --config ./app/haw-config --project ./example/project",
     "cleanup": "rm -rf ./build"
   }
 }
