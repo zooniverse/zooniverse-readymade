@@ -1,12 +1,29 @@
+#_DECISION_TREE_META_BUTTON
+  @extends #_RESET_BUTTON
+  background: rgba(MEDIUM_GRAY, 0.5)
+  border: 1px solid
+  border-radius: 3px
+  display: block
+  font-size: 12px
+  font-weight: bold
+  letter-spacing: 1px
+  line-height: 1
+  margin: 2em auto
+  padding: 0.5em 0
+  position: relative
+  text-transform: uppercase
+  width: 7em
+
 .readymade-decision-tree-container
   .decision-tree
-    padding-left: 15px
+    padding-left: 1em
 
     button[name="decision-tree-go-back"]
       @extends #_DECISION_TREE_META_BUTTON
 
     .decision-tree-question
       text-align: center
+      margin: 2em 0
 
     button[name="decision-tree-confirm-task"]
       @extends #_DECISION_TREE_META_BUTTON
