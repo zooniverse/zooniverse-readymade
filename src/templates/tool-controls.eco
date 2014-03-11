@@ -1,14 +1,1 @@
-<% choiceTemplate = require './choice' %>
-
 <button name='readymade-destroy-drawing'>&times;</button>
-
-<% for detail in this: %>
-  <div class="readymade-drawing-detail">
-    <%= detail.question %>
-
-    <% for choice, i in detail.choices: %>
-      <% console.log detail %>
-      <%- choiceTemplate.call detail, choice, i %>
-    <% end %>
-  </div>
-<% end %>

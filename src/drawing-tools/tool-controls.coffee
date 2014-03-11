@@ -1,17 +1,41 @@
 {ToolControls: BaseToolControls} = require 'marking-surface'
+{Task} = require 'zooniverse-decision-tree'
 
 class ToolControls extends BaseToolControls
-  template: require '../templates/tool-controls'
+  template: require('../templates/tool-controls')()
+  details: null
+
+  taskTypes:
+    radio: require '../tasks/radio'
+    checkbox: require '../tasks/checkbox'
 
   constructor: ->
+    @detailTasks = {}
+
     super
-
-    setTimeout =>
-      @el.innerHTML = @template @tool.details
-
     @addEvent 'click', 'button[name="readymade-destroy-drawing"]', [@tool.mark, 'destroy']
+    @addEvent 'change', @onChange
+
+    setTimeout => # Ugh.
+      if @details?
+        for detail in @details
+          @addDetail detail
+
+  addDetail: (detail) ->
+    unless detail instanceof Task
+      detail = new @taskTypes[detail.type] detail
+    @detailTasks[detail.key] = detail
+    detail.renderTemplate()
+    @el.appendChild detail.el
+    detail.show()
+
+  onChange: (e) ->
+    for key, task of @detailTasks
+      @tool.mark.set key, task.getValue()
 
   render: ->
-    super
+    setTimeout => # Ugh.
+      for key, task of @detailTasks
+        task.reset @tool.mark[key]
 
 module.exports = ToolControls
