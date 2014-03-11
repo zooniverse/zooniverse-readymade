@@ -22,12 +22,14 @@ class ToolControls extends BaseToolControls
           @addDetail detail
 
   addDetail: (detail) ->
+    form = @el.querySelector 'form'
+
     unless detail instanceof Task
       detail = new @taskTypes[detail.type] detail
     @detailTasks[detail.key] = detail
     detail.renderTemplate()
-    @el.appendChild detail.el
     detail.show()
+    form.appendChild detail.el
 
   onChange: (e) ->
     for key, task of @detailTasks
