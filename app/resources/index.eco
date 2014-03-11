@@ -11,7 +11,7 @@
 
   <body>
     <% if @project.background?: %>
-      <div id="readymade-site-background" style="background-image: url('<%= @project.background %>');">
+      <div id="readymade-site-background">
         <div id="readymade-site-background-effect"></div>
       </div>
     <% end %>

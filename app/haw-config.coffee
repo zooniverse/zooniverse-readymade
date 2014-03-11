@@ -31,6 +31,8 @@ module.exports = (options) ->
     for file in @project.css || []
       styl.import path.resolve path.dirname(@project), file
 
+    styl.define 'project-background', @project.background
+
   @modifyBrowserify = (b) ->
     b.require options.project, expose: 'readymade-project-configuration'
 
