@@ -4,17 +4,15 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=1000" />
-    <title><%= @project.title %></title>
+    <title></title>
     <link rel="stylesheet" href="./main.css" />
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" />
   </head>
 
   <body>
-    <% if @project.background?: %>
-      <div id="readymade-site-background">
-        <div id="readymade-site-background-effect"></div>
-      </div>
-    <% end %>
+    <div id="readymade-site-background">
+      <div id="readymade-site-background-effect"></div>
+    </div>
 
     <script src="//code.jquery.com/jquery-2.1.0.js"></script>
     <script src="./main.js"></script>

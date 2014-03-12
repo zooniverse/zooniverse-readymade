@@ -1,6 +1,6 @@
 {
   "id": "asteroid",
-  "static": ".",
+  "static": "public",
   "css": [],
   "js": [],
 

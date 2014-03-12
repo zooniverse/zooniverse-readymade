@@ -12,16 +12,14 @@ freshRequire = (modulePath) ->
 module.exports = (options) ->
   @port = 2005
 
-  @mount = {}
   @mount[path.resolve resourcesDir, 'public'] = '/'
 
-  @generate =
-    '/index.html': path.resolve resourcesDir, 'index.eco'
-    '/main.css': path.resolve resourcesDir, 'css', 'main.styl'
-    '/main.js': path.resolve resourcesDir, 'js','main.coffee'
+  @generate['/index.html'] = path.resolve resourcesDir, 'index.eco'
+  @generate['/main.css'] = path.resolve resourcesDir, 'css', 'main.styl'
+  @generate['/main.js'] = path.resolve resourcesDir, 'js','main.coffee'
 
   @generateFile = ->
-    @project = freshRequire @['project-config'] if @['project-config']?
+    # @project = freshRequire @['project-config'] if @['project-config']? # TODO: Figure this out.
     Server::generateFile.apply this, arguments
 
   @modifyStylus = (styl) ->
