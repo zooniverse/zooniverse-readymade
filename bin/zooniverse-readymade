@@ -1,0 +1,6 @@
+#!/usr/bin/env node
+
+require('coffee-script/register');
+var CLI = require('../app/cli');
+var cli = new CLI();
+cli.run(process.argv.slice(2));

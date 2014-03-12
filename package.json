@@ -1,9 +1,10 @@
 {
   "name": "zooniverse-readymade",
-  "version": "0.0.1",
+  "version": "0.0.2",
+  "bin": "bin/zooniverse-readymade",
   "dependencies": {
     "coffee-script": "~1.7.1",
-    "haw": "~0.3.8",
+    "haw": "~0.4.1",
     "jquery": "~2.1.0",
     "marking-surface": "~0.5.2",
     "publisssh": "~0.2.4",
@@ -12,9 +13,9 @@
     "zooniverse": "~0.3.8"
   },
   "scripts": {
-    "start": "haw serve --verbose --config ./app/haw-config --project ./example/project",
+    "start": "./bin/zooniverse-readymade serve --verbose --project-config ./example/project",
     "stage": "npm run build && publisssh ./build demo.zooniverse.org/readymade && npm run cleanup",
-    "build": "haw build ./build --verbose --force --config ./app/haw-config --project ./example/project",
+    "build": "./bin/zooniverse-readymade build --verbose --force --project-config ./example/project --output ./build",
     "cleanup": "rm -rf ./build"
   }
 }
