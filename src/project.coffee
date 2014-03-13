@@ -1,5 +1,6 @@
 Api = require 'zooniverse/lib/api'
 TopBar = require 'zooniverse/controllers/top-bar'
+SiteBackground = require './site-background'
 SiteHeader = require './site-header'
 StackOfPages = require 'stack-of-pages'
 homePageTemplate = require './templates/home-page'
@@ -15,6 +16,7 @@ class Project
   title: ''
   summary: ''
   description: ''
+  background: ''
 
   about: ''
   pages: null
@@ -29,6 +31,11 @@ class Project
   constructor: (configuration = {}) ->
     for property, value of configuration
       @[property] = value
+
+    if @background
+      @siteBackground = new SiteBackground
+        src: @background
+      @siteBackground.el.appendTo document.body
 
     if @id
       @connect @id

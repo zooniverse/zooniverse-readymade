@@ -29,8 +29,8 @@ hr
 a
   color: lime
 
-#readymade-site-background
-  background-color: #555
+.readymade-site-background
+  background-color: MEDIUM_GRAY
   background-position: 50% 33%
   background-size: cover
   bottom: 0
@@ -45,8 +45,10 @@ a
   [data-location-hash="#/"] &
     opacity: 1
 
-#readymade-site-background-effect
-  background: radial-gradient(rgba(MEDIUM_GRAY, 0), black), url("./black-pixel-screen.png")
+.readymade-site-background-effect
+  background:
+    radial-gradient(rgba(MEDIUM_GRAY, 0), black),
+    url("./black-pixel-screen.png")
   bottom: 0
   left: 0
   opacity: 0

@@ -8,8 +8,4 @@ if projectConfiguration.title?
   titleContainer.innerHTML = projectConfiguration.title
   document.title = titleContainer.textContent
 
-if projectConfiguration.background?
-  backgroundContainer = document.getElementById 'readymade-site-background'
-  backgroundContainer.style.backgroundImage = "url('#{projectConfiguration.background}')"
-
 window.zooniverseProject = new Project projectConfiguration

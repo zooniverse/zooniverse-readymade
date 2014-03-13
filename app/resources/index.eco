@@ -10,10 +10,6 @@
   </head>
 
   <body>
-    <div id="readymade-site-background">
-      <div id="readymade-site-background-effect"></div>
-    </div>
-
     <script src="//code.jquery.com/jquery-2.1.0.js"></script>
     <script src="./main.js"></script>
   </body>
