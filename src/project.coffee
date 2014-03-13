@@ -33,8 +33,7 @@ class Project
       @[property] = value
 
     if @background
-      @siteBackground = new SiteBackground
-        src: @background
+      @siteBackground = new SiteBackground src: @background
       @siteBackground.el.appendTo document.body
 
     if @id
@@ -50,9 +49,7 @@ class Project
       @addPage '#/', 'Home', homePageTemplate @
 
     if @tasks?
-      @addPage '#/classify', 'Classify', new ClassifyPage
-        stepSpecs: @tasks
-        firstStep: @firstTask
+      @addPage '#/classify', 'Classify', new ClassifyPage {@tasks, @firstTask}
 
     if @about
       @addPage '#/about', 'About', "<div>#{@about}</div>"

@@ -7,8 +7,8 @@ Subject = require 'zooniverse/models/subject'
 Classification = require 'zooniverse/models/classification'
 
 class ClassifyPage extends Controller
-  stepSpecs: null
-  firstStep: ''
+  tasks: null
+  firstTask: ''
 
   className: 'readymade-classify-page'
   template: require './templates/classify-page'
@@ -46,8 +46,8 @@ class ClassifyPage extends Controller
         checkbox: require './tasks/checkbox'
         button: require './tasks/button'
         drawing: DrawingTask
-      tasks: @stepSpecs
-      firstTask: @firstStep
+      tasks: @tasks
+      firstTask: @firstTask || Object.keys(@tasks)[0]
 
     @el.on @decisionTree.LOAD_TASK, ({originalEvent: e}) =>
       @subjectViewer.setTaskIndex e.detail.index

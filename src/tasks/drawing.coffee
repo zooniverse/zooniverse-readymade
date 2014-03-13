@@ -15,6 +15,10 @@ class DrawingTask extends RadioTask
     super
     @el.addEventListener 'change', this, false
 
+    if @choices.length is 1
+      @reset @choices[0].value
+      @selectTool @choices[0].value, @choices[0]
+
   exit: ->
     super
     @el.removeEventListener 'change', this, false

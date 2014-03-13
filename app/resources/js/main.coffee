@@ -1,5 +1,3 @@
-# window.jQuery = require 'jquery'
-
 Project = require '../../../src/project'
 projectConfiguration = require 'readymade-project-configuration'
 
