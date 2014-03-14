@@ -3,13 +3,8 @@ toSource = require 'tosource'
 
 resourcesDir = path.resolve path.dirname(module.filename), 'resources'
 
-freshRequire = (modulePath) ->
-  modulePath = require.resolve path.resolve modulePath
-  delete require.cache[modulePath]
-  require modulePath
-
 module.exports = (options) ->
-  @port = 2005
+  @port = 2005 # It's ZOOS, get it? Haaa.
 
   @mount[path.resolve resourcesDir, 'public'] = '/'
 
@@ -17,17 +12,19 @@ module.exports = (options) ->
   @generate['/main.css'] = path.resolve resourcesDir, 'css', 'main.styl'
   @generate['/main.js'] = path.resolve resourcesDir, 'js','main.coffee'
 
-  @modifyStylus = (styl) ->
-    if @project?
-      for file in @project.css || []
-        styl.import path.resolve path.dirname(path.resolve @['project-config']), file
-
-      styl.define 'project-background', @project.background
+  @js = ''
+  @css = ''
 
   @modifyBrowserify = (b) ->
-    if @['project-config']?
-      b.require path.resolve(@['project-config']), expose: 'readymade-project-configuration'
+    projectPath = try require.resolve path.resolve @project
 
-    if @project?
-      for file in @project.js || []
-        b.add path.resolve path.dirname(path.resolve @['project-config']), file
+    if projectPath?
+      b.require projectPath, expose: 'readymade-project-configuration'
+
+    for file in [].concat @js
+      b.add path.resolve path.dirname(path.resolve @project), file
+
+  @modifyStylus = (styl) ->
+    for file in [].concat @css
+      # NOTE: These are currently added *before* the main file.
+      styl.import path.resolve file
