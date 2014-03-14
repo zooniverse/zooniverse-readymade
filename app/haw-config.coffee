@@ -1,6 +1,5 @@
 path = require 'path'
 toSource = require 'tosource'
-Server = require 'haw/lib/server'
 
 resourcesDir = path.resolve path.dirname(module.filename), 'resources'
 
@@ -17,10 +16,6 @@ module.exports = (options) ->
   @generate['/index.html'] = path.resolve resourcesDir, 'index.eco'
   @generate['/main.css'] = path.resolve resourcesDir, 'css', 'main.styl'
   @generate['/main.js'] = path.resolve resourcesDir, 'js','main.coffee'
-
-  @generateFile = ->
-    # @project = freshRequire @['project-config'] if @['project-config']? # TODO: Figure this out.
-    Server::generateFile.apply this, arguments
 
   @modifyStylus = (styl) ->
     if @project?
