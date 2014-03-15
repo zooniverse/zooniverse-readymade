@@ -1,7 +1,9 @@
 path = require 'path'
 toSource = require 'tosource'
+fs = require 'fs'
 
-resourcesDir = path.resolve path.dirname(module.filename), 'resources'
+appLibDir = path.resolve path.dirname module.filename
+resourcesDir = path.resolve appLibDir, 'resources'
 
 module.exports = (options) ->
   @port = 2005 # It's ZOOS, get it? Haaa.
@@ -12,8 +14,8 @@ module.exports = (options) ->
   @generate['/main.css'] = path.resolve resourcesDir, 'css', 'main.styl'
   @generate['/main.js'] = path.resolve resourcesDir, 'js','main.coffee'
 
-  @js = ''
-  @css = ''
+  @js = []
+  @css = []
 
   @modifyBrowserify = (b) ->
     projectPath = try require.resolve path.resolve @project
@@ -28,3 +30,13 @@ module.exports = (options) ->
     for file in [].concat @css
       # NOTE: These are currently added *before* the main file.
       styl.import path.resolve file
+
+  readResourceSync = (resource) ->
+    fs.readFileSync path.resolve resourcesDir, resource
+
+  @init =
+    default:
+      'project.coffee': readResourceSync('project-template.coffee').toString()
+      'project.styl': readResourceSync('project-template.styl').toString()
+      public:
+        'the-milky-way-fpo.jpg': readResourceSync 'the-milky-way-fpo.jpg'
