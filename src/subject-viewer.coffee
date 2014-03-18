@@ -50,7 +50,7 @@ class SubjectViewer extends Controller
 
     @markingSurfaceContainer.append @markingSurface.el
 
-  loadSubject: (@subject, classification, callback) ->
+  loadSubject: (@subject, callback) ->
     @pauseFrames()
 
     @markingSurface.reset()
@@ -85,6 +85,9 @@ class SubjectViewer extends Controller
 
     @playButton.prop 'disabled', subjectImages.length is 1
     @togglesList.find('button').prop 'disabled', subjectImages.length is 1
+
+  loadClassification: ->
+    # TODO: For each annotation, figure out the right tools and draw any marks.
 
   addFrame: (imgSrc, callback) ->
     loadImage imgSrc, ({src, width, height}) =>

@@ -55,15 +55,14 @@ class ClassifyPage extends Classifier
   loadClassification: (classification) ->
     super
     @subjectViewer.loadClassification classification
-    @decisionTree.reset classification
+    @decisionTree.reset() # TODO: Pass in a classification.
 
-  finishSubject: ->
-    for annotation in @composeClassification()
+  sendClassification: ->
+    for annotation in @composeAnnotations()
       @classification.annotate annotation
-    console?.log JSON.stringify @classification
-    Subject.next()
+    super
 
-  composeClassification: ->
+  composeAnnotations: ->
     annotations = []
 
     decisionTreeValues = @decisionTree.getValues()

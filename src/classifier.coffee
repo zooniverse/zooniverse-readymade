@@ -54,23 +54,26 @@ class Classifier extends Controller
 
   onSubjectSelect: (subject) ->
     @createClassification subject
-    @loadSubject subject, null, =>
+    @loadSubject subject, =>
+      @loadClassification @classification
       @el.removeClass 'readymade-loading'
 
   createClassification: (subject) ->
     @classification = new Classification {subject}
 
   loadSubject: (subject, callback) ->
+    # Do whatever you want here.
 
-  loadClassification: (classification, callback) ->
+  loadClassification: (classification) ->
+    # Do whatever you want here.
 
   finishSubject: ->
     @sendClassification()
     @getNextSubject()
 
   sendClassification: ->
-    @classification.send()
-    console?.log 'Sent', JSON.stringify @classification if IS_DEV
+    # @classification.send()
+    console?.log JSON.stringify @classification if IS_DEV
 
   getNextSubject: ->
     Subject.next()
