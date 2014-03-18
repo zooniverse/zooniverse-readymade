@@ -62,7 +62,8 @@ class SubjectViewer extends Controller
     widths = []
     heights = []
 
-    subjectImages = [].concat @subject.location.standard
+    subjectImages = @subject.location.standard ? @subject.location
+    subjectImages = [].concat subjectImages
     for imgSrc, i in subjectImages then do (i) =>
       @addFrame imgSrc, (image) =>
         widths.push image.attr 'width'

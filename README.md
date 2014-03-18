@@ -1,9 +1,9 @@
-Zooniverse-readymade is a library that builds basic Zooniverse projects out of a fairly straightforward configuration. The `zooniverse-readymade` command serves and build those projects.
+Zooniverse-readymade is a library that builds basic Zooniverse projects out of a fairly straightforward configuration. The `zooniverse-readymade` command initializes, serves, and builds those projects.
 
 ```sh
 npm install zooniverse-readymade              # Install
 zooniverse-readymade init                     # Generate a project template
-subl ./project.{coffee,styl}                  # Edit the configuration and style
+$EDITOR ./project.{coffee,styl}               # Edit the configuration and style
 zooniverse-readymade serve --css project.styl # Run the server
 open http://localhost:2005/index.html         # Open in your broweser
 zooniverse-readymade build --css project.styl # Build the static app
@@ -84,4 +84,4 @@ Team page
 
 `developers`: An array of member developers.
 
-Member properties are `image`, `name`, `location`, `description`, and `url`, all optional.
+Member properties are `image`, `name`, `location`, `description`, and `url`; all optional.
