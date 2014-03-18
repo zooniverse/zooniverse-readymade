@@ -1,4 +1,4 @@
-Controller = require 'zooniverse/controllers/base-controller'
+Classifier = require './classifier'
 SubjectViewer = require './subject-viewer'
 DecisionTree = require 'zooniverse-decision-tree'
 DrawingTask = require './tasks/drawing'
@@ -6,11 +6,11 @@ User = require 'zooniverse/models/user'
 Subject = require 'zooniverse/models/subject'
 Classification = require 'zooniverse/models/classification'
 
-class ClassifyPage extends Controller
+class ClassifyPage extends Classifier
   tasks: null
   firstTask: ''
 
-  className: 'readymade-classify-page'
+  className: "#{Classifier::className} readymade-classify-page"
   template: require './templates/classify-page'
 
   elements:
@@ -19,21 +19,8 @@ class ClassifyPage extends Controller
 
   constructor: ->
     super
-
     @createSubjectViewer()
     @createDecisionTree()
-
-    User.on 'change', (e, user) =>
-      @onUserChange user
-
-    Subject.on 'getting-next', =>
-      @onSubjectGettingNext()
-
-    Subject.on 'select', (e, subject) =>
-      @onSubjectSelect subject
-
-    if +location.port > 1023
-      window.classifyPage = @
 
   createSubjectViewer: ->
     @subjectViewer = new SubjectViewer
@@ -61,23 +48,14 @@ class ClassifyPage extends Controller
 
     @decisionTreeContainer.append @decisionTree.el
 
-  onUserChange: (user) ->
-    @loadSubject() unless @classification?
+  loadSubject: (subject, callback) ->
+    super
+    @subjectViewer.loadSubject subject, callback
 
-  onSubjectGettingNext: ->
-    @el.addClass 'loading'
-
-  onSubjectSelect: (subject) ->
-    @classification = new Classification {subject}
-    @loadSubject subject, null, =>
-      @el.removeClass 'loading'
-
-  loadSubject: (subject, classification, callback) ->
-    if subject?
-      @subjectViewer.loadSubject subject, classification, callback
-      @decisionTree.reset classification
-    else
-      Subject.next()
+  loadClassification: (classification) ->
+    super
+    @subjectViewer.loadClassification classification
+    @decisionTree.reset classification
 
   finishSubject: ->
     for annotation in @composeClassification()
