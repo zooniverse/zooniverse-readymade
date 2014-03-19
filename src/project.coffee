@@ -5,6 +5,7 @@ SiteHeader = require './site-header'
 StackOfPages = require 'stack-of-pages'
 homePageTemplate = require './templates/home-page'
 ClassifyPage = require './classify-page'
+Profile = require 'zooniverse/controllers/profile'
 teamPageTemplate = require './templates/team-page'
 User = require 'zooniverse/models/user'
 
@@ -50,6 +51,9 @@ class Project
 
     if @tasks?
       @addPage '#/classify', 'Classify', new ClassifyPage {@tasks, @firstTask}
+
+    unless @profile is false
+      @addPage '#/profile', 'Profile', new Profile
 
     if @about
       @addPage '#/about', 'About', "<div>#{@about}</div>"
