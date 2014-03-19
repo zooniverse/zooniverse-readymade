@@ -19,14 +19,10 @@ class ClassifyPage extends Classifier
 
   constructor: ->
     super
-    @createSubjectViewer()
-    @createDecisionTree()
 
-  createSubjectViewer: ->
     @subjectViewer = new SubjectViewer
     @subjectViewerContainer.append @subjectViewer.el
 
-  createDecisionTree: ->
     @decisionTree = new DecisionTree
       taskTypes:
         radio: require './tasks/radio'
@@ -36,14 +32,14 @@ class ClassifyPage extends Classifier
       tasks: @tasks
       firstTask: @firstTask || Object.keys(@tasks)[0]
 
-    @el.on @decisionTree.LOAD_TASK, ({originalEvent: e}) =>
+    @listenTo @decisionTree.el, @decisionTree.LOAD_TASK, (e) =>
       @subjectViewer.setTaskIndex e.detail.index
 
-    @el.on DrawingTask::SELECT_TOOL, ({originalEvent: e}) =>
+    @listenTo @decisionTree.el, DrawingTask::SELECT_TOOL, (e) =>
       {tool, choice} = e.detail
       @subjectViewer.setTool tool, choice
 
-    @el.on @decisionTree.COMPLETE, =>
+    @listenTo @decisionTree.el, @decisionTree.COMPLETE, =>
       @finishSubject()
 
     @decisionTreeContainer.append @decisionTree.el
