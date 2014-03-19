@@ -38,6 +38,8 @@ class SubjectViewer extends Controller
       tool.attr @FROM_CURRENT_TASK, true
       color = @toolOptions?.color
       tool.el.style.color = color if color?
+      tool.unit = @toolOptions.unit
+      tool.upp = @toolOptions.upp
       tool.controls?.details = @toolOptions.details
 
       if @toolOptions?

@@ -9,6 +9,23 @@
     height: 100%
     width: 100%
 
+  .readymade-coordinates-label
+    font-size: 10px
+    font-weight: bold
+    opacity: 0
+    pointer-events: none
+    transition: opacity 0.5s
+
+    rect
+      fill: rgba(black, 0.5)
+
+    text
+      fill: white
+
+  .marking-surface-tool[data-show-coordinates][data-selected] .readymade-coordinates-label
+    opacity: 1
+    transition: opacity 0.05s
+
   .marking-surface-tool-controls-container
     width: 100% // TODO: This should be the default.
 
