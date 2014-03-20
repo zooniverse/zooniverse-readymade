@@ -18,6 +18,9 @@
   &:hover
     background rgba(black, 0.25)
 
+[data-filtered] + .readymade-choice-clickable
+  opacity: 0.33
+
 :focus + .readymade-choice-clickable
   outline: 1px dotted // TODO: Glow? Probably depends on the browser.
 
@@ -25,9 +28,9 @@
   background: rgba(black, 0.5)
   color: white
 
-.readymade-choice-radio,
-.readymade-choice-checkbox
-  .readymade-choice-tickbox
+[type="radio"],
+[type="checkbox"]
+  & + .readymade-choice-clickable .readymade-choice-tickbox
     border: 2px solid
     display: inline-block
     vertical-align: middle
@@ -35,7 +38,7 @@
     position: relative
     width: 1em
 
-.readymade-choice-radio
+[type="radio"] + .readymade-choice-clickable
   .readymade-choice-tickbox
     border-radius: 50%
 
@@ -48,10 +51,10 @@
     right: SPACE
     top: SPACE
 
-:checked + .readymade-choice-radio .readymade-choice-tick
+[type="radio"]:checked + .readymade-choice-clickable .readymade-choice-tick
   background: currentColor
 
-.readymade-choice-checkbox
+[type="checkbox"] + .readymade-choice-clickable
   .readymade-choice-tick:before,
   .readymade-choice-tick:after
     background: currentColor
@@ -67,7 +70,7 @@
   .readymade-choice-tick:after
     transform: translate(-50%, -50%) rotate(-45deg)
 
-:checked + .readymade-choice-checkbox
+[type="checkbox"]:checked + .readymade-choice-clickable
   .readymade-choice-tick:before,
   .readymade-choice-tick:after
     display: block

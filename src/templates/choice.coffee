@@ -2,6 +2,7 @@
 
 typeMap =
   'drawing': 'radio'
+  'filter': 'radio'
 
 module.exports = (choice, i) -> "
   <label class='readymade-choice-input-wrapper'>

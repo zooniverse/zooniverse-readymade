@@ -28,6 +28,7 @@ class ClassifyPage extends Classifier
         radio: require './tasks/radio'
         checkbox: require './tasks/checkbox'
         button: require './tasks/button'
+        filter: require './tasks/filter'
         drawing: DrawingTask
       tasks: @tasks
       firstTask: @firstTask || Object.keys(@tasks)[0]

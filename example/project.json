@@ -44,6 +44,43 @@
   }],
 
   "tasks": {
+    "filterSomeThings": {
+      "type": "filter",
+      "question": "What species can you see?",
+      "filters": [{
+        "key": "color",
+        "label": "Color",
+        "values": [
+          {"value": "red", "label": "Red"},
+          {"value": "green", "label": "Green"},
+          {"value": "blue", "label": "Blue"}
+        ]
+      }, {
+        "key": "size",
+        "label": "Size",
+        "values": [
+          {"value": "small", "label": "Small"},
+          {"value": "medium", "label": "Medium"},
+          {"value": "large", "label": "Large"}
+        ]
+      }],
+      "choices": [{
+        "value": "dog",
+        "label": "Dog",
+        "traits": {
+          "color": ["red", "blue"],
+          "size": ["medium", "large"]
+        }
+      }, {
+        "value": "cat",
+        "label": "Cat",
+        "traits": {
+          "color": ["blue"],
+          "size": ["small", "medium"]
+        }
+      }]
+    },
+
     "drawSomething": {
       "type": "drawing",
       "question": "Draw something.",
@@ -52,6 +89,8 @@
         "image": "//placehold.it/30.png",
         "label": "Point",
         "color": "#f00",
+        // "unit": "px",
+        // "upp": 1,
         "details": [{
           "type": "radio",
           "question": "What size is this?",
@@ -135,5 +174,5 @@
     }
   },
 
-  "firstTask": "drawSomething"
+  "firstTask": "filterSomeThings"
 }
