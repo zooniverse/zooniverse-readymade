@@ -13,9 +13,9 @@
     "zooniverse": "~0.3.8"
   },
   "scripts": {
-    "start": "./bin/zooniverse-readymade serve --verbose --root ./example --project-config ./example/project",
+    "start": "./bin/zooniverse-readymade serve --verbose --root ./example --project ./example/project",
     "stage": "npm run build && publisssh ./build demo.zooniverse.org/readymade && npm run cleanup",
-    "build": "./bin/zooniverse-readymade build --verbose --force --root ./example --project-config ./example/project --output ./build",
+    "build": "./bin/zooniverse-readymade build --verbose --force --root ./example --project ./example/project --output ./build",
     "cleanup": "rm -rf ./build"
   }
 }
