@@ -1,0 +1,23 @@
+.readymade-classification-filter
+  display: inline-block
+
+  .readymade-filter-button
+    @extends #_RESET_BUTTON
+
+.readymade-filter-menu
+  ARROW_SIZE = 10px
+
+  background: lighten(black, 5%);
+  border-radius: 5px
+  margin-top: ARROW_SIZE
+  padding: 5px
+  z-index: 1
+
+  &:before
+    border: ARROW_SIZE solid transparent
+    border-bottom-color: rgba(black, 0.75)
+    border-top-width: 0
+    bottom: 100%
+    content: ""
+    position: absolute
+    right: 10px

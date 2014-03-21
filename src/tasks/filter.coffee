@@ -1,7 +1,11 @@
 RadioTask = require './radio'
+Dropdown = require 'zooniverse/controllers/dropdown'
+choiceTemplate = require '../templates/choice'
 
 class FilterTask extends RadioTask
   @type: 'filter'
+
+  filters: null
 
   filtersEl: null
 
@@ -11,13 +15,21 @@ class FilterTask extends RadioTask
     </div>
   "
 
+  valueTemplate: (filter, value, i) ->
+    filter = Object.create filter
+    filter.type ?= 'radio'
+    choiceTemplate.call filter, value, i
+
   filterTemplate: (filter, i) -> "
     <div class='readymade-classification-filter'>
-      <span class=''>#{filter.label}</span>
-      <select data-filter='#{filter.key}' data-filter-index='#{i}'>
-        <option selected='selected'>&mdash;</option>
-        #{"<option value='#{value.value}' data-filter-value-index='#{v}'>#{value.label}</option>" for value, v in filter.values}
-      </select>
+      <button name='#{filter.key}' class='readymade-filter-button'>#{filter.label}</button>
+
+      <div class='readymade-filter-menu'>
+        <form>
+          #{(@valueTemplate filter, value, v for value, v in filter.values).join '\n'}
+          #{@valueTemplate {key: filter.key, type: 'button'}, {label: '&times;', value: ''}, 0}
+        </form>
+      </div>
     </div>
   "
 
@@ -25,38 +37,61 @@ class FilterTask extends RadioTask
     super
     questionEl = @el.querySelector '.decision-tree-question'
     questionEl.insertAdjacentHTML 'afterEnd', @filtersTemplate()
-    @filtersEl = @el.querySelector '.readymade-classification-filters'
+    filtersEl = @el.querySelector '.readymade-classification-filters'
+
+    buttons = filtersEl.querySelectorAll '.readymade-filter-button'
+    @menus = filtersEl.querySelectorAll '.readymade-filter-menu'
+    @clearButtons = for menu in @menus
+      menu.querySelector 'input[type="button"]'
+
+    console.log @clearButtons
+    for i in [0...buttons.length]
+      new Dropdown
+        button: buttons[i]
+        menu: @menus[i]
+        buttonPinning: [1, 1]
+        menuPinning: [1, 0]
 
   enter: ->
     super
-    @filtersEl.addEventListener 'change', this
+    for i in [0...@menus.length]
+      @menus[i].addEventListener 'change', this
+      @clearButtons[i].addEventListener 'click', this
 
   exit: ->
-    @filtersEl.removeEventListener 'change', this
+    for i in [0...@menus.length]
+      @menus[i].removeEventListener 'change', this
+      @clearButtons[i].removeEventListener 'click', this
     super
 
   handleEvent: (e) ->
-    if e.type is 'change' and e.currentTarget is @filtersEl
+    if e.type is 'change' and e.currentTarget in @menus
       @handleFilterChange e
+    else if e.type is 'click' and e.currentTarget in @clearButtons
+      @clearFilter @clearButtons.indexOf e.currentTarget
     else
       super
+
+  clearFilter: (index) ->
+    checked = @menus[index].querySelector ':checked'
+    checked?.checked = false
+    @handleFilterChange()
 
   handleFilterChange: ->
     filterSettings = {}
 
-    selects = @filtersEl.querySelectorAll '[data-filter-index]'
+    for menu in @menus
+      checked = menu.querySelector ':checked'
+      if checked
+        filterIndex = Array::indexOf.call @menus, menu
+        valueIndex = checked.getAttribute 'data-choice-index'
+        filterSettings[@filters[filterIndex].key] = @filters[filterIndex].values[valueIndex].value
+
     choiceEls = @el.querySelectorAll '[data-choice-index]'
-
-    for filter, i in @filters
-      if selects[i].selectedIndex > 0
-        filterSettings[filter.key] = filter.values[selects[i].selectedIndex - 1].value
-
     for choice, i in choiceEls
       choice.removeAttribute 'data-filtered'
       for key, value of filterSettings
         unless value in @choices[i].traits[key]
           choice.setAttribute 'data-filtered', true
-
-    console.log 'filter changed', JSON.stringify filterSettings
 
 module.exports = FilterTask
