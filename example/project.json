@@ -73,12 +73,14 @@
         }
       }, {
         "value": "cat",
+        "image": "//placehold.it/100.png",
         "label": "Cat",
         "traits": {
           "color": ["blue"],
           "size": ["small", "medium"]
         }
-      }]
+      }],
+      "next": "drawSomething"
     },
 
     "drawSomething": {

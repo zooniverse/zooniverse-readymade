@@ -7,11 +7,27 @@ class FilterTask extends RadioTask
 
   filters: null
 
-  filtersEl: null
+  currentFilters: null
+
+  buttons: null
+  menus: null
+  clearButtons: null
+  dropdowns: null
 
   filtersTemplate: -> "
     <div class='readymade-classification-filters'>
-      #{(@filterTemplate filter, i for filter, i in @filters).join '\n'}
+      #{("
+        <div class='readymade-classification-filter'>
+          <button name='#{filter.key}' class='readymade-filter-button'>#{filter.label}</button>
+
+          <div class='readymade-filter-menu'>
+            <form>
+              #{(@valueTemplate filter, value, v for value, v in filter.values).join '\n'}
+              #{@valueTemplate {key: filter.key, type: 'button'}, {label: '&times;', value: ''}, 0}
+            </form>
+          </div>
+        </div>
+      " for filter, i in @filters).join '\n'}
     </div>
   "
 
@@ -20,34 +36,26 @@ class FilterTask extends RadioTask
     filter.type ?= 'radio'
     choiceTemplate.call filter, value, i
 
-  filterTemplate: (filter, i) -> "
-    <div class='readymade-classification-filter'>
-      <button name='#{filter.key}' class='readymade-filter-button'>#{filter.label}</button>
-
-      <div class='readymade-filter-menu'>
-        <form>
-          #{(@valueTemplate filter, value, v for value, v in filter.values).join '\n'}
-          #{@valueTemplate {key: filter.key, type: 'button'}, {label: '&times;', value: ''}, 0}
-        </form>
-      </div>
-    </div>
-  "
+  constructor: ->
+    super
+    @currentFilters ?= {}
+    @reflectFilter()
 
   renderTemplate: ->
     super
     questionEl = @el.querySelector '.decision-tree-question'
     questionEl.insertAdjacentHTML 'afterEnd', @filtersTemplate()
+
     filtersEl = @el.querySelector '.readymade-classification-filters'
 
-    buttons = filtersEl.querySelectorAll '.readymade-filter-button'
-    @menus = filtersEl.querySelectorAll '.readymade-filter-menu'
+    @buttons = Array::slice.call filtersEl.querySelectorAll '.readymade-filter-button'
+    @menus = Array::slice.call filtersEl.querySelectorAll '.readymade-filter-menu'
     @clearButtons = for menu in @menus
-      menu.querySelector 'input[type="button"]'
+      menu.querySelector 'input[type="button"][value=""]'
 
-    console.log @clearButtons
-    for i in [0...buttons.length]
+    @dropdowns = for i in [0...@buttons.length]
       new Dropdown
-        button: buttons[i]
+        button: @buttons[i]
         menu: @menus[i]
         buttonPinning: [1, 1]
         menuPinning: [1, 0]
@@ -66,27 +74,27 @@ class FilterTask extends RadioTask
 
   handleEvent: (e) ->
     if e.type is 'change' and e.currentTarget in @menus
-      @handleFilterChange e
+      @handleFilterChange @menus.indexOf e.currentTarget
+      Dropdown.closeAll()
     else if e.type is 'click' and e.currentTarget in @clearButtons
       @clearFilter @clearButtons.indexOf e.currentTarget
     else
       super
 
-  clearFilter: (index) ->
+  handleFilterChange: (index) ->
     checked = @menus[index].querySelector ':checked'
-    checked?.checked = false
-    @handleFilterChange()
+    if checked
+      valueIndex = checked.getAttribute 'data-choice-index'
+      @currentFilters[@filters[index].key] = @filters[index].values[valueIndex].value
 
-  handleFilterChange: ->
-    filterSettings = {}
+    @reflectFilter @currentFilters
 
-    for menu in @menus
-      checked = menu.querySelector ':checked'
-      if checked
-        filterIndex = Array::indexOf.call @menus, menu
-        valueIndex = checked.getAttribute 'data-choice-index'
-        filterSettings[@filters[filterIndex].key] = @filters[filterIndex].values[valueIndex].value
+  clearFilter: (index) ->
+    @menus[index].querySelector(':checked')?.checked = false
+    delete @currentFilters[@filters[index].key]
+    @reflectFilter @currentFilters
 
+  reflectFilter: (filterSettings) ->
     choiceEls = @el.querySelectorAll '[data-choice-index]'
     for choice, i in choiceEls
       choice.removeAttribute 'data-filtered'
