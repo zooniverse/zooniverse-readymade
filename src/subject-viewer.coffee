@@ -20,6 +20,7 @@ class SubjectViewer extends Controller
 
   elements:
     '.readymade-marking-surface-container': 'markingSurfaceContainer'
+    '.readymade-frame-controls': 'frameControls'
     'button[name="play-frames"]': 'playButton'
     'button[name="pause-frames"]': 'pauseButton'
     '.readymade-frame-toggles-list': 'togglesList'
@@ -85,8 +86,9 @@ class SubjectViewer extends Controller
 
       @addToggle i
 
-    @playButton.prop 'disabled', subjectImages.length is 1
-    @togglesList.find('button').prop 'disabled', subjectImages.length is 1
+    @frameControls.attr 'data-single-frame', (subjectImages.length is 1) || null
+    # @playButton.prop 'disabled', subjectImages.length is 1
+    # @togglesList.find('button').prop 'disabled', subjectImages.length is 1
 
   loadClassification: ->
     # TODO: For each annotation, figure out the right tools and draw any marks.

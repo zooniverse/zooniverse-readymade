@@ -59,6 +59,10 @@
   .readymade-frame-controls
     line-height: 1
 
+    &[data-single-frame]
+      // NOTE: This won't work if we ever put anything other than frame controls here (metadata, etc.).
+      display: none
+
   .readymade-frame-play-controls
     display: inline-block
     margin-right: 10px
