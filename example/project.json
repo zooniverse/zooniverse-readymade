@@ -66,6 +66,7 @@
       }],
       "choices": [{
         "value": "dog",
+        "image": "//placehold.it/100.png",
         "label": "Dog",
         "traits": {
           "color": ["red", "blue"],

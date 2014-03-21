@@ -75,17 +75,8 @@
   .readymade-choice-tick:after
     display: block
 
-.readymade-choice-drawing .readymade-choice-tickbox
-  border: 0.5em solid transparent
-  border-left-width: 0
-  border-right-color: rgba(black, 0.5)
+[type="radio"] + .readymade-choice-drawing .readymade-choice-tickbox
   display: none
-  position: absolute
-  left: -0.5em
-  top: 50%
-  width: 0
-  height: 0
-  transform: translate(0, -50%)
 
 :checked + .readymade-choice-drawing
   background: rgba(black, 0.5)
