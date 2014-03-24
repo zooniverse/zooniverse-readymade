@@ -2,11 +2,9 @@ Classifier = require './classifier'
 SubjectViewer = require './subject-viewer'
 DecisionTree = require 'zooniverse-decision-tree'
 DrawingTask = require './tasks/drawing'
-User = require 'zooniverse/models/user'
-Subject = require 'zooniverse/models/subject'
-Classification = require 'zooniverse/models/classification'
 
 class ClassifyPage extends Classifier
+  workflow: 'untitled_workflow'
   tasks: null
   firstTask: ''
 
@@ -55,6 +53,7 @@ class ClassifyPage extends Classifier
     @decisionTree.reset() # TODO: Pass in a classification.
 
   sendClassification: ->
+    @classification.set 'workflow', @workflow
     for annotation in @composeAnnotations()
       @classification.annotate annotation
     super

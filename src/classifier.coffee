@@ -6,20 +6,23 @@ Classification = require 'zooniverse/models/classification'
 IS_DEV = +location.port > 1023
 
 class Classifier extends Controller
+  Subject: null
+
   className: 'readymade-classifier'
 
   tutorial: null
 
   constructor: ->
+    @Subject = class extends Subject
     super
 
     @listenTo User, 'change', (e, user) =>
       @onUserChange user
 
-    @listenTo Subject, 'getting-next', =>
+    @listenTo @Subject, 'getting-next', =>
       @onSubjectGettingNext()
 
-    @listenTo Subject, 'select', (e, subject) =>
+    @listenTo @Subject, 'select', (e, subject) =>
       @onSubjectSelect subject
 
     if IS_DEV
@@ -42,7 +45,7 @@ class Classifier extends Controller
       @startTutorial()
     else
       unless @classification?
-        Subject.next()
+        @Subject.next()
 
   startTutorial: ->
     # TODO: How should we define and select the tutorial subject?
@@ -76,6 +79,6 @@ class Classifier extends Controller
     console?.log JSON.stringify @classification if IS_DEV
 
   getNextSubject: ->
-    Subject.next()
+    @Subject.next()
 
 module.exports = Classifier

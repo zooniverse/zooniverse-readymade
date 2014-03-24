@@ -9,6 +9,9 @@ Profile = require 'zooniverse/controllers/profile'
 teamPageTemplate = require './templates/team-page'
 User = require 'zooniverse/models/user'
 
+dash = (string) ->
+  string.toLowerCase().replace /\W+/g, '-'
+
 class Project
   parent: document.body
   id: ''
@@ -22,6 +25,9 @@ class Project
   about: ''
   pages: null
 
+  workflows: null
+
+  # If there's only one workflow, just define tasks.
   tasks: null
   firstTask: ''
 
@@ -49,7 +55,16 @@ class Project
     if @summary or @description
       @addPage '#/', 'Home', homePageTemplate @
 
-    if @tasks?
+    if @workflows?
+      for {key, label, tasks, firstTask} in @workflows
+        label ?= 'Classify'
+        key ?= dash(label).replace /\-/g, '_'
+        @addPage "#/#{dash label}", label, new ClassifyPage
+          workflow: key
+          tasks: tasks
+          firstTask: firstTask
+
+    else if @tasks?
       @addPage '#/classify', 'Classify', new ClassifyPage {@tasks, @firstTask}
 
     unless @profile is false
@@ -61,7 +76,7 @@ class Project
     if @pages?
       for page in @pages
         for title, content of page
-          @addPage "#/#{title.toLowerCase().replace /\W+/g, '-'}", title, content
+          @addPage "#/#{dash title}", title, content
 
     if @organizations or @scientists or @developers
       @addPage '#/team', 'Team', teamPageTemplate @
