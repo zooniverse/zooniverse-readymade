@@ -82,8 +82,15 @@
   background: rgba(black, 0.5)
   color: white
 
-  .readymade-choice-tickbox
-    display: block
+  &:before
+    border: 7px solid transparent
+    border-left-width: 0
+    border-right-color: rgba(black, 0.5)
+    content: ""
+    position: absolute
+    right: 100%
+    top: 50%
+    transform: translateY(-50%)
 
 .readymade-choice-image
   display: inline-block
@@ -106,6 +113,9 @@
   right: OFFSET
   top: OFFSET
   width: 5px
+
+  :checked + .readymade-choice-clickable &
+    box-shadow: 0 0 3px, 0 0 10px
 
 .readymade-choice-button .readymade-choice-tickbox
   display: none
