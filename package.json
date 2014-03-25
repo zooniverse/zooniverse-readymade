@@ -10,7 +10,8 @@
     "publisssh": "~0.2.4",
     "stack-of-pages": "~0.1.3",
     "tosource": "~0.1.1",
-    "zooniverse": "~0.3.8"
+    "zooniverse": "~0.3.8",
+    "zooniverse-decision-tree": "0.0.2"
   },
   "scripts": {
     "start": "./bin/zooniverse-readymade serve --verbose --root ./example --project ./example/project",
