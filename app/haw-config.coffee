@@ -41,5 +41,4 @@ module.exports = (options) ->
       public:
         'the-milky-way-fpo.jpg': readResourceSync 'the-milky-way-fpo.jpg'
         offline:
-          'subjects.json': readResourceSync('offline/subjects.json').toString()
-          'skunk.jpg': readResourceSync 'offline/skunk.jpg'
+          'subjects.json': readResourceSync('offline-subjects-template.json').toString()
