@@ -12,6 +12,10 @@
   <% end %>
 
   <div class="readymade-footer">
-    <a href="#/classify" class="readymade-call-to-action">Get started!</a>
+    <% workflows = @workflows ? key: 'classify', label: 'Classify' %>
+    <% console.log {workflows} %>
+    <% for {key, label} in workflows: %>
+      <a href="#/<%= key %>" class="readymade-call-to-action"><%- label %></a>
+    <% end %>
   </div>
 </div>
