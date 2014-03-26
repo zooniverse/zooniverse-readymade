@@ -1,21 +1,41 @@
 Zooniverse-readymade is a library that builds basic Zooniverse projects out of a fairly straightforward configuration. The `zooniverse-readymade` command initializes, serves, and builds those projects.
 
+Getting started
+===============
+
+Install the library and its executable:
+
 ```sh
-npm install zooniverse-readymade              # Install
-zooniverse-readymade init                     # Generate a project template
-$EDITOR ./project.{coffee,styl}               # Edit the configuration and style
-zooniverse-readymade serve --css project.styl # Run the server
-open http://localhost:2005/index.html         # Open in your broweser
-zooniverse-readymade build --css project.styl # Build the static app
+npm install zooniverse-readymade
+```
+
+Initialize a new project (in the current directory):
+
+```sh
+zooniverse-readymade init
+```
+
+Start a server to see if it's working. You can pass CSS and Stylus files in with the `--css` option.
+
+**Note**: Files passed in with `--css` are stuck at the _top_ of the resulting CSS, before any of the Readymade-provided CSS. This sucks, but there's a "readymade" ID on the root element. Because none of the Readymade CSS is selected by ID, prefixing your CSS selectors with `#readymade` will override it. In Stylus, that means just start your file with `#readymade` and indent everything a level under it. I'm looking for a fix for this.
+
+```sh
+zooniverse-readymade serve --css project.styl
+open http://localhost:2005/index.html
+```
+
+Now edit the configuration in `project.coffee` and the css in `project.styl`. Configuration options are detailed below.
+
+Build when you're ready. Deploy however.
+
+```sh
+zooniverse-readymade build --css project.styl
 ```
 
 Project configuration
 =====================
 
 Most things are optional. HTML can be used where it makes sense.
-
-General
--------
 
 `id`: The ID of the project on the back end. Required. _TODO: What if the project is self-hosted?_
 
@@ -64,6 +84,10 @@ New tasks can be defined by extending the `Task` class in the `zooniverse-decisi
 ### Drawing details
 
 Details take the same properties as tasks. Because they're shown at once instead of in series, they're defined in an array, which means they need their `key` property set manually.
+
+### Multiple workflows
+
+If you need more than one type of classification, instead of defining `tasks` and `firstTask`, define a `workflows` array. Each workflow needs `key` (arbitrary, but machine-friendly) and `label` (used as the link the the page instead of "Classify") strings in addition to `tasks` and `firstTask`.
 
 About page
 ----------
