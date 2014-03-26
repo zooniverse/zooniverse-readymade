@@ -70,13 +70,11 @@ class Project
     unless @profile is false
       @addPage '#/profile', 'Profile', new Profile
 
-    if @about
-      @addPage '#/about', 'About', "<div>#{@about}</div>"
-
     if @pages?
       for page in @pages
+        # TODO: What about translating links to these pages?
         for title, content of page
-          @addPage "#/#{dash title}", title, content
+          @addPage "#/#{dash title}", title, "<div>#{content}</div>"
 
     if @organizations or @scientists or @developers
       @addPage '#/team', 'Team', teamPageTemplate @
