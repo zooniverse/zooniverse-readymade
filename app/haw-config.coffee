@@ -40,3 +40,6 @@ module.exports = (options) ->
       'project.styl': readResourceSync('project-template.styl').toString()
       public:
         'the-milky-way-fpo.jpg': readResourceSync 'the-milky-way-fpo.jpg'
+        offline:
+          'subjects.json': readResourceSync('offline/subjects.json').toString()
+          'skunk.jpg': readResourceSync 'offline/skunk.jpg'
