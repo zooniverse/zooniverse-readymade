@@ -109,3 +109,32 @@ Team page
 `developers`: An array of member developers.
 
 Member properties are `image`, `name`, `location`, `description`, and `url`; all optional.
+
+Using components individually
+=============================
+
+The components that make up the whole Readymade thing can be used in other projects.
+
+Classifier
+----------
+
+Handles the lower level classification stuff. It'll fetch new subjects when appropriate. Define a `loadSubject` method to establish what happens when a subject is loaded.
+
+If a `tutorial` property is defined, it'll load and start a tutorial when appropriate. Define `startTutorial` to set this up.
+
+Override the `loadClassification` method to tell it how to render itself with a pre-existing classification. This is still in progress, but at asome point it'll save the current subject and classification in localStorage so the user can pick up where they left off.
+
+ClassifyPage
+------------
+
+The `ClassifyPage` extends `Classifier`, displaying subjects in a `SubjectViewer` and getting other classification workflow information from a `DecisionTree`
+
+SubjectViewer
+-------------
+
+`SubjectViewer` displays a subject's image(s) in a `MarkingSurface` (brian-c/marking-surface on GitHub), annotating marks when the current workflow task is some kind of drawing task.
+
+DecisionTree
+------------
+
+This is a separate module, zooniverse/zooniverse-decision-tree on GitHub. It takes a linked list of tasks and lets you step through them.
