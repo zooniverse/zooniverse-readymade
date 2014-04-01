@@ -1,3 +1,5 @@
+<% dash = require '../lib/dash' %>
+
 <div class="readymade-home-page">
   <% if @summary: %>
     <div class="readymade-project-summary">
@@ -12,9 +14,9 @@
   <% end %>
 
   <div class="readymade-footer">
-    <% workflows = @workflows ? key: 'classify', label: 'Classify' %>
-    <% for {key, label} in workflows: %>
-      <a href="#/<%= key %>" class="readymade-call-to-action"><%- label %></a>
+    <% workflows = @workflows ? [label: 'Classify'] %>
+    <% for {label} in workflows: %>
+      <a href="#/<%= dash label %>" class="readymade-call-to-action"><%- label %></a>
     <% end %>
   </div>
 </div>

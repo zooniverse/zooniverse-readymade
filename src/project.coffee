@@ -4,13 +4,11 @@ SiteBackground = require './site-background'
 SiteHeader = require './site-header'
 StackOfPages = require 'stack-of-pages'
 homePageTemplate = require './templates/home-page'
+dash = require './lib/dash'
 ClassifyPage = require './classify-page'
 Profile = require 'zooniverse/controllers/profile'
 teamPageTemplate = require './templates/team-page'
 User = require 'zooniverse/models/user'
-
-dash = (string) ->
-  string.toLowerCase().replace /\W+/g, '-'
 
 class Project
   parent: document.body
