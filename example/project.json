@@ -1,5 +1,5 @@
 {
-  "id": "penguin",
+  "id": "asteroid",
   "background": "./raccoons.jpg",
 
   "producer": "Lincoln Park Zoo",
@@ -44,6 +44,7 @@
   }],
 
   "workflows": [{
+    "subjectGroup": true,
     "key": "filter_and_draw",
     "label": "Filter and draw",
     "firstTask": "filterSomeThings",
@@ -142,6 +143,7 @@
       }
     }
   }, {
+    "subjectGroup": true,
     "key": "pick_things",
     "label": "Pick things",
     "firstTask": "pickOne",

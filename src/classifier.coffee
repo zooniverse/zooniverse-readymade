@@ -7,6 +7,7 @@ IS_DEV = +location.port > 1023
 
 class Classifier extends Controller
   Subject: null
+  subjectGroup: Subject::subjectGroup
 
   className: 'readymade-classifier'
 
@@ -14,7 +15,10 @@ class Classifier extends Controller
 
   constructor: ->
     @Subject = class extends Subject
+
     super
+
+    @Subject.group = @subjectGroup
 
     @listenTo User, 'change', (e, user) =>
       @onUserChange user

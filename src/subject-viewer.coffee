@@ -50,7 +50,6 @@ class SubjectViewer extends Controller
       tool.mark.set '_taskIndex', @taskIndex
       tool.mark.set 'frame', @currentFrame
 
-
     @markingSurfaceContainer.append @markingSurface.el
 
   loadSubject: (@subject, callback) ->

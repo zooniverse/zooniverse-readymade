@@ -54,10 +54,12 @@ class Project
       @addPage '#/', 'Home', homePageTemplate @
 
     if @workflows?
-      for {key, label, tasks, firstTask} in @workflows
+      for {key, label, subjectGroup, tasks, firstTask} in @workflows
+        console.log {subjectGroup}
         label ?= 'Classify'
         key ?= dash(label).replace /\-/g, '_'
         @addPage "#/#{dash label}", label, new ClassifyPage
+          subjectGroup: subjectGroup
           workflow: key
           tasks: tasks
           firstTask: firstTask
