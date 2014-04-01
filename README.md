@@ -89,13 +89,8 @@ Details take the same properties as tasks. Because they're shown at once instead
 
 If you need more than one type of classification, instead of defining `tasks` and `firstTask`, define a `workflows` array. Each workflow needs `key` (arbitrary, but machine-friendly) and `label` (used as the link the the page instead of "Classify") strings in addition to `tasks` and `firstTask`.
 
-About page
-----------
-
-`about`: HTML content for the _About_ page.
-
-Additional pages
-----------------
+Misc. pages
+-----------
 
 `pages`: Any additional pages you want to include can be defined here as an array of maps. Keys will be the page titles (and URLs), values will be page content (as HTML).
 
