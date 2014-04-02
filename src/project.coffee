@@ -84,9 +84,6 @@ class Project
 
     @stack.onHashChange()
 
-    if +location.port > 1023
-      window.zooniverseReadymadeProject = @
-
     User.fetch()
 
   connect: (project) ->

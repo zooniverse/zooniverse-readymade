@@ -19,6 +19,8 @@ Start a server to see if it's working. You can pass CSS and Stylus files in with
 
 **Note**: Files passed in with `--css` are stuck at the _top_ of the resulting CSS, before any of the Readymade-provided CSS. This sucks, but there's a "readymade" ID on the root element. Because none of the Readymade CSS is selected by ID, prefixing your CSS selectors with `#readymade` will override it. In Stylus, that means just start your file with `#readymade` and indent everything a level under it. I'm looking for a fix for this.
 
+You can also pass in additional JavaScript and CoffeeScript files with `--js`. You can access the current project by requiring `zooniverse-readymade/current-project`.
+
 ```sh
 zooniverse-readymade serve --css project.styl
 open http://localhost:2005/index.html

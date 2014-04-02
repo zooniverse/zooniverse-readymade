@@ -5,7 +5,10 @@ fs = require 'fs'
 appLibDir = path.resolve path.dirname module.filename
 resourcesDir = path.resolve appLibDir, 'resources'
 
-module.exports = (options) ->
+readResourceSync = (resource) ->
+  fs.readFileSync path.resolve resourcesDir, resource
+
+module.exports = ->
   @port = 2005 # It's ZOOS, get it? Haaa.
 
   @mount[path.resolve resourcesDir, 'public'] = '/'
@@ -19,9 +22,10 @@ module.exports = (options) ->
 
   @modifyBrowserify = (b) ->
     projectPath = try require.resolve path.resolve @project
-
     if projectPath?
-      b.require projectPath, expose: 'readymade-project-configuration'
+      b.require projectPath, expose: 'zooniverse-readymade/current-configuration'
+
+    b.require path.resolve(resourcesDir, 'js', 'project.coffee'), expose: 'zooniverse-readymade/current-project'
 
     for file in [].concat @js
       b.add path.resolve path.dirname(path.resolve @project), file
@@ -30,9 +34,6 @@ module.exports = (options) ->
     for file in [].concat @css
       # NOTE: These are currently added *before* the main file.
       styl.import path.resolve file
-
-  readResourceSync = (resource) ->
-    fs.readFileSync path.resolve resourcesDir, resource
 
   @init =
     default:
