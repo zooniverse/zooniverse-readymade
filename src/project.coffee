@@ -12,13 +12,14 @@ User = require 'zooniverse/models/user'
 
 class Project
   parent: document.body
+
+  background: ''
   id: ''
 
   producer: ''
   title: ''
   summary: ''
   description: ''
-  background: ''
 
   about: ''
   pages: null
@@ -53,22 +54,31 @@ class Project
     if @summary or @description
       @addPage '#/', 'Home', homePageTemplate @
 
+    @classifyPages = []
+
     if @workflows?
       for {key, label, subjectGroup, tasks, firstTask} in @workflows
         console.log {subjectGroup}
         label ?= 'Classify'
         key ?= dash(label).replace /\-/g, '_'
-        @addPage "#/#{dash label}", label, new ClassifyPage
+
+        page = new ClassifyPage
           subjectGroup: subjectGroup
           workflow: key
           tasks: tasks
           firstTask: firstTask
 
+        @addPage "#/#{dash label}", label, page
+        @classifyPages.push page
+
     else if @tasks?
-      @addPage '#/classify', 'Classify', new ClassifyPage {@tasks, @firstTask}
+      page = new ClassifyPage {@tasks, @firstTask}
+      @addPage '#/classify', 'Classify', page
+      @classifyPages.push page
 
     unless @profile is false
-      @addPage '#/profile', 'Profile', new Profile
+      @profile = new Profile
+      @addPage '#/profile', 'Profile', @profile
 
     if @pages?
       for page in @pages
