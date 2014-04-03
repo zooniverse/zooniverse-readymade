@@ -19,6 +19,8 @@ Start a server to see if it's working. You can pass CSS and Stylus files in with
 
 **Note**: Files passed in with `--css` are stuck at the _top_ of the resulting CSS, before any of the Readymade-provided CSS. This sucks, but there's a "readymade" ID on the root element. Because none of the Readymade CSS is selected by ID, prefixing your CSS selectors with `#readymade` will override it. In Stylus, that means just start your file with `#readymade` and indent everything a level under it. I'm looking for a fix for this.
 
+You can also pass in additional JavaScript and CoffeeScript files with `--js`. You can access the current project by requiring `zooniverse-readymade/current-project`.
+
 ```sh
 zooniverse-readymade serve --css project.styl
 open http://localhost:2005/index.html
@@ -44,7 +46,7 @@ Most things are optional. HTML can be used where it makes sense.
 Home page
 ---------
 
-`producer`: The name of the main group reponsible for building the project?
+`producer`: The name of the main group responsible for building the project?
 
 `title`: A catchy name for the project. Just don't call it "#{topic} Zoo"; that's lazy.
 
@@ -89,13 +91,8 @@ Details take the same properties as tasks. Because they're shown at once instead
 
 If you need more than one type of classification, instead of defining `tasks` and `firstTask`, define a `workflows` array. Each workflow needs `key` (arbitrary, but machine-friendly) and `label` (used as the link the the page instead of "Classify") strings in addition to `tasks` and `firstTask`.
 
-About page
-----------
-
-`about`: HTML content for the _About_ page.
-
-Additional pages
-----------------
+Misc. pages
+-----------
 
 `pages`: Any additional pages you want to include can be defined here as an array of maps. Keys will be the page titles (and URLs), values will be page content (as HTML).
 
@@ -109,6 +106,40 @@ Team page
 `developers`: An array of member developers.
 
 Member properties are `image`, `name`, `location`, `description`, and `url`; all optional.
+
+Creating new tasks
+==================
+
+**See `zooniverse-decision-tree/src/radio-task.coffee` for a task example.**
+
+Tasks extend the `Task` class from the `zooniverse-decision-tree` module. a `DecisionTree` is responsible for loading up the right task. Each task needs:
+
+`choiceTemplate(choice, i)`: Returns a string of HTML for each choice in the task. Usually a button or an input, plus whatever is needed to separate and style things how you want 'em.
+
+`enter()`: Called when the task is loaded. Attach any needed event listeners.
+
+`exit()`: Called when the task is unloaded. Detach those event listeners, clean up whatever.
+
+`getValue()`: Returns the current value of the task.
+
+`reset(value)`: Reset the task's value and rendering, adopting any value passed in.
+
+Creating new drawing tools
+==========================
+
+** See `marking-surface/src/tools/point.coffee` for a drawing tool example.**
+
+Drawing tools extend the `Tool` class from the `marking-surface` module.
+
+An instance of `Tool` is associated with an instance of `Mark`. As the user interacts with the tool, the mark should change. As the mark changes, the display of the tool should update.
+
+`constructor`: Extend the constructor to set up the shapes used by your tool. Add shapes with the `addShape(type, attributes)` method. Add events with the `addEvent(eventName, selector, handler)` method.
+
+`rescale(scale)`: When the marking surface is resized, this is called for each tool with the current scale of the marking surface. Set the size of your shapes here.
+
+`onInitialStart`, `onInitialMove`, `onInitialRelease`: These are called during the marking surface's initial create-a-tool-from-nothing cycle. These will generally delegate to a more specific event handler.
+
+`render`: Update the rendering of the tool to match its mark.
 
 Using components individually
 =============================

@@ -7,15 +7,15 @@ module.exports =
   summary: 'A catchy phrase summing up the project'
   description: 'This is a brief but slightly more detailed project description.'
 
-  about: '''
-    <h1>All about the project</h1>
-    <p>This is where we\'ll go into detail.</p>
-    <hr />
-    <h2>Lorem ipsum dolor sir amet.</h2>
-    <p>Break it into sections, add pictures, whatever.</p>
-  '''
-
   pages: [{
+    'About': '''
+      <h1>All about the project</h1>
+      <p>This is where we\'ll go into detail.</p>
+      <hr />
+      <h2>Lorem ipsum dolor sir amet.</h2>
+      <p>Break it into sections, add pictures, whatever.</p>
+    '''
+  }, {
     'Another page': '''
       <p>Any additional pages you'd like can be added here.</p>
     '''
