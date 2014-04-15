@@ -1,10 +1,6 @@
 Controller = require 'zooniverse/controllers/base-controller'
 MarkingSurface = require 'marking-surface'
-
-loadImage = (src, callback) ->
-  img = new Image
-  img.onload = -> callback? img
-  img.src = src
+loadImage = require './lib/load-image'
 
 class SubjectViewer extends Controller
   className: 'readymade-subject-viewer'
