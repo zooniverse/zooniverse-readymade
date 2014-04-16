@@ -141,6 +141,11 @@ An instance of `Tool` is associated with an instance of `Mark`. As the user inte
 
 `render`: Update the rendering of the tool to match its mark.
 
+Extending behavior
+==================
+
+TODOC: Events
+
 Using components individually
 =============================
 

@@ -44,13 +44,15 @@ class ClassifyPage extends Classifier
     @decisionTreeContainer.append @decisionTree.el
 
   loadSubject: (subject, callback) ->
-    super
-    @subjectViewer.loadSubject subject, callback
+    args = arguments
+    @subjectViewer.loadSubject subject, =>
+      super args...
 
-  loadClassification: (classification) ->
-    super
-    @subjectViewer.loadClassification classification
+  loadClassification: (classification, callback) ->
+    args = arguments
     @decisionTree.reset() # TODO: Pass in a classification.
+    @subjectViewer.loadClassification classification, =>
+      super args...
 
   sendClassification: ->
     @classification.set 'workflow', @workflow

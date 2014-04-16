@@ -85,8 +85,9 @@ class SubjectViewer extends Controller
     # @playButton.prop 'disabled', subjectImages.length is 1
     # @togglesList.find('button').prop 'disabled', subjectImages.length is 1
 
-  loadClassification: ->
+  loadClassification: (classification, callback) ->
     # TODO: For each annotation, figure out the right tools and draw any marks.
+    callback?()
 
   addFrame: (imgSrc, callback) ->
     loadImage imgSrc, ({src, width, height}) =>
