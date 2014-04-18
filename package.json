@@ -3,9 +3,9 @@
   "version": "0.0.12",
   "bin": "./bin/zooniverse-readymade",
   "dependencies": {
-    "coffee-script": "~1.7.1",
+    "coffee-script": "^1.7.1",
     "haw": "~0.4.1",
-    "jquery": "~2.1.0",
+    "jquery": "^2.1.0",
     "marking-surface": "~0.5.2",
     "publisssh": "~0.2.4",
     "stack-of-pages": "~0.1.3",
