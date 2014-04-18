@@ -1,4 +1,4 @@
-Project = require '../../../src/project'
+Project = require '../../../lib/project'
 projectConfiguration = require 'zooniverse-readymade/current-configuration'
 
 if projectConfiguration.title?
@@ -6,4 +6,5 @@ if projectConfiguration.title?
   titleContainer.innerHTML = projectConfiguration.title
   document.title = titleContainer.textContent
 
-module.exports = new Project projectConfiguration
+currentProject = new Project projectConfiguration
+module.exports = currentProject # Exposed as zooniverse-readymade/current-project
