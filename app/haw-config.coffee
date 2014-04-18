@@ -1,5 +1,4 @@
 path = require 'path'
-toSource = require 'tosource'
 fs = require 'fs'
 
 appLibDir = path.resolve path.dirname module.filename
