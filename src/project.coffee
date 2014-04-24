@@ -84,7 +84,9 @@ class Project
       for page in @pages
         # TODO: What about translating links to these pages?
         for title, content of page
-          @addPage "#/#{dash title}", title, "<div>#{content}</div>"
+          @addPage "#/#{dash title}", title, """
+            <div class='readymade-generic-page' data-readymade-page='#{dash title}'>#{content}</div>
+          """
 
     if @organizations or @scientists or @developers
       @addPage '#/team', 'Team', teamPageTemplate @
