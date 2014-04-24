@@ -44,6 +44,7 @@ class SubjectViewer extends Controller
           tool[property] = value
 
       tool.mark.set '_taskIndex', @taskIndex
+      tool.mark.set 'value', @toolOptions.value if @toolOptions.value?
       tool.mark.set 'frame', @currentFrame
 
     @markingSurfaceContainer.append @markingSurface.el

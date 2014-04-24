@@ -97,7 +97,8 @@
         "type": "drawing",
         "question": "Draw something.",
         "choices": [{
-          "value": "point",
+          "type": "point",
+          "value": "a-point",
           "image": "//placehold.it/30.png",
           "label": "Point",
           "color": "#f00",
@@ -130,12 +131,14 @@
             }]
           }]
         }, {
-          "value": "ellipse",
+          "type": "ellipse",
+          "value": "an-ellipse",
           "image": "//placehold.it/30.png",
           "label": "Ellipse",
           "color": "#ff0"
         }, {
-          "value": "text",
+          "type": "text",
+          "value": "some-text",
           "image": "//placehold.it/30.png",
           "label": "Text",
           "color": "#0f0"

@@ -17,7 +17,7 @@ class DrawingTask extends RadioTask
 
     if @choices.length is 1
       @reset @choices[0].value
-      @selectTool @choices[0].value, @choices[0]
+      @selectTool @choices[0].type, @choices[0]
 
   exit: ->
     super
@@ -27,7 +27,7 @@ class DrawingTask extends RadioTask
   handleEvent: (e) ->
     if e.type is 'change' and e.target.hasAttribute 'data-choice-index'
       choice = @getChoice()
-      @selectTool choice.value, choice
+      @selectTool choice.type, choice
     else
       super
 
