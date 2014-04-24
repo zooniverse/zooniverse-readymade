@@ -79,7 +79,9 @@ New tasks can be defined by extending the `Task` class in the `zooniverse-decisi
 
 `color`: A CSS color value. Adds a swatch of color to the button. In the case of a `drawing` task, this is also the color of the drawing itself.
 
-`details`: An array of sub-tasks for the user to fill out for each drawing made. Keep it brief. Only for `drawing` task choices.
+`type`: In a drawing task, this is the tool used to make the drawing.
+
+`details`: In a drawing task, an array of sub-tasks for the user to fill out for each drawing made. Keep it brief.
 
 `next`: In `radio` and `button` tasks, override the task's `next` depending on what was chosen.
 
