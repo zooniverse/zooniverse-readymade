@@ -58,7 +58,6 @@ class Project
 
     if @workflows?
       for {key, label, subjectGroup, tasks, firstTask} in @workflows
-        console.log {subjectGroup}
         label ?= 'Classify'
         key ?= dash(label).replace /\-/g, '_'
 
