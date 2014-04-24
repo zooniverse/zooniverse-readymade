@@ -29,6 +29,7 @@ class Project
   # If there's only one workflow, just define tasks.
   tasks: null
   firstTask: ''
+  subjectGroup: false
 
   organizations: null
   scientists: null
@@ -62,7 +63,7 @@ class Project
         key ?= dash(label).replace /\-/g, '_'
 
         page = new ClassifyPage
-          subjectGroup: subjectGroup
+          subjectGroup: subjectGroup ? @subjectGroup
           workflow: key
           tasks: tasks
           firstTask: firstTask
@@ -71,7 +72,7 @@ class Project
         @classifyPages.push page
 
     else if @tasks?
-      page = new ClassifyPage {@tasks, @firstTask}
+      page = new ClassifyPage {@tasks, @firstTask, @subjectGroup}
       @addPage '#/classify', 'Classify', page
       @classifyPages.push page
 
