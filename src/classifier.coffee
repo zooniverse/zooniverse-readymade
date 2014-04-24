@@ -1,9 +1,13 @@
+flags = require './lib/flags'
 Controller = require 'zooniverse/controllers/base-controller'
 User = require 'zooniverse/models/user'
 Subject = require 'zooniverse/models/subject'
 Classification = require 'zooniverse/models/classification'
 
-IS_DEV = +location.port > 1023
+IS_DEV = if flags.dev?
+  flags.dev is 1
+else
+  +location.port > 1023
 
 class Classifier extends Controller
   CREATE: "zooniverse-readymade:classifier:create"
@@ -96,8 +100,8 @@ class Classifier extends Controller
     @trigger @FINISH_SUBJECT, this, @classification
 
   sendClassification: ->
-    # @classification.send()
-    console?.log JSON.stringify @classification if IS_DEV
+    @classification.send() unless IS_DEV
+    console?.log JSON.stringify(@classification) + if IS_DEV then '(Not sent)' else ''
     @trigger @SEND_CLASSIFICATION, this, @classification
 
   getNextSubject: ->
