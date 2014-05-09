@@ -4,6 +4,7 @@ SiteBackground = require './site-background'
 SiteHeader = require './site-header'
 StackOfPages = require 'stack-of-pages'
 homePageTemplate = require './templates/home-page'
+ZooniverseFooter = require 'zooniverse/controllers/footer'
 dash = require './lib/dash'
 ClassifyPage = require './classify-page'
 Profile = require 'zooniverse/controllers/profile'
@@ -53,7 +54,11 @@ class Project
     @stack.el.className += ' readymade-main-stack'
 
     if @summary or @description
-      @addPage '#/', 'Home', homePageTemplate @
+      homePage = @addPage '#/', 'Home', homePageTemplate @
+
+      unless @footer is false
+        footer = new ZooniverseFooter
+        footer.el.appendTo homePage
 
     @classifyPages = []
 
@@ -106,5 +111,6 @@ class Project
   addPage: (href, label, content) ->
     @stack.add href, content
     @header.addNavLink href, label
+    @stack.el.children[@stack.el.children.length - 1]
 
 module.exports = Project
