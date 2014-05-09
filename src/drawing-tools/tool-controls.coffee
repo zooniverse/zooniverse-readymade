@@ -13,11 +13,17 @@ class ToolControls extends BaseToolControls
     @detailTasks = {}
 
     super
+
+    @detailsControls = @el.querySelector '.readymade-details-controls'
+    @detailsControls.style.display = 'none'
+
     @addEvent 'click', 'button[name="readymade-destroy-drawing"]', [@tool.mark, 'destroy']
+    @addEvent 'click', 'button[name="readymade-dismiss-details"]', [@tool, 'deselect']
     @addEvent 'change', @onChange
 
     setTimeout => # Ugh.
       if @details?
+        @detailsControls.style.display = ''
         for detail in @details
           @addDetail detail
 
