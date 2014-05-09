@@ -1,4 +1,7 @@
 .readymade-subject-viewer
+  .drawing-controls
+    text-align: right
+
   .marking-surface
     display: block
     margin: 0 auto
@@ -22,6 +25,9 @@
 
     text
       fill: white
+
+  .marking-surface-tool[data-hidden]
+    opacity: 0.1
 
   .marking-surface-tool[data-show-coordinates][data-selected] .readymade-coordinates-label
     opacity: 1

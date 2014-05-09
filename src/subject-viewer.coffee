@@ -15,6 +15,7 @@ class SubjectViewer extends Controller
   FROM_CURRENT_TASK: 'data-from-current-task'
 
   elements:
+    'input[name="hide-old-marks"]': 'oldMarksToggle'
     '.readymade-marking-surface-container': 'markingSurfaceContainer'
     '.readymade-frame-controls': 'frameControls'
     'button[name="play-frames"]': 'playButton'
@@ -147,6 +148,11 @@ class SubjectViewer extends Controller
     marks
 
   events:
+    'change input[name="hide-old-marks"]': ->
+      hide = @oldMarksToggle.prop 'checked'
+      for tool in @markingSurface.tools
+        tool.attr 'data-hidden', if hide then true else null
+
     'click button[name="play-frames"]': ->
       @playFrames()
       @pauseButton.focus()
