@@ -151,6 +151,7 @@ class SubjectViewer extends Controller
     'change input[name="hide-old-marks"]': ->
       hide = @oldMarksToggle.prop 'checked'
       for tool in @markingSurface.tools
+        tool.deselect()
         tool.attr 'data-hidden', if hide then true else null
 
     'click button[name="play-frames"]': ->
