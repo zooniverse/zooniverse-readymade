@@ -29,6 +29,7 @@ class SubjectViewer extends Controller
 
   createMarkingSurface: ->
     @markingSurface = new MarkingSurface
+    @markingSurface.svg.attr 'preserveAspectRatio', 'xMinYMin slice'
     @frameGroup = @markingSurface.addShape 'g.frames'
     @frames = []
 
