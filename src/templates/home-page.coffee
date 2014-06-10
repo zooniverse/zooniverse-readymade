@@ -2,7 +2,7 @@ dash = require '../lib/dash'
 
 module.exports = (context) ->
   template = ->
-    workflows = @workflows ? [label: 'Classify']
+    workflows = @workflows ? [label: 'Get started!']
 
     "
       <div class='readymade-home-page'>
