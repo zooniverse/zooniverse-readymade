@@ -54,11 +54,11 @@ class Project
     @stack.el.className += ' readymade-main-stack'
 
     if @summary or @description
-      homePage = @addPage '#/', 'Home', homePageTemplate @
+      @homePage = @addPage '#/', 'Home', homePageTemplate @
 
       unless @footer is false
         footer = new ZooniverseFooter
-        footer.el.appendTo homePage
+        footer.el.appendTo @homePage
 
     @classifyPages = []
 
