@@ -2,7 +2,7 @@ dash = require '../lib/dash'
 
 module.exports = (context) ->
   template = ->
-    workflows = @workflows ? [label: 'Get started!']
+    workflows = @workflows ? [label: 'Get started!', name: 'classify']
 
     "
       <div class='readymade-home-page'>
@@ -19,8 +19,8 @@ module.exports = (context) ->
         " else ''}
 
         <div class='readymade-footer'>
-          #{(for {label} in workflows then "
-            <a href='#/#{dash label}' class='readymade-call-to-action'>
+          #{(for {name, label} in workflows then "
+            <a href='#/#{name ? dash label}' class='readymade-call-to-action'>
               #{label}
             </a>
           ").join '\n'}
