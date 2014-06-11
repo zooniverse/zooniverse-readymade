@@ -9,6 +9,9 @@ class SubjectViewer extends Controller
   currentFrame: 0
   advanceTimeout: NaN
 
+  maxWidth: 0
+  maxHeight: 0
+
   taskIndex: -1
   toolOptions: null
 
@@ -26,10 +29,13 @@ class SubjectViewer extends Controller
     super
 
     @createMarkingSurface()
+    addEventListener 'resize', @rescale
 
   createMarkingSurface: ->
     @markingSurface = new MarkingSurface
-    @markingSurface.svg.attr 'preserveAspectRatio', 'xMinYMin slice'
+    @markingSurface.svg.attr
+      preserveAspectRatio: 'xMidYMid meet'
+      width: '100%'
     @frameGroup = @markingSurface.addShape 'g.frames'
     @frames = []
 
@@ -51,6 +57,16 @@ class SubjectViewer extends Controller
 
     @markingSurfaceContainer.append @markingSurface.el
 
+  rescale: =>
+    @markingSurface.svg.attr
+      height: null
+
+    actualWidth = @markingSurface.svg.el.getBoundingClientRect().width
+    scale = actualWidth / @maxWidth
+
+    @markingSurface.svg.attr
+      height: @maxHeight * scale
+
   loadSubject: (@subject, callback) ->
     @pauseFrames()
 
@@ -69,14 +85,16 @@ class SubjectViewer extends Controller
       @addFrame imgSrc, (image) =>
         widths.push image.attr 'width'
         heights.push image.attr 'height'
-        maxWidth = Math.max widths...
-        maxHeight = Math.max heights...
+        @maxWidth = Math.max widths...
+        @maxHeight = Math.max heights...
 
         @markingSurface.svg.attr
           # TODO: Figure out how to size the SVG.
-          viewBox: "0 0 #{maxWidth} #{maxHeight}"
+          viewBox: "0 0 #{@maxWidth} #{@maxHeight}"
 
-        @frameGroup.attr transform: "translate(#{maxWidth / 2}, #{maxHeight / 2})"
+        @frameGroup.attr transform: "translate(#{@maxWidth / 2}, #{@maxHeight / 2})"
+
+        @rescale()
 
         if i + 1 is subjectImages.length
           @goTo 0
