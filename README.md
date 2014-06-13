@@ -6,7 +6,7 @@ Getting started
 Install the library and its executable:
 
 ```sh
-npm install zooniverse-readymade
+npm install --global zooniverse-readymade
 ```
 
 Initialize a new project (in the current directory):
@@ -22,16 +22,24 @@ Start a server to see if it's working. You can pass CSS and Stylus files in with
 You can also pass in additional JavaScript and CoffeeScript files with `--js`. You can access the current project by requiring `zooniverse-readymade/current-project`.
 
 ```sh
-zooniverse-readymade serve --css project.styl
-open http://localhost:2005/index.html
+zooniverse-readymade serve --css project.styl; open http://localhost:2005/index.html
 ```
+
+**Note:** The `/index.html` is actually required at the moment, sorry.
 
 Now edit the configuration in `project.coffee` and the css in `project.styl`. Configuration options are detailed below.
 
-Build when you're ready. Deploy however.
+Build when you're ready.
 
 ```sh
 zooniverse-readymade build --css project.styl
+```
+
+Deploy however you usually do.
+
+```sh
+npm install --global publisssh
+publisssh ./build demo.zooniverse.org/my-project
 ```
 
 Project configuration
@@ -62,6 +70,8 @@ The _Classify_ page is defined by `tasks`. Each task asks a question and provide
 `tasks`: A map of task keys to tasks. The key will be used to identify a task in the raw data produced by the project.
 
 `firstTask`: The task to start with, if there are multiple tasks.
+
+`tutorialSteps`: An array of `{image: '', content: ''}` objects that define a simple tutorial.
 
 ### Tasks
 
