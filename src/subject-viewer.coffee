@@ -30,6 +30,7 @@ class SubjectViewer extends Controller
 
     @createMarkingSurface()
     addEventListener 'resize', @rescale
+    addEventListener 'hashchange', @rescale
 
   createMarkingSurface: ->
     @markingSurface = new MarkingSurface
