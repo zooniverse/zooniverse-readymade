@@ -26,14 +26,24 @@ class MiniTutorial
     </div>
 
     <div class='readymade-mini-tutorial-actions'>
-      <button type='button' name='readymade-mini-tutorial-previous'>#{@previousLabel}</button>
-      <button type='button' name='readymade-mini-tutorial-next'>#{@nextLabel}</button>
-      <button type='button' name='readymade-mini-tutorial-finish'>#{@finishLabel}</button>
+      <button type='button' name='readymade-mini-tutorial-previous'>
+        <span class='readymade-mini-tutorial-button-label'>#{@previousLabel}</span>
+      </button>
+
+      <button type='button' name='readymade-mini-tutorial-next'>
+        <span class='readymade-mini-tutorial-button-label'>#{@nextLabel}</span>
+      </button>
+
+      <button type='button' name='readymade-mini-tutorial-finish'>
+        <span class='readymade-mini-tutorial-button-label'>#{@finishLabel}</span>
+      </button>
     </div>
 
     <div class='readymade-mini-tutorial-steppers'>
       #{("
-        <button type='button' name='readymade-mini-tutorial-stepper' value='#{i}'>#{i + 1}</button>
+        <button type='button' name='readymade-mini-tutorial-stepper' value='#{i}'>
+          <span class='readymade-mini-tutorial-button-label'>#{i + 1}</span>
+        </button>
       " for step, i in @steps).join '\n'}
     </div>
   "
@@ -97,6 +107,7 @@ class MiniTutorial
   next: ->
     @goTo @index + 1
     return
+    @dialog.querySelector('button').focus()
 
   open: ->
     @el.setAttribute 'data-transitioning', true
