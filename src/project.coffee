@@ -63,7 +63,7 @@ class Project
     @classifyPages = []
 
     if @workflows?
-      for {key, label, subjectGroup, tasks, firstTask} in @workflows
+      for {key, label, subjectGroup, tasks, firstTask, tutorialSteps} in @workflows
         label ?= 'Classify'
         key ?= dash(label).replace /\-/g, '_'
 
@@ -72,12 +72,13 @@ class Project
           workflow: key
           tasks: tasks
           firstTask: firstTask
+          tutorialSteps: tutorialSteps
 
         @addPage "#/#{dash label}", label, page
         @classifyPages.push page
 
     else if @tasks?
-      page = new ClassifyPage {@tasks, @firstTask, @subjectGroup}
+      page = new ClassifyPage {@tasks, @firstTask, @subjectGroup, @tutorialSteps}
       @addPage '#/classify', 'Classify', page
       @classifyPages.push page
 

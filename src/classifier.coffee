@@ -11,7 +11,6 @@ else
 
 class Classifier extends Controller
   CREATE: "zooniverse-readymade:classifier:create"
-  START_TUTORIAL: "zooniverse-readymade:classifier:start_tutorial"
   LOAD_SUBJECT: "zooniverse-readymade:classifier:load_subject"
   LOAD_CLASSIFICATION: "zooniverse-readymade:classifier:load_classification"
   CREATE_CLASSIFICATION: "zooniverse-readymade:classifier:create_classification"
@@ -22,8 +21,6 @@ class Classifier extends Controller
   subjectGroup: Subject::subjectGroup
 
   className: 'readymade-classifier'
-
-  tutorial: null
 
   constructor: ->
     @Subject = class extends Subject
@@ -57,18 +54,8 @@ class Classifier extends Controller
       thing[removeEvent] eventName, handler
 
   onUserChange: (user) ->
-    tutorialDone = user?.project?.tutorial_done
-
-    if @tutorial? and not tutorialDone
-      @startTutorial()
-    else
-      unless @classification?
-        @Subject.next()
-
-  startTutorial: ->
-    # TODO: How should we define and select the tutorial subject?
-    @tutorial.start()
-    @trigger @START_TUTORIAL, this, @tutorial
+    unless @classification?
+      @Subject.next()
 
   onSubjectGettingNext: ->
     @el.addClass 'readymade-loading'

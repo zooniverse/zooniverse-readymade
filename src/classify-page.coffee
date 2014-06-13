@@ -1,12 +1,18 @@
 Classifier = require './classifier'
+MiniTutorial = require './mini-tutorial'
 SubjectViewer = require './subject-viewer'
 DecisionTree = require 'zooniverse-decision-tree'
 DrawingTask = require './tasks/drawing'
 
 class ClassifyPage extends Classifier
+  START_TUTORIAL: "zooniverse-readymade:classifier:start_tutorial"
+
   workflow: 'untitled_workflow'
   tasks: null
   firstTask: ''
+
+  tutorial: null
+  tutorialSteps: null
 
   className: "#{Classifier::className} readymade-classify-page"
   template: require './templates/classify-page'
@@ -17,6 +23,11 @@ class ClassifyPage extends Classifier
 
   constructor: ->
     super
+
+    if @tutorialSteps?
+      @tutorial = new MiniTutorial steps: @tutorialSteps
+
+    @el.append @tutorial.el
 
     @subjectViewer = new SubjectViewer
     @subjectViewerContainer.append @subjectViewer.el
@@ -42,6 +53,19 @@ class ClassifyPage extends Classifier
       @finishSubject()
 
     @decisionTreeContainer.append @decisionTree.el
+
+  onUserChange: (user) ->
+    super
+
+    tutorialDone = user?.project?.tutorial_done
+
+    if @tutorial? and not tutorialDone
+      @startTutorial()
+
+  startTutorial: ->
+    @tutorial.goTo 0
+    @tutorial.open()
+    @trigger @START_TUTORIAL, this, @tutorial
 
   loadSubject: (subject, callback) ->
     args = arguments
