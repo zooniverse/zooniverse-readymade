@@ -2,6 +2,7 @@ Classifier = require './classifier'
 MiniTutorial = require './mini-tutorial'
 SubjectViewer = require './subject-viewer'
 DecisionTree = require 'zooniverse-decision-tree'
+ClassificationSummary = require './classification-summary'
 DrawingTask = require './tasks/drawing'
 
 class ClassifyPage extends Classifier
@@ -20,6 +21,7 @@ class ClassifyPage extends Classifier
   elements:
     '.readymade-subject-viewer-container': 'subjectViewerContainer'
     '.readymade-decision-tree-container': 'decisionTreeContainer'
+    '.readymade-summary-container': 'summaryContainer'
 
   constructor: ->
     super
@@ -54,13 +56,20 @@ class ClassifyPage extends Classifier
 
     @decisionTreeContainer.append @decisionTree.el
 
+    @summary = new ClassificationSummary
+
+    @summary.on @summary.DISMISS, =>
+      @getNextSubject()
+
+    @summaryContainer.append @summary.el
+
   onUserChange: (user) ->
     super
 
     tutorialDone = user?.project?.tutorial_done
 
     if @tutorial? and not tutorialDone
-      @startTutorial()
+      null # @startTutorial()
 
   startTutorial: ->
     @tutorial.goTo 0
@@ -69,14 +78,24 @@ class ClassifyPage extends Classifier
 
   loadSubject: (subject, callback) ->
     args = arguments
+
+    this.decisionTreeContainer.show()
+    this.summaryContainer.hide()
+
     @subjectViewer.loadSubject subject, =>
       super args...
+
+    @summary.loadSubject subject
 
   loadClassification: (classification, callback) ->
     args = arguments
     @decisionTree.reset() # TODO: Pass in a classification.
     @subjectViewer.loadClassification classification, =>
       super args...
+
+  showSummary: ->
+    this.decisionTreeContainer.hide()
+    this.summaryContainer.show()
 
   sendClassification: ->
     @classification.set 'workflow', @workflow

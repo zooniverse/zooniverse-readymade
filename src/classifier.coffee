@@ -83,13 +83,17 @@ class Classifier extends Controller
 
   finishSubject: ->
     @sendClassification()
-    @getNextSubject()
+    @showSummary()
     @trigger @FINISH_SUBJECT, this, @classification
 
   sendClassification: ->
     @classification.send() unless IS_DEV
     console?.log JSON.stringify(@classification) + if IS_DEV then '(Not sent)' else ''
     @trigger @SEND_CLASSIFICATION, this, @classification
+
+  showSummary: ->
+    # NOTE: Override this to show a post-classification summary.
+    @getNextSubject()
 
   getNextSubject: ->
     @Subject.next()
