@@ -69,7 +69,7 @@ class ClassifyPage extends Classifier
     tutorialDone = user?.project?.tutorial_done
 
     if @tutorial? and not tutorialDone
-      null # @startTutorial()
+      @startTutorial()
 
   startTutorial: ->
     @tutorial.goTo 0

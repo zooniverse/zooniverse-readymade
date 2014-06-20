@@ -3,7 +3,7 @@ Controller = require 'zooniverse/controllers/base-controller'
 class ClassificationSumary extends Controller
   DISMISS: 'zooniverse-readymade:classification-summary:dismiss'
 
-  className: 'readymade-classification-sumary'
+  className: 'readymade-classification-summary'
   template: require './templates/classification-summary'
 
   elements:

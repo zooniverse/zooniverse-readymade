@@ -1,5 +1,15 @@
 .readymade-summary-container
+  justify-content: space-between
   padding-left: 1em
+  text-align: center
+
+  .readymade-classification-summary
+    box-sizing: border-box
+    display: flex
+    flex-direction: column
+    height: 100%
+    justify-content: space-around
+    padding: 3em 0
 
   .readymade-talk
   .readymade-social
@@ -13,7 +23,6 @@
     button
       @extends #_RESET_BUTTON
 
-
   .readymade-talk
     font-weight: bold
 
@@ -21,11 +30,14 @@
     button
       @extends #_DECISION_TREE_META_BUTTON
       margin-left: 0.5em
+      margin-top: 0
       flex: 1
 
       &:first-child
         margin-left: 0
 
   .readymade-social
-    margin: 0
     font-size: 2em
+    margin-top: -0.25em
+    line-height: 1
+    padding: 0 1em
