@@ -29,7 +29,7 @@ class ClassifyPage extends Classifier
     if @tutorialSteps?
       @tutorial = new MiniTutorial steps: @tutorialSteps
 
-    @el.append @tutorial.el
+      @el.append @tutorial.el
 
     @subjectViewer = new SubjectViewer
     @subjectViewerContainer.append @subjectViewer.el
