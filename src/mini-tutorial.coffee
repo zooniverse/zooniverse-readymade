@@ -1,6 +1,8 @@
 $ = window.jQuery
 
 class MiniTutorial
+  CLOSE_EVENT: 'mini-tutorial:close'
+
   steps = []
 
   closeLabel: '&times;'
@@ -120,6 +122,7 @@ class MiniTutorial
     @el.setAttribute 'data-transitioning', true
     @el.removeAttribute 'data-open'
     setTimeout @el.removeAttribute.bind(@el, 'data-transitioning'), 250
+    $(@el).trigger @CLOSE_EVENT
     return
 
 module.exports = MiniTutorial
