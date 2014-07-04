@@ -26,7 +26,6 @@ class ClassificationSumary extends Controller
       unless data.discussion.comments_count is 0
         @existingCommentsText.show()
 
-
   events:
     'click button[name="readymade-dont-talk"]': ->
       @trigger @DISMISS
