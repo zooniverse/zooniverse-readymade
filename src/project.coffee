@@ -89,11 +89,15 @@ class Project
 
     if @pages?
       for page in @pages
-        # TODO: What about translating links to these pages?
         for title, content of page
-          @addPage "#/#{dash title}", title, """
-            <div class='readymade-generic-page' data-readymade-page='#{dash title}'>#{content}</div>
-          """
+          if content instanceof Array
+            newContent = @makeStackFromPages content, [dash title]
+          else
+            newContent = """
+              <div class='readymade-generic-page' data-readymade-page='#{dash title}'>#{content}</div>
+            """
+
+          @addPage "#/#{dash title}", title, newContent
 
     if @organizations or @scientists or @developers
       @addPage '#/team', 'Team', teamPageTemplate @
@@ -101,6 +105,41 @@ class Project
     @stack.onHashChange()
 
     User.fetch()
+
+  makeStackFromPages: (pages, currentPath = []) ->
+    mapOfHashes = {}
+
+    nav = document.createElement 'nav'
+    nav.className = 'panoptes-subnav'
+
+    for description, i in pages
+      for title, content of description
+        currentPath.push dash title
+
+        hash = ['#', currentPath...].join '/'
+        mapOfHashes.default ?= hash
+
+        nav.insertAdjacentHTML 'beforeEnd', """
+          <a href="#{hash}">#{title}</a>
+        """
+
+        mapOfHashes[hash] = if content instanceof Array
+          @makeStackFromPages content, currentPath
+        else if typeof content is 'string'
+          """
+            <div class='readymade-generic-page' data-readymade-page='#{dash title}'>#{content}</div>
+          """
+        else
+          container = document.createElement 'div'
+          # TODO: Add sub-navigation.
+          content
+
+        currentPath.pop()
+
+    stack = new StackOfPages mapOfHashes
+    stack.el.insertAdjacentHTML 'afterBegin', nav.outerHTML
+    setTimeout -> stack.onHashChange()
+    stack
 
   connect: (project) ->
     @api = new Api {project}
