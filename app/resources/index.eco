@@ -10,6 +10,18 @@
   </head>
 
   <body>
+    <div id="top-bar"></div>
+    <div id="site-background"></div>
+
+    <div id="wrapper">
+      <div id="main-container">
+        <header id="main-header"></header>
+        <div id="main-content"></div>
+      </div>
+
+      <footer id="main-footer"></footer>
+    </div>
+
     <script src="//code.jquery.com/jquery-2.1.0.js"></script>
     <script src="./main.js"></script>
   </body>

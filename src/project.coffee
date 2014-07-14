@@ -48,9 +48,10 @@ class Project
       @connect @id
 
     @header = new SiteHeader
+      el: '#main-header'
       template: SiteHeader::template @
 
-    @stack = new StackOfPages
+    @stack = new StackOfPages el: document.getElementById 'main-content'
     @stack.el.className += ' readymade-main-stack'
 
     if @summary or @description
@@ -58,7 +59,7 @@ class Project
 
       unless @footer is false
         footer = new ZooniverseFooter
-        footer.el.appendTo @homePage
+        footer.el.appendTo '#main-footer'
 
     @classifyPages = []
 
@@ -97,17 +98,13 @@ class Project
     if @organizations or @scientists or @developers
       @addPage '#/team', 'Team', teamPageTemplate @
 
-    @header.el.appendTo @parent if @parent?
-    @parent?.appendChild @stack.el
-
     @stack.onHashChange()
 
     User.fetch()
 
   connect: (project) ->
     @api = new Api {project}
-    @topBar = new TopBar
-    @topBar.el.appendTo document.body
+    @topBar = new TopBar el: '#top-bar'
 
   addPage: (href, label, content) ->
     @stack.add href, content
