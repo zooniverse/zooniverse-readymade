@@ -5,20 +5,28 @@ html
 
 body
   margin: 0
-  min-height: 100vh
 
 #wrapper
   display: flex
   flex-direction: column
-  min-height: 100vh
+  min-height: 1px
+
+  html:not(.isMobileSafari) &
+    min-height: 100vh
 
 #main-container
   display: flex
   flex: 1 0 auto
   flex-direction: column
 
+#main-header
+  flex-shrink: 0
+
 #main-content
   flex: 1 0 auto
+
+#main-footer
+  flex-shrink: 0
 
 h1
   font-weight: 100
