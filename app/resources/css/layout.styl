@@ -1,15 +1,46 @@
 html
-  background: MEDIUM_GRAY
+  background: black
   color: white
   font: 14px/1.5 "Helvetica Neue", Arial, sans-serif
 
 body
   margin: 0
 
+.readymade-site-background
+  background-color: MEDIUM_GRAY
+  background-position: 50% 33%
+  background-size: cover
+  bottom: 0
+  left: 0
+  opacity: 0.33
+  position: fixed
+  right: 0
+  top: 0
+  transition: opacity 0.5s
+
+  [data-location-hash="#/"] &
+    opacity: 1
+
+.readymade-site-background-effect
+  background:
+    radial-gradient(rgba(MEDIUM_GRAY, 0), black),
+    url("./black-pixel-screen.png")
+  bottom: 0
+  left: 0
+  opacity: 0
+  position: absolute
+  right: 0
+  top: 0
+  transition: opacity 1s
+
+  [data-location-hash="#/"] &
+    opacity: 1
+
 #wrapper
   display: flex
   flex-direction: column
   min-height: 1px
+  position: relative
 
   html:not(.isMobileSafari) &
     min-height: 100vh
@@ -51,37 +82,6 @@ hr
 a
   color: lime
 
-.readymade-site-background
-  background-color: MEDIUM_GRAY
-  background-position: 50% 33%
-  background-size: cover
-  bottom: 0
-  left: 0
-  opacity: 0.33
-  position: fixed
-  right: 0
-  top: 0
-  transition: opacity 0.5s
-  z-index: -1
-
-  [data-location-hash="#/"] &
-    opacity: 1
-
-.readymade-site-background-effect
-  background:
-    radial-gradient(rgba(MEDIUM_GRAY, 0), black),
-    url("./black-pixel-screen.png")
-  bottom: 0
-  left: 0
-  opacity: 0
-  position: absolute
-  right: 0
-  top: 0
-  transition: opacity 1s
-
-  [data-location-hash="#/"] &
-    opacity: 1
-
 .readymade-main-stack
   display: flex
   flex-direction: column
@@ -90,8 +90,9 @@ a
   width: 90vw
 
 .panoptes-subnav
-  border-bottom: 1px solid
-  text-align: center
+  border-top: 1px solid
+  margin-top: -1em
+  text-align: right
 
   > a
     color: inherit

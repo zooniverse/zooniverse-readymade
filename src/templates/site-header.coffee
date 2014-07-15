@@ -3,12 +3,8 @@ module.exports = (context) ->
     "
       <div class='readymade-creator'>
         <a href='#/'>
-          <div class='readymade-project-producer'>
-            #{@producer}
-          </div>
-          <div class='readymade-project-title'>
-            #{@title}
-          </div>
+          <div class='readymade-project-producer'>#{@producer}</div>
+          <div class='readymade-project-title'>#{@title}</div>
         </a>
       </div>
 
