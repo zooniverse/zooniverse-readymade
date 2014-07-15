@@ -41,8 +41,9 @@ class Project
       @[property] = value
 
     if @background
-      @siteBackground = new SiteBackground src: @background
-      @siteBackground.el.appendTo document.body
+      @siteBackground = new SiteBackground
+        src: @background
+        el: '#site-background'
 
     if @id
       @connect @id
@@ -97,7 +98,8 @@ class Project
               <div class='readymade-generic-page' data-readymade-page='#{dash title}'>#{content}</div>
             """
 
-          @addPage "#/#{dash title}", title, newContent
+          hash = "#/#{dash title}"
+          @addPage hash, title, newContent
 
     if @organizations or @scientists or @developers
       @addPage '#/team', 'Team', teamPageTemplate @
@@ -146,8 +148,12 @@ class Project
     @topBar = new TopBar el: '#top-bar'
 
   addPage: (href, label, content) ->
-    @stack.add href, content
     @header.addNavLink href, label
+
+    if content instanceof StackOfPages
+      href += "/*"
+
+    @stack.add href, content
     @stack.el.children[@stack.el.children.length - 1]
 
 module.exports = Project
