@@ -36,7 +36,6 @@ class SubjectViewer extends Controller
     @markingSurface = new MarkingSurface
     @markingSurface.svg.attr
       preserveAspectRatio: 'xMidYMid meet'
-      width: '100%'
     @frameGroup = @markingSurface.addShape 'g.frames'
     @frames = []
 
@@ -59,14 +58,14 @@ class SubjectViewer extends Controller
     @markingSurfaceContainer.append @markingSurface.el
 
   rescale: =>
-    @markingSurface.svg.attr
-      height: null
+    maxPhysicalWidth = @markingSurface.el.parentNode.offsetWidth
+    maxPhysicalHeight = Math.min innerHeight - 10
 
-    actualWidth = @markingSurface.svg.el.getBoundingClientRect().width
-    scale = actualWidth / @maxWidth
+    scale = Math.min maxPhysicalWidth / @maxWidth, maxPhysicalHeight / @maxHeight
 
     @markingSurface.svg.attr
-      height: @maxHeight * scale
+      width: scale * @maxWidth
+      height: scale * @maxHeight
 
   loadSubject: (@subject, callback) ->
     @pauseFrames()
