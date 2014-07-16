@@ -6,7 +6,12 @@ typeMap =
 
 module.exports = (choice, i) -> "
   <label class='readymade-choice-input-wrapper'>
-    <input type='#{typeMap[@constructor?.type] ? typeMap[@type] ? @constructor?.type ? @type}' name='#{@key}' value='#{choice.value}' data-choice-index='#{i}' />
+    <input type='#{typeMap[@constructor?.type] ? typeMap[@type] ? @constructor?.type ? @type}'
+      name='#{@key}'
+      value='#{choice.value}'
+      #{if choice.checked then 'checked="checked"' else ''}
+      data-choice-index='#{i}'
+    />
 
     <div class='readymade-choice-clickable readymade-choice-#{@constructor.type ? @type}'>
       <div class='readymade-choice-tickbox'>

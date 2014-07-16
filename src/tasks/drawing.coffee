@@ -18,6 +18,11 @@ class DrawingTask extends RadioTask
     if @choices.length is 1
       @reset @choices[0].value
       @selectTool @choices[0].type, @choices[0]
+    else
+      for choice in @choices
+        if choice.checked
+          @reset choice.value
+          @selectTool choice.type, choice
 
   exit: ->
     super
