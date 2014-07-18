@@ -4,6 +4,7 @@ SubjectViewer = require './subject-viewer'
 DecisionTree = require 'zooniverse-decision-tree'
 ClassificationSummary = require './classification-summary'
 DrawingTask = require './tasks/drawing'
+FieldGuide = require './field-guide'
 currentConfig = require 'zooniverse-readymade/current-configuration'
 User = require 'zooniverse/models/user'
 $ = window.jQuery
@@ -18,6 +19,8 @@ class ClassifyPage extends Classifier
   tutorial: null
   tutorialSteps: null
 
+  examples: null
+
   className: "#{Classifier::className} readymade-classify-page"
   template: require './templates/classify-page'
 
@@ -25,13 +28,14 @@ class ClassifyPage extends Classifier
     '.readymade-subject-viewer-container': 'subjectViewerContainer'
     '.readymade-decision-tree-container': 'decisionTreeContainer'
     '.readymade-summary-container': 'summaryContainer'
+    '.readymade-field-guide-container': 'fieldGuideContainer'
 
   constructor: ->
     super
 
     if @tutorialSteps?
       @tutorial = new MiniTutorial steps: @tutorialSteps
-      $(@tutorial.el).on @tutorial.CLOSE_EVENT, =>
+      $(@tutorial.el).on @tutorial.CLOSE_EVENT, ->
         User.current?.setPreference 'tutorial_done', true
 
       @el.append @tutorial.el
@@ -68,6 +72,10 @@ class ClassifyPage extends Classifier
 
     @summaryContainer.append @summary.el
 
+    if @examples?
+      @fieldGuide = new FieldGuide {@examples}
+      @fieldGuideContainer.append @fieldGuide.el
+
   onUserChange: (user) ->
     super
 
@@ -77,10 +85,8 @@ class ClassifyPage extends Classifier
 
       if tutorialDone
         if @tutorial.el.hasAttribute 'data-open'
-          console.log 'Closing'
           @tutorial.close()
       else
-        console.log 'starting'
         @startTutorial()
 
   startTutorial: ->

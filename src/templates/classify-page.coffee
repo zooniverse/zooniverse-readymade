@@ -4,4 +4,5 @@ module.exports = -> '
     <div class="readymade-decision-tree-container"></div>
     <div class="readymade-summary-container"></div>
   </div>
+  <div class="readymade-field-guide-container"></div>
 '

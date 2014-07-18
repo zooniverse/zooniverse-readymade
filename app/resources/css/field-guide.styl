@@ -1,0 +1,41 @@
+.readymade-field-guide
+  color: black
+  display: flex
+  flex-direction: column
+  margin: 2em 0
+
+.readymade-field-guide-tabs
+  align-items: flex-end
+  display: flex
+
+[name="readymade-field-guide-tab"]
+  @extends #_RESET_BUTTON
+  background: rgba(white, 0.7)
+  flex: 1 0 auto
+  font-weight: bold
+
+  &.active
+    background: white
+    border-radius: 3px 3px 0 0
+    padding-top: 5px
+
+.readymade-field-guide-pages
+  background: white
+
+.readymade-field-guide-page
+  padding-bottom: 2em
+
+.readymade-field-guide-content:not(:empty)
+  margin: 1em 3vw
+
+.readymade-field-guide-examples
+  align-items: center
+  display: flex
+  flex-wrap: wrap
+
+  &:not(:empty)
+    margin: 1em 3vw
+
+.readymade-field-guide-example
+  flex: 1
+  text-align: center
