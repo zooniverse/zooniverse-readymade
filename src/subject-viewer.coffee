@@ -34,6 +34,7 @@ class SubjectViewer extends Controller
 
   createMarkingSurface: ->
     @markingSurface = new MarkingSurface
+      focusable: false
     @markingSurface.svg.attr
       preserveAspectRatio: 'xMidYMid meet'
     @frameGroup = @markingSurface.addShape 'g.frames'
