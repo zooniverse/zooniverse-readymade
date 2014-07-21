@@ -137,4 +137,8 @@ class ClassifyPage extends Classifier
 
     annotations
 
+  events:
+    'click button[name="restart-tutorial"]': ->
+      @startTutorial()
+
 module.exports = ClassifyPage

@@ -1,6 +1,7 @@
 module.exports = -> '
   <div class="drawing-controls">
     <label><input type="checkbox" name="hide-old-marks" />Hide old marks</label>
+    <button name="restart-tutorial">Restart tutorial</button>
   </div>
 
   <div class="readymade-marking-surface-container"></div>
