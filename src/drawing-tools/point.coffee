@@ -22,6 +22,11 @@ class Point extends BasePoint
     fontSize = parseFloat getComputedStyle(@coordsLabel.el).fontSize
     @coordsLabel.el.style.fontSize = "#{fontSize / scale}px"
 
+  onMove: (e) ->
+    # Override to remove pointer offset.
+    {x, y} = @coords e
+    @mark.set {x, y}
+
   render: ->
     super
 
