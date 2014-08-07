@@ -113,7 +113,7 @@ class Project
     mapOfHashes = {}
 
     nav = document.createElement 'nav'
-    nav.className = 'panoptes-subnav'
+    nav.className = 'readymade-subnav'
 
     for description, i in pages
       for title, content of description
