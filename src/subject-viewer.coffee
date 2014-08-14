@@ -68,6 +68,8 @@ class SubjectViewer extends Controller
       width: scale * @maxWidth
       height: scale * @maxHeight
 
+    @markingSurface.rescale()
+
   loadSubject: (@subject, callback) ->
     @pauseFrames()
 
