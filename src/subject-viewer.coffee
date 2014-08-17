@@ -72,16 +72,14 @@ class SubjectViewer extends Controller
     @pauseFrames()
 
     @markingSurface.reset()
-
     @frames.pop().remove() until @frames.length is 0
-
     @togglesList.empty()
+
+    subjectImages = [].concat @subject.location.standard ? @subject.location
 
     widths = []
     heights = []
 
-    subjectImages = @subject.location.standard ? @subject.location
-    subjectImages = [].concat subjectImages
     for imgSrc, i in subjectImages then do (i) =>
       @addFrame imgSrc, (image) =>
         widths.push image.attr 'width'
@@ -112,15 +110,17 @@ class SubjectViewer extends Controller
     callback?()
 
   addFrame: (imgSrc, callback) ->
+    image = @frameGroup.addShape 'image'
+    @frames.push image
+
     loadImage imgSrc, ({src, width, height}) =>
-      image = @frameGroup.addShape 'image',
+      image.attr
         'xlink:href': src
         width: width
         height: height
         x: width / -2
         y: height / -2
 
-      @frames.push image
       callback? image
 
   addToggle: (index) ->
