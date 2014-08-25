@@ -10,44 +10,43 @@ class Point extends BasePoint
 
   constructor: ->
     super
+    @label.el.style.display = 'none'
 
-    @coordsGroup = SVG::addShape.call @, 'g.readymade-coordinates-label'
-    @coordsRect = @coordsGroup.addShape 'rect', x: -5
-    @coordsLabel = @coordsGroup.addShape 'text'
+  # constructor: ->
+  #   super
 
-  rescale: (scale) ->
-    super
+  #   @coordsGroup = SVG::addShape.call @, 'g.readymade-coordinates-label'
+  #   @coordsRect = @coordsGroup.addShape 'rect', x: -5
+  #   @coordsLabel = @coordsGroup.addShape 'text'
 
-    @coordsLabel.el.style.fontSize = ''
-    fontSize = parseFloat getComputedStyle(@coordsLabel.el).fontSize
-    @coordsLabel.el.style.fontSize = "#{fontSize / scale}px"
+  # rescale: (scale) ->
+  #   super
 
-  onMove: (e) ->
-    # Override to remove pointer offset.
-    {x, y} = @coords e
-    @mark.set {x, y}
+  #   @coordsLabel.el.style.fontSize = ''
+  #   fontSize = parseFloat getComputedStyle(@coordsLabel.el).fontSize
+  #   @coordsLabel.el.style.fontSize = "#{fontSize / scale}px"
 
-  render: ->
-    super
+  # render: ->
+  #   super
 
-    @attr 'data-show-coordinates', (@unit and @upp) or null
+  #   @attr 'data-show-coordinates', (@unit and @upp) or null
 
-    x = (@mark.x / @upp).toFixed(@precision) + @unit
-    y = (@mark.y / @upp).toFixed(@precision) + @unit
+  #   x = (@mark.x / @upp).toFixed(@precision) + @unit
+  #   y = (@mark.y / @upp).toFixed(@precision) + @unit
 
-    @coordsLabel.attr 'textContent', "#{x}, #{y}"
+  #   @coordsLabel.attr 'textContent', "#{x}, #{y}"
 
-    # TODO: This is too tall for some reason.
-    labelBox = @coordsLabel.el.getBBox()
+  #   # TODO: This is too tall for some reason.
+  #   labelBox = @coordsLabel.el.getBBox()
 
-    @coordsRect.attr
-      y: -labelBox.height - 5
-      width: labelBox.width + 5
-      height: labelBox.height + 10
+  #   @coordsRect.attr
+  #     y: -labelBox.height - 5
+  #     width: labelBox.width + 5
+  #     height: labelBox.height + 10
 
-    labelX = labelBox.width / -2
-    labelY = labelBox.height + parseFloat @disc.attr('r') || @radius
+  #   labelX = labelBox.width / -2
+  #   labelY = labelBox.height + parseFloat @disc.attr('r') || @radius
 
-    @coordsGroup.attr 'transform', "translate(#{Math.floor labelX}, #{Math.floor labelY})"
+  #   @coordsGroup.attr 'transform', "translate(#{Math.floor labelX}, #{Math.floor labelY})"
 
 module.exports = Point

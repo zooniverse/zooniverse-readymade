@@ -40,7 +40,7 @@ class SubjectViewer extends Controller
     @frameGroup = @markingSurface.addShape 'g.frames'
     @frames = []
 
-    @markingSurface.on 'add-tool', (tool) =>
+    @markingSurface.on 'marking-surface:add-tool', (tool) =>
       tool.attr @FROM_CURRENT_TASK, true
       color = @toolOptions?.color
       tool.el.style.color = color if color?
@@ -48,9 +48,9 @@ class SubjectViewer extends Controller
       tool.upp = @toolOptions.upp
       tool.controls?.details = @toolOptions.details
 
-      if @toolOptions?
-        for property, value of @toolOptions
-          tool[property] = value
+      # if @toolOptions?
+      #   for property, value of @toolOptions
+      #     tool[property] = value
 
       tool.mark.set '_taskIndex', @taskIndex
       tool.mark.set 'value', @toolOptions.value if @toolOptions.value?
