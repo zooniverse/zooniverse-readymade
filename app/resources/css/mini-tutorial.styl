@@ -32,36 +32,40 @@
   top: 50%
   transform: translate(-50%, -50%) scale(2, 0)
   transform-origin: 50% 50%
-  transition: transform 0.1s
+  // transition: transform 0.1s
 
   [data-open] > &
     transform: translate(-50%, -50%) scale(1, 1)
 
 [name="readymade-mini-tutorial-close"]
   @extends #_RESET_BUTTON
-  position: absolute
-  right: 0
-  top: 0
-  width: 1.5em
+  background: rgba(black, 0.8)
+  border-radius: 50%
+  color: white
   height: 1.5em
+  position: absolute
+  right: 0.3em
+  top: 0.3em
+  width: 1.5em
   z-index: 2
 
 .readymade-mini-tutorial-images
-  flex: 0 0 auto
+  display: flex
+  flex: 1 1 auto
+  flex-direction: column
   position: relative
   z-index: 1
 
 .readymade-mini-tutorial-image
-  display: block
-  margin: 0 auto
-  width: 100%
+  flex: 1 1 auto
+  width: auto
 
   &:not([data-readymade-active])
     display: none
 
 .readymade-mini-tutorial-contents
   display: inline-block
-  flex: 1 1 auto
+  flex: 0 1 auto
   overflow: auto
   padding: 1em 3em
 
@@ -103,9 +107,9 @@
 
 .readymade-mini-tutorial-steppers
   display: flex
-  flex: 0 0 auto
+  flex: 1 0 auto
   justify-content: center
-  padding: 0.5em 3em 2em
+  padding: 0.5em 3em 1em
 
 [name="readymade-mini-tutorial-stepper"]
   @extends #_RESET_BUTTON
