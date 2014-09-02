@@ -74,16 +74,19 @@ class SubjectViewer extends Controller
     @pauseFrames()
 
     @markingSurface.reset()
+    @el.attr 'data-loading', true
     @frames.pop().remove() until @frames.length is 0
     @togglesList.empty()
 
     subjectImages = [].concat @subject.location.standard ? @subject.location
+    loaded = []
 
     widths = []
     heights = []
 
-    for imgSrc, i in subjectImages then do (i) =>
+    frames = for imgSrc, i in subjectImages then do (i) =>
       @addFrame imgSrc, (image) =>
+        image.el.style.visibility = 'hidden'
         widths.push image.attr 'width'
         heights.push image.attr 'height'
         @maxWidth = Math.max widths...
@@ -95,9 +98,14 @@ class SubjectViewer extends Controller
 
         @frameGroup.attr transform: "translate(#{@maxWidth / 2}, #{@maxHeight / 2})"
 
-        @rescale()
+        loaded.push image
 
-        if i + 1 is subjectImages.length
+        if loaded.length is subjectImages.length
+          @el.attr 'data-loading', null
+          for image in loaded
+            image.el.style.visibility = ''
+
+          @rescale()
           @goTo 0
           callback?()
 
