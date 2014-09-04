@@ -1,3 +1,6 @@
+Dialog = require 'zooniverse/controllers/dialog'
+loginDialog = require 'zooniverse/controllers/login-dialog'
+signupDialog = require 'zooniverse/controllers/signup-dialog'
 Classifier = require './classifier'
 MiniTutorial = require './mini-tutorial'
 SubjectViewer = require './subject-viewer'
@@ -20,6 +23,9 @@ class ClassifyPage extends Classifier
   tutorialSteps: null
 
   examples: null
+
+  classificationsSubmitted: 0
+  loginPromptEvery: 5 # Or use 0 to disable.
 
   className: "#{Classifier::className} readymade-classify-page"
   template: require './templates/classify-page'
@@ -79,6 +85,8 @@ class ClassifyPage extends Classifier
   onUserChange: (user) ->
     super
 
+    @classificationsSubmitted = 0
+
     if @tutorial?
       tutorialDone = user?.project?.tutorial_done
       tutorialDone ?= user?.preferences?[currentConfig.id]?.tutorial_done
@@ -121,6 +129,12 @@ class ClassifyPage extends Classifier
       @classification.annotate annotation
     super
 
+    @classificationsSubmitted += 1
+
+    unless User.current?
+      if @classificationsSubmitted % @loginPromptEvery is 0
+        @promptToLogIn()
+
   composeAnnotations: ->
     annotations = []
 
@@ -136,6 +150,36 @@ class ClassifyPage extends Classifier
       annotations[mark._taskIndex].value.push mark
 
     annotations
+
+  promptToLogIn: ->
+    prompt = new Dialog
+      warning: true
+
+      content: """
+        <header>You've submitted #{@classificationsSubmitted} classifications, but you're you're not logged in!</header>
+        <p>Please sign in so we can make better use of your work and give you credit when the data is published.</p>
+        <p class="action">
+          <button name="close-dialog">No thanks</button>
+          <button name="register">Register</button>
+          <button name="sign-in">Sign in</button>
+        </p>
+      """
+
+      events: $.extend {},
+        Dialog::events
+        'click button[name="register"]': ->
+          @hide()
+          signupDialog.show()
+
+        'click button[name="sign-in"]': ->
+          @hide()
+          loginDialog.show()
+
+      hide: ->
+        Dialog::hide.call this
+        setTimeout (=> @destroy()), 600
+
+    prompt.show()
 
   events:
     'click button[name="restart-tutorial"]': ->
