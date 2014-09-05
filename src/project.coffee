@@ -105,7 +105,7 @@ class Project
     if @organizations or @scientists or @developers
       @addPage '#/team', 'Team', teamPageTemplate @
 
-    @stack.onHashChange()
+    setTimeout => @stack.onHashChange()
 
     User.fetch()
 
