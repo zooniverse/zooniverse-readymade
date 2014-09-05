@@ -11,12 +11,13 @@
 
   .readymade-team-member
     is-a-column(3)
+    margin-bottom: 2em
 
   .readymade-team-member-photo
     display: block
     margin: 0 auto
 
-  .readymade-team-member-title
+  .readymade-team-member-header
     font-size: 12px
     letter-spacing: 1px
     text-transform: uppercase
@@ -28,6 +29,10 @@
 
       &:hover
         opacity: 1
+
+  .readymade-team-member-title,
+  .readymade-team-member-location
+    opacity: 0.5
 
   .readymade-team-member-description
     font-size: 12px
