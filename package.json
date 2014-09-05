@@ -5,9 +5,11 @@
   "dependencies": {
     "coffee-script": "1.7.x",
     "haw": "^0.5.0",
+    "publisssh": "~0.2.4"
+  },
+  "peerDependencies": {
     "jquery": "^2.1.0",
     "marking-surface": "^0.6.4",
-    "publisssh": "~0.2.4",
     "stack-of-pages": "~0.1.3",
     "zooniverse": "~0.3.8",
     "zooniverse-decision-tree": "0.0.2"
