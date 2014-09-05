@@ -30,6 +30,9 @@ module.exports = ->
       b.add path.resolve path.dirname(path.resolve @project), file
 
   @modifyStylus = (styl) ->
+    zooniverseModuleRoot = path.dirname require.resolve 'zooniverse/package' # Might be a peer, might be a child.
+    styl.define 'zooniverse-css-directory', path.join zooniverseModuleRoot, 'css'
+
     for file in [].concat @css
       # NOTE: These are currently added *before* the main file.
       styl.import path.resolve file
