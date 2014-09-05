@@ -45,7 +45,7 @@ class FieldGuide
     @goTo 0
 
   handleTabClick: (e) =>
-    @goTo parseFloat e.target.value
+    @goTo parseFloat $(e.target).closest('[value]').val()
 
   goTo: (index) ->
     for tab, i in @el.find('[name="readymade-field-guide-tab"]')
