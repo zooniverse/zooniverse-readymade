@@ -28,11 +28,12 @@ module.exports = (context) ->
                   <span class='readymade-member-links'>
                     #{(for url in [].concat member.url then "
                       <a href='#{url}' class='readymade-member-url'>
-                        <!--TODO: These will be icons.-->
                         #{if url.match 'facebook.com/' then "
                           <i class='fa fa-lg fa-facebook-square'></i>
                         " else if url.match 'github.com/' then "
                           <i class='fa fa-lg fa-github-alt'></i>
+                        " else if url.match 'plus.google.com/' then "
+                          <i class='fa fa-lg fa-google-plus'></i>
                         " else if url.match 'linkedin.com/' then "
                           <i class='fa fa-lg fa-linkedin-square'></i>
                         " else if url.match 'twitter.com/' then "
