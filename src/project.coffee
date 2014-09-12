@@ -105,6 +105,10 @@ class Project
     if @organizations or @scientists or @developers
       @addPage '#/team', 'Team', teamPageTemplate @
 
+    if @externalLinks?
+      for title, href of @externalLinks
+        @header.addNavLink href, title
+
     setTimeout => @stack.onHashChange()
 
     User.fetch()
