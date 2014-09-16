@@ -16,7 +16,7 @@ module.exports = (context) ->
           #{(for member, i in @[group] then "
             <div class='readymade-team-member'>
               #{if member.image? then "
-                <img src='#{member.image}' class='readymade-team-member-photo' />
+                <div class='readymade-team-member-photo'><img src='#{member.image}' /></div>
               " else ''}
 
               <div class='readymade-team-member-header'>

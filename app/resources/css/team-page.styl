@@ -14,8 +14,20 @@
     margin-bottom: 2em
 
   .readymade-team-member-photo
-    display: block
-    margin: 0 auto
+    background: rgba(gray, 0.3)
+    height: 60px
+    margin: 5% 0
+    position: relative
+
+    img
+      display: block
+      left: 50%
+      margin: 0 auto
+      max-height: 115%
+      max-width: 105%
+      position: absolute
+      top: 50%
+      transform: translate(-50%, -50%)
 
   .readymade-team-member-header
     font-size: 12px
@@ -29,6 +41,9 @@
 
       &:hover
         opacity: 1
+
+  .readymade-team-member-name
+    font-weight: bold
 
   .readymade-team-member-title,
   .readymade-team-member-location
