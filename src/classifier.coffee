@@ -38,6 +38,9 @@ class Classifier extends Controller
     @listenTo @Subject, 'select', (e, subject) =>
       @onSubjectSelect subject
 
+    @listenTo @Subject, 'no-more', (e) =>
+      @onNoMoreSubjects
+
     if IS_DEV
       window.classifier = this
 
@@ -60,6 +63,9 @@ class Classifier extends Controller
   onSubjectGettingNext: ->
     @el.addClass 'readymade-loading'
     @classification = null
+
+  onNoMoreSubjects: ->
+    # Override me.
 
   onSubjectSelect: (subject) ->
     @createClassification subject

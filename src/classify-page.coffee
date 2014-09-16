@@ -31,6 +31,7 @@ class ClassifyPage extends Classifier
   template: require './templates/classify-page'
 
   elements:
+    '.readymade-no-more-subjects-message': 'noMoreSubjectsMessage'
     '.readymade-subject-viewer-container': 'subjectViewerContainer'
     '.readymade-decision-tree-container': 'decisionTreeContainer'
     '.readymade-summary-container': 'summaryContainer'
@@ -102,11 +103,19 @@ class ClassifyPage extends Classifier
     @tutorial.open()
     @trigger @START_TUTORIAL, this, @tutorial
 
+  onNoMoreSubjects: ->
+    @noMoreSubjectsMessage.show()
+    @subjectViewerContainer.hide()
+    @decisionTreeContainer.hide()
+    @summaryContainer.hide()
+
   loadSubject: (subject, callback) ->
     args = arguments
 
-    this.decisionTreeContainer.show()
-    this.summaryContainer.hide()
+    @noMoreSubjectsMessage.hide()
+    @subjectViewerContainer.show()
+    @decisionTreeContainer.show()
+    @summaryContainer.hide()
 
     @subjectViewer.loadSubject subject, =>
       super args...
@@ -120,8 +129,8 @@ class ClassifyPage extends Classifier
       super args...
 
   showSummary: ->
-    this.decisionTreeContainer.hide()
-    this.summaryContainer.show()
+    @decisionTreeContainer.hide()
+    @summaryContainer.show()
 
   sendClassification: ->
     @classification.set 'workflow', @workflow
