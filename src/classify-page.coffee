@@ -61,6 +61,7 @@ class ClassifyPage extends Classifier
       firstTask: @firstTask || Object.keys(@tasks)[0]
 
     @listenTo @decisionTree.el, @decisionTree.LOAD_TASK, (e) =>
+      @subjectViewer.setTool null, null
       @subjectViewer.setTaskIndex e.detail.index
 
     @listenTo @decisionTree.el, DrawingTask::SELECT_TOOL, (e) =>
