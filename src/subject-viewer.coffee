@@ -18,6 +18,7 @@ class SubjectViewer extends Controller
   FROM_CURRENT_TASK: 'data-from-current-task'
 
   elements:
+    'input[name="favorite"]': 'favoriteToggle'
     'input[name="hide-old-marks"]': 'oldMarksToggle'
     '.readymade-marking-surface-container': 'markingSurfaceContainer'
     '.readymade-frame-controls': 'frameControls'
@@ -72,6 +73,7 @@ class SubjectViewer extends Controller
 
   loadSubject: (@subject, callback) ->
     @pauseFrames()
+    @favoriteToggle.prop 'checked', false
 
     @markingSurface.reset()
     @el.attr 'data-loading', true
