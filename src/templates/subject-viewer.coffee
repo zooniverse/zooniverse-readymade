@@ -1,7 +1,29 @@
 module.exports = -> '
   <div class="drawing-controls">
-    <label><input type="checkbox" name="hide-old-marks" />Hide old marks</label>
-    <button name="restart-tutorial">Restart tutorial</button>
+    <label class="readymade-has-clickable">
+      <input type="checkbox" name="favorite" />
+      <span class="readymade-clickable">
+        <i class="fa fa-heart-o readymade-clickable-not-checked"></i>
+        <i class="fa fa-heart readymade-clickable-checked" style="color: orangered;"></i>
+        <span>Favorite</span>
+      </span>
+    </label>
+
+    <label class="readymade-has-clickable">
+      <input type="checkbox" name="hide-old-marks" />
+      <span class="readymade-clickable">
+        <i class="fa fa-eye-slash readymade-clickable-not-checked"></i>
+        <i class="fa fa-eye-slash readymade-clickable-checked" style="color: orangered;"></i>
+        <span>Hide old marks</span>
+      </span>
+    </label>
+
+    <button name="restart-tutorial">
+      <span class="readymade-clickable">
+        <i class="fa fa-graduation-cap"></i>
+        <span>Restart tutorial</span>
+      </span>
+    </button>
   </div>
 
   <div class="readymade-marking-surface-container"></div>

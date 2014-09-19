@@ -192,6 +192,9 @@ class ClassifyPage extends Classifier
     prompt.show()
 
   events:
+    'change input[name="favorite"]': (e) ->
+      @classification.favorite = e.target.checked
+
     'click button[name="restart-tutorial"]': ->
       @startTutorial()
 
