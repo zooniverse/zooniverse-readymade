@@ -77,12 +77,12 @@ class Project
           tutorialSteps: tutorialSteps
           examples: examples
 
-        @addPage "#/#{dash label}", label, page
+        @addPage "#/#{dash label}/:subjectID", label, page
         @classifyPages.push page
 
     else if @tasks?
       page = new ClassifyPage {@tasks, @firstTask, @subjectGroup, @tutorialSteps, @examples}
-      @addPage '#/classify', 'Classify', page
+      @addPage '#/classify/:subjectID', 'Classify', page
       @classifyPages.push page
 
     unless @profile is false
@@ -153,7 +153,8 @@ class Project
     @topBar = new TopBar el: '#top-bar'
 
   addPage: (href, label, content) ->
-    @header.addNavLink href, label
+    linkHREF = href.replace /\/:[^\/]+/g, ''
+    @header.addNavLink linkHREF, label
 
     if content instanceof StackOfPages
       href += "/*"
