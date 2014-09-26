@@ -186,6 +186,8 @@ class ClassifyPage extends Classifier
           super
         else
           alert 'Sorry, classifying specific subjects is only available to scientsts!'
+    else
+      super
 
     @classificationsSubmitted += 1
 
