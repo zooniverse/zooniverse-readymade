@@ -65,8 +65,10 @@ class ClassifyPage extends Classifier
       @subjectViewer.setTaskIndex e.detail.index
 
     @listenTo @decisionTree.el, DrawingTask::SELECT_TOOL, (e) =>
-      {tool, choice} = e.detail
-      @subjectViewer.setTool tool, choice
+      # Delay so the default is preserved instead of cleared with the LOAD_TASK event.
+      setTimeout =>
+        {tool, choice} = e.detail
+        @subjectViewer.setTool tool, choice
 
     @listenTo @decisionTree.el, @decisionTree.COMPLETE, =>
       @finishSubject()
