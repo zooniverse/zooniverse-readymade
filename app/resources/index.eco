@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=1000" />
     <title></title>
     <link rel="stylesheet" href="./main.css" />
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/fontawesome/4.2.0/css/font-awesome.min.css" />
   </head>
 
   <body>
@@ -22,7 +22,7 @@
       <footer id="main-footer"></footer>
     </div>
 
-    <script src="//code.jquery.com/jquery-2.1.0.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="./main.js"></script>
   </body>
 </html>
