@@ -3,6 +3,7 @@ TopBar = require 'zooniverse/controllers/top-bar'
 SiteBackground = require './site-background'
 SiteHeader = require './site-header'
 StackOfPages = require 'stack-of-pages'
+translate = require 'zooniverse/lib/translate'
 homePageTemplate = require './templates/home-page'
 ZooniverseFooter = require 'zooniverse/controllers/footer'
 dash = require './lib/dash'
@@ -56,7 +57,7 @@ class Project
     @stack.el.className += ' readymade-main-stack'
 
     if @summary or @description
-      @homePage = @addPage '#/', 'Home', homePageTemplate @
+      @homePage = @addPage '#/', translate('readymade.home'), homePageTemplate @
 
       unless @footer is false
         footer = new ZooniverseFooter
@@ -66,7 +67,7 @@ class Project
 
     if @workflows?
       for {key, label, subjectGroup, tasks, firstTask, tutorialSteps, examples} in @workflows
-        label ?= 'Classify'
+        label ?= translate 'readymade.classify'
         key ?= dash(label).replace /\-/g, '_'
 
         page = new ClassifyPage
@@ -82,12 +83,12 @@ class Project
 
     else if @tasks?
       page = new ClassifyPage {@tasks, @firstTask, @subjectGroup, @tutorialSteps, @examples}
-      @addPage '#/classify', 'Classify', page
+      @addPage '#/classify', translate('readymade.classify'), page
       @classifyPages.push page
 
     unless @profile is false
       @profile = new Profile
-      @addPage '#/profile', 'Profile', @profile
+      @addPage '#/profile', translate('readymade.profile'), @profile
 
     if @pages?
       for page in @pages
@@ -103,7 +104,7 @@ class Project
           @addPage hash, title, newContent
 
     if @organizations or @scientists or @developers
-      @addPage '#/team', 'Team', teamPageTemplate @
+      @addPage '#/team', translate('readymade.team'), teamPageTemplate @
 
     if @externalLinks?
       for title, href of @externalLinks
