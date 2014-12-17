@@ -5,8 +5,8 @@ module.exports = -> """
     <label class="readymade-has-clickable">
       <input type="checkbox" name="favorite" />
       <span class="readymade-clickable">
-        <i class="fa fa-heart-o readymade-clickable-not-checked"></i>
-        <i class="fa fa-heart readymade-clickable-checked" style="color: orangered;"></i>
+        #{translate 'readymade.favoriteIcon'}
+        #{translate 'readymade.favoriteIconChecked'}
         <span>#{translate 'readymade.favorite'}</span>
       </span>
     </label>
@@ -14,15 +14,15 @@ module.exports = -> """
     <label class="readymade-has-clickable">
       <input type="checkbox" name="hide-old-marks" />
       <span class="readymade-clickable">
-        <i class="fa fa-eye-slash readymade-clickable-not-checked"></i>
-        <i class="fa fa-eye-slash readymade-clickable-checked" style="color: orangered;"></i>
+        #{translate 'readymade.hideOldMarksIcon'}
+        #{translate 'readymade.hideOldMarksIconChecked'}
         <span>#{translate 'readymade.hideOldMarks'}</span>
       </span>
     </label>
 
     <button name="restart-tutorial">
       <span class="readymade-clickable">
-        <i class="fa fa-graduation-cap"></i>
+        #{translate 'readymade.tutorialIcon'}
         <span>#{translate 'readymade.restartTutorial'}</span>
       </span>
     </button>
