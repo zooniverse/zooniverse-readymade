@@ -108,7 +108,7 @@ class ClassifyPage extends Classifier
   onActivate: (e) ->
     unless @classification?.subject.zooniverse_id is e.originalEvent.detail.subjectID
       @isUserScientist().then (theyAre) =>
-        if theyAre or true
+        if theyAre
           @targetSubjectID = e.originalEvent.detail.subjectID
           @getNextSubject()
         else
