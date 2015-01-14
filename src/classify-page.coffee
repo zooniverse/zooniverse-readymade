@@ -92,11 +92,27 @@ class ClassifyPage extends Classifier
 
     @el.on StackOfPages::activateEvent, => @onActivate arguments...
 
+  isUserScientist: ->
+    result = new $.Deferred
+    if User.current?
+      # TODO: Cache some of this? Pretty nasty.
+      project = Api.current.get "/projects/#{Api.current.project}"
+      talkUser = Api.current.get "/projects/penguin/talk/users/#{User.current.name}"
+      $.when(project, talkUser).then (project, talkUser) =>
+        projectRoles = talkUser.roles?[project.id]
+        result.resolve projectRoles? and 'scientist' in projectRoles
+    else
+      result.resolve false
+    result.promise()
+
   onActivate: (e) ->
-    @targetSubjectID = e.originalEvent.detail.subjectID
-    if @classification? and @targetSubjectID
-      unless @classification.subject.zooniverse_id is @targetSubjectID
-        @getNextSubject()
+    unless @classification?.subject.zooniverse_id is e.originalEvent.detail.subjectID
+      @isUserScientist().then (theyAre) =>
+        if theyAre or true
+          @targetSubjectID = e.originalEvent.detail.subjectID
+          @getNextSubject()
+        else
+          alert 'Sorry, only members of the science team can choose their subjects!'
 
   onUserChange: (user) ->
     super
@@ -113,19 +129,6 @@ class ClassifyPage extends Classifier
       else
         @startTutorial()
 
-  isUserScientist: ->
-    result = new $.Deferred
-    if User.current?
-      # TODO: Cache some of this? Pretty nasty.
-      project = Api.current.get "/projects/#{Api.current.project}"
-      talkUser = Api.current.get "/projects/penguin/talk/users/#{User.current.name}"
-      $.when(project, talkUser).then (project, talkUser) =>
-        projectRoles = talkUser.roles?[project.id]
-        result.resolve projectRoles? and 'scientist' in projectRoles
-    else
-      result.resolve false
-    result.promise()
-
   getNextSubject: ->
     if @targetSubjectID
       unless @targetSubjectID is @classification?.subject.zooniverse_id
@@ -134,7 +137,7 @@ class ClassifyPage extends Classifier
           subject = new @Subject data
           subject.select()
 
-        request.fail ->
+        request.fail =>
           alert "There's no subject with the ID #{@targetSubjectID}."
 
     else
@@ -150,6 +153,11 @@ class ClassifyPage extends Classifier
     @subjectViewerContainer.hide()
     @decisionTreeContainer.hide()
     @summaryContainer.hide()
+
+  createClassification: (subject) ->
+    super
+    if subject.zooniverse_id is @targetSubjectID
+      @classification.set 'chosen_subject', true
 
   loadSubject: (subject, callback) ->
     args = arguments
@@ -173,21 +181,13 @@ class ClassifyPage extends Classifier
   showSummary: ->
     @decisionTreeContainer.hide()
     @summaryContainer.show()
-    @targetSubjectID = ''
+    @targetSubjectID = '' # Don't keep loading the same subject
 
   sendClassification: ->
     @classification.set 'workflow', @workflow
     for annotation in @composeAnnotations()
       @classification.annotate annotation
-
-    if @targetSubjectID
-      @isUserScientist().then (theyAre) =>
-        if theyAre
-          super
-        else
-          alert 'Sorry, classifying specific subjects is only available to scientsts!'
-    else
-      super
+    super
 
     @classificationsSubmitted += 1
 
