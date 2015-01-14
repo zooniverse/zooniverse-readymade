@@ -100,7 +100,7 @@ class ClassifyPage extends Classifier
       talkUser = Api.current.get "/projects/penguin/talk/users/#{User.current.name}"
       $.when(project, talkUser).then (project, talkUser) =>
         projectRoles = talkUser.roles?[project.id]
-        result.resolve projectRoles? and 'scientist' in projectRoles
+        result.resolve projectRoles? and ('scientist' in projectRoles or 'admin' in projectRoles)
     else
       result.resolve false
     result.promise()
