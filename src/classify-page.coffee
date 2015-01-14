@@ -11,9 +11,13 @@ FieldGuide = require './field-guide'
 currentConfig = require 'zooniverse-readymade/current-configuration'
 User = require 'zooniverse/models/user'
 $ = window.jQuery
+StackOfPages = require 'stack-of-pages'
+Api = require 'zooniverse/lib/api'
 
 class ClassifyPage extends Classifier
   START_TUTORIAL: "zooniverse-readymade:classifier:start_tutorial"
+
+  targetSubjectID: ''
 
   workflow: 'untitled_workflow'
   tasks: null
@@ -86,6 +90,32 @@ class ClassifyPage extends Classifier
       @fieldGuide = new FieldGuide {@examples}
       @fieldGuideContainer.append @fieldGuide.el
 
+    @el.on StackOfPages::activateEvent, => @onActivate arguments...
+
+  isUserScientist: ->
+    result = new $.Deferred
+    if User.current?
+      # TODO: Cache some of this? Pretty nasty.
+      project = Api.current.get "/projects/#{Api.current.project}"
+      talkUser = Api.current.get "/projects/penguin/talk/users/#{User.current.name}"
+      $.when(project, talkUser).then (project, talkUser) =>
+        projectRoles = talkUser.roles?[project.id]
+        result.resolve projectRoles? and ('scientist' in projectRoles or 'admin' in projectRoles)
+    else
+      result.resolve false
+    result.promise()
+
+  onActivate: (e) ->
+    idFromURL = e.originalEvent.detail.subjectID
+    unless idFromURL is ''
+      unless @classification?.subject.zooniverse_id is idFromURL
+        @isUserScientist().then (theyAre) =>
+          if theyAre
+            @targetSubjectID = idFromURL
+            @getNextSubject()
+          else
+            alert 'Sorry, only members of the science team can choose what they classify!'
+
   onUserChange: (user) ->
     super
 
@@ -101,6 +131,19 @@ class ClassifyPage extends Classifier
       else
         @startTutorial()
 
+  getNextSubject: ->
+    if @targetSubjectID
+      request = Api.current.get "/projects/#{Api.current.project}/subjects/#{@targetSubjectID}"
+      request.then (data) =>
+        subject = new @Subject data
+        subject.select()
+
+      request.fail =>
+        alert "There's no subject with the ID #{@targetSubjectID}."
+
+    else
+      super
+
   startTutorial: ->
     @tutorial.goTo 0
     @tutorial.open()
@@ -111,6 +154,11 @@ class ClassifyPage extends Classifier
     @subjectViewerContainer.hide()
     @decisionTreeContainer.hide()
     @summaryContainer.hide()
+
+  createClassification: (subject) ->
+    super
+    if subject.zooniverse_id is @targetSubjectID
+      @classification.set 'chosen_subject', true
 
   loadSubject: (subject, callback) ->
     args = arguments
@@ -134,6 +182,7 @@ class ClassifyPage extends Classifier
   showSummary: ->
     @decisionTreeContainer.hide()
     @summaryContainer.show()
+    @targetSubjectID = '' # Don't keep loading the same subject
 
   sendClassification: ->
     @classification.set 'workflow', @workflow

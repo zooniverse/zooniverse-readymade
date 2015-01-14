@@ -18,7 +18,7 @@ class ToolControls extends BaseToolControls
     @detailsControls.style.display = 'none'
 
     @addEvent 'click', 'button[name="readymade-destroy-drawing"]', [@tool.mark, 'destroy']
-    @addEvent 'click', 'button[name="readymade-dismiss-details"]', [@tool, 'deselect']
+    @addEvent 'click', 'button[name="readymade-dismiss-details"]', [@, 'onDismissDetails']
     @addEvent 'change', @onChange
 
     setTimeout => # Ugh.
@@ -36,6 +36,10 @@ class ToolControls extends BaseToolControls
     detail.renderTemplate()
     detail.show()
     form.appendChild detail.el
+
+  onDismissDetails: ->
+    # Wait for the down-up-click event cycle to complete before deselecting the mark.
+    setTimeout (=> @tool.deselect()), 50
 
   onChange: (e) ->
     for key, task of @detailTasks

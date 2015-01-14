@@ -58,7 +58,7 @@ class Classifier extends Controller
 
   onUserChange: (user) ->
     unless @classification?
-      @Subject.next()
+      @getNextSubject()
 
   onSubjectGettingNext: ->
     @el.addClass 'readymade-loading'
