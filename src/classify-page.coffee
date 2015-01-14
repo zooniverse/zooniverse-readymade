@@ -112,7 +112,7 @@ class ClassifyPage extends Classifier
           @targetSubjectID = e.originalEvent.detail.subjectID
           @getNextSubject()
         else
-          alert 'Sorry, only members of the science team can choose their subjects!'
+          alert 'Sorry, only members of the science team can choose what they classify!'
 
   onUserChange: (user) ->
     super
@@ -131,14 +131,13 @@ class ClassifyPage extends Classifier
 
   getNextSubject: ->
     if @targetSubjectID
-      unless @targetSubjectID is @classification?.subject.zooniverse_id
-        request = Api.current.get "/projects/#{Api.current.project}/subjects/#{@targetSubjectID}"
-        request.then (data) =>
-          subject = new @Subject data
-          subject.select()
+      request = Api.current.get "/projects/#{Api.current.project}/subjects/#{@targetSubjectID}"
+      request.then (data) =>
+        subject = new @Subject data
+        subject.select()
 
-        request.fail =>
-          alert "There's no subject with the ID #{@targetSubjectID}."
+      request.fail =>
+        alert "There's no subject with the ID #{@targetSubjectID}."
 
     else
       super
