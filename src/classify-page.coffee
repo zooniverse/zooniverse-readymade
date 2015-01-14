@@ -106,13 +106,15 @@ class ClassifyPage extends Classifier
     result.promise()
 
   onActivate: (e) ->
-    unless @classification?.subject.zooniverse_id is e.originalEvent.detail.subjectID
-      @isUserScientist().then (theyAre) =>
-        if theyAre
-          @targetSubjectID = e.originalEvent.detail.subjectID
-          @getNextSubject()
-        else
-          alert 'Sorry, only members of the science team can choose what they classify!'
+    idFromURL = e.originalEvent.detail.subjectID
+    unless idFromURL is ''
+      unless @classification?.subject.zooniverse_id is idFromURL
+        @isUserScientist().then (theyAre) =>
+          if theyAre
+            @targetSubjectID = idFromURL
+            @getNextSubject()
+          else
+            alert 'Sorry, only members of the science team can choose what they classify!'
 
   onUserChange: (user) ->
     super
