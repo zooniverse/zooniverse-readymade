@@ -105,6 +105,8 @@ class Project
     if @organizations or @scientists or @developers
       @addPage '#/team', 'Team', teamPageTemplate @
 
+    @header.buildNav @stack
+    
     if @externalLinks?
       for title, href of @externalLinks
         @header.addNavLink href, title
@@ -121,20 +123,19 @@ class Project
 
     for description, i in pages
       for title, content of description
-        currentPath.push dash title
+        id = dash title
+        currentPath.push id
 
         hash = ['#', currentPath...].join '/'
         mapOfHashes.default ?= hash
-
-        nav.insertAdjacentHTML 'beforeEnd', """
-          <a href="#{hash}">#{title}</a>
-        """
-
+      
+        nav.appendChild @navLink id, hash, title
+      
         mapOfHashes[hash] = if content instanceof Array
           @makeStackFromPages content, currentPath
         else if typeof content is 'string'
           """
-            <div class='readymade-generic-page' data-readymade-page='#{dash title}'>#{content}</div>
+            <div id='#{id}' class='readymade-generic-page' data-readymade-page='#{dash title}'>#{content}</div>
           """
         else
           container = document.createElement 'div'
@@ -144,7 +145,7 @@ class Project
         currentPath.pop()
 
     stack = new StackOfPages mapOfHashes
-    stack.el.insertAdjacentHTML 'afterBegin', nav.outerHTML
+    stack.el.insertBefore nav, stack.el.firstChild
     setTimeout -> stack.onHashChange()
     stack
 
@@ -154,12 +155,33 @@ class Project
 
   addPage: (href, label, content) ->
     linkHREF = href.replace /\/:[^\/]+/g, ''
-    @header.addNavLink linkHREF, label
-
+    @stack.changeDisplay = false
+    
+    frag_id = linkHREF.split('/').pop()
+    frag_id = 'home' if frag_id == ''
+    
     if content instanceof StackOfPages
       href += "/*"
-
+    
     @stack.add href, content
-    @stack.el.children[@stack.el.children.length - 1]
+    page = @stack.el.children[@stack.el.children.length - 1]
+    page.id = frag_id
+    
+    link = @header.addNavLink '#' + frag_id, label
+    link.addEventListener 'click', (e) ->
+      window.location.hash = linkHREF
+      e.preventDefault()
+
+    page
+  
+  navLink: (id, hash, title) ->
+    link = document.createElement 'a'
+    link.href = '#' + id
+    link.textContent  = title
+    link.addEventListener 'click', (e) =>
+      e.preventDefault()
+      window.location.hash = hash
+  
+    link
 
 module.exports = Project
