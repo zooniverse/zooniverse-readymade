@@ -2,7 +2,7 @@ module.exports = (context) ->
   template = -> "
     <div class='readymade-team-page'>
       #{(for group in ['organizations', 'scientists', 'developers'] when @[group]? then "
-        <div class='readymade-team-group-title'>
+        <h2 class='readymade-team-group-title'>
           #{if group is 'organizations' then "
             Organizations
           " else if group is 'scientists' then "
@@ -10,7 +10,7 @@ module.exports = (context) ->
           " else if group is 'developers' then "
             Developers
           " else ''}
-        </div>
+        </h2>
 
         <div class='readymade-#{group} readymade-team-group'>
           #{(for member, i in @[group] then "
