@@ -10,13 +10,17 @@
   transition: opacity 0.25s
 
   &[data-transitioning],
-  &[data-open]
+  &[aria-hidden=false]
     display: block
-
-  &[data-open]
+  
+  &[aria-hidden=false]
     opacity: 1
 
+  &[aria-hidden=false] > .readymade-mini-tutorial-dialog
+    transform: translate(-50%, -50%) scale(1, 1)
+
 .readymade-mini-tutorial-dialog
+  background-color: white
   background: white linear-gradient(rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.1))
   border-radius: 5px
   box-shadow: 0 1px 3px black
@@ -61,7 +65,7 @@
   width: auto
 
   &:not([data-readymade-active])
-    display: none
+    display: block
 
 .readymade-mini-tutorial-contents
   display: inline-block
@@ -71,7 +75,7 @@
 
 .readymade-mini-tutorial-content
   &:not([data-readymade-active])
-    display: none
+    display: block
 
 .readymade-mini-tutorial-actions
   flex: 0 0 auto
@@ -113,9 +117,15 @@
 
 [name="readymade-mini-tutorial-stepper"]
   @extends #_RESET_BUTTON
+  height: .8em
+  overflow: hidden
 
   & > .readymade-mini-tutorial-button-label
-    display: none
+    display: block
+    height: 0
+    width: 0
+    line-height: 0
+    text-indent: -50px
 
   &::after
     background: currentColor
@@ -127,5 +137,7 @@
     margin: 0 0.25em
     width: 0.5em
 
-  &:not([data-readymade-active])::after
+  &[aria-selected=false]::after
     opacity: 0.5
+  &[aria-selected=true]::after
+    opacity: 1
