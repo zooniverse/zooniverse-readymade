@@ -10,6 +10,7 @@ ClassifyPage = require './classify-page'
 Profile = require 'zooniverse/controllers/profile'
 teamPageTemplate = require './templates/team-page'
 User = require 'zooniverse/models/user'
+TabSet = require './tab-control'
 
 class Project
   parent: document.body
@@ -52,7 +53,10 @@ class Project
       el: '#main-header'
       template: SiteHeader::template @
 
-    @stack = new StackOfPages el: document.getElementById 'main-content'
+    @stack = new StackOfPages 
+      el: document.getElementById 'main-content'
+      changeDisplay: false
+      
     @stack.el.className += ' readymade-main-stack'
 
     if @summary or @description
@@ -105,7 +109,7 @@ class Project
     if @organizations or @scientists or @developers
       @addPage '#/team', 'Team', teamPageTemplate @
 
-    @header.buildNav @stack
+    @buildNavTabs @header.linksList, 'nav'
     
     if @externalLinks?
       for title, href of @externalLinks
@@ -116,7 +120,8 @@ class Project
     User.fetch()
 
   makeStackFromPages: (pages, currentPath = []) ->
-    mapOfHashes = {}
+    mapOfHashes = { changeDisplay: false }
+    prefix = currentPath[ currentPath.length - 1 ]
 
     nav = document.createElement 'nav'
     nav.className = 'readymade-subnav'
@@ -147,6 +152,7 @@ class Project
     stack = new StackOfPages mapOfHashes
     stack.el.insertBefore nav, stack.el.firstChild
     setTimeout -> stack.onHashChange()
+    @buildNavTabs nav, prefix, stack
     stack
 
   connect: (project) ->
@@ -155,7 +161,6 @@ class Project
 
   addPage: (href, label, content) ->
     linkHREF = href.replace /\/:[^\/]+/g, ''
-    @stack.changeDisplay = false
     
     frag_id = linkHREF.split('/').pop()
     frag_id = 'home' if frag_id == ''
@@ -183,5 +188,32 @@ class Project
       window.location.hash = hash
   
     link
+  
+  buildNavTabs: (nav, prefix, stack = @stack) ->
+    nav_links = []
+    panels = []
+  
+    nav = nav[0] if nav[0]?
+    for link in nav.querySelectorAll 'a'
+      hash = link.getAttribute 'href'
+      panel = stack.el.querySelector hash
+      if panel?
+        panels.push panel
+        nav_links.push link
+  
+    @buildTabset nav_links, panels, prefix, stack
+  
+  buildTabset: (tabs, panels, prefix, stack) ->
+    tabset = new TabSet
+    for tab, i in tabs
+      panel = panels[i]
+      tab.id = prefix + '-tab-' + i if tab.id == ''
+      panel.id = prefix + '-' + i if panel.id == ''
+      tabset.add tab, panel, panel.hasAttribute stack.activatedAttr
+    
+      do (panel)->
+        panel.addEventListener stack.activateEvent, (e) ->
+          e.stopPropagation()
+          tabset.activate panel
 
 module.exports = Project
