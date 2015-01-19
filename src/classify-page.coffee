@@ -128,6 +128,9 @@ class ClassifyPage extends Classifier
     if @classification?
       unless @targetSubjectID is @classification?.subject.zooniverse_id
         @getNextSubject()
+    
+    if @tutorial.el.getAttribute('aria-hidden') is 'false'
+      setTimeout => @tutorial.active_button?.focus()
 
   onUserChange: (user) ->
     super
