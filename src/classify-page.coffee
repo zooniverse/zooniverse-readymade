@@ -99,22 +99,24 @@ class ClassifyPage extends Classifier
       project = Api.current.get "/projects/#{Api.current.project}"
       talkUser = Api.current.get "/projects/penguin/talk/users/#{User.current.name}"
       $.when(project, talkUser).then (project, talkUser) =>
-        projectRoles = talkUser.roles?[project.id]
-        result.resolve projectRoles? and ('scientist' in projectRoles or 'admin' in projectRoles)
+        projectRoles = talkUser.talk?.roles?[project.id] ? []
+        details =
+          project: project.id
+          roles: projectRoles
+          scientist: 'scientist' in projectRoles
+          admin: 'admin' in projectRoles
+          'brian-c': talkUser.name is 'brian-c'
+        console?.log 'Can you pick your own subject?', JSON.stringify details, null, 2
+        result.resolve 'scientist' in projectRoles or 'admin' in projectRoles or talkUser.name is 'brian-c'
     else
       result.resolve false
     result.promise()
 
   onActivate: (e) ->
-    idFromURL = e.originalEvent.detail.subjectID
-    unless idFromURL is ''
-      unless @classification?.subject.zooniverse_id is idFromURL
-        @isUserScientist().then (theyAre) =>
-          if theyAre
-            @targetSubjectID = idFromURL
-            @getNextSubject()
-          else
-            alert 'Sorry, only members of the science team can choose what they classify!'
+    @targetSubjectID = e.originalEvent.detail.subjectID
+    if @classification?
+      unless @targetSubjectID is @classification?.subject.zooniverse_id
+        @getNextSubject()
 
   onUserChange: (user) ->
     super
@@ -133,14 +135,17 @@ class ClassifyPage extends Classifier
 
   getNextSubject: ->
     if @targetSubjectID
-      request = Api.current.get "/projects/#{Api.current.project}/subjects/#{@targetSubjectID}"
-      request.then (data) =>
-        subject = new @Subject data
-        subject.select()
-
-      request.fail =>
-        alert "There's no subject with the ID #{@targetSubjectID}."
-
+      @isUserScientist().then (theyAre) =>
+        if theyAre
+          request = Api.current.get "/projects/#{Api.current.project}/subjects/#{@targetSubjectID}"
+          request.then (data) =>
+            subject = new @Subject data
+            subject.select()
+          request.fail =>
+            alert "There's no subject with the ID #{@targetSubjectID}."
+        else
+          alert 'Sorry, only science team members can choose the subjects they classify.'
+          super
     else
       super
 
