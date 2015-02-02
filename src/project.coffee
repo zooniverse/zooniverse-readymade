@@ -183,7 +183,7 @@ class Project
   navLink: (id, hash, title) ->
     link = document.createElement 'a'
     link.href = '#' + id
-    link.textContent  = title
+    link.innerHTML  = title
     link.addEventListener 'click', (e) =>
       e.preventDefault()
       window.location.hash = hash

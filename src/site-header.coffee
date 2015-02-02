@@ -14,7 +14,7 @@ class SiteHeader extends Controller
   addNavLink: (href, label) ->
     link = document.createElement 'a'
     link.href = href
-    link.textContent = label
+    link.innerHTML = label
     link.className = 'readymade-site-link'
     
     li = document.createElement li
