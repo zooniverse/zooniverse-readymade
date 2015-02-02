@@ -89,7 +89,7 @@ class MiniTutorial
 
     for elements in [@images, @contents, @steppers]
       for element, i in elements
-        if i is index
+        if i is @index
           element.setAttribute 'data-readymade-active', true
         else
           element.removeAttribute 'data-readymade-active'
