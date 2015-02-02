@@ -1,8 +1,9 @@
+translate = require 'zooniverse/lib/translate'
 dash = require '../lib/dash'
 
 module.exports = (context) ->
   template = ->
-    workflows = @workflows ? [label: 'Get started!', name: 'classify']
+    workflows = @workflows ? [label: translate('readymade.getStarted'), name: 'classify']
 
     "
       <div class='readymade-home-page'>
