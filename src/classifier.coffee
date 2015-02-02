@@ -39,7 +39,7 @@ class Classifier extends Controller
       @onSubjectSelect subject
 
     @listenTo @Subject, 'no-more', (e) =>
-      @onNoMoreSubjects
+      @onNoMoreSubjects()
 
     if IS_DEV
       window.classifier = this
@@ -58,7 +58,7 @@ class Classifier extends Controller
 
   onUserChange: (user) ->
     unless @classification?
-      @Subject.next()
+      @getNextSubject()
 
   onSubjectGettingNext: ->
     @el.addClass 'readymade-loading'
