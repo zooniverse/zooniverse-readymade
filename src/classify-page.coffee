@@ -113,7 +113,7 @@ class ClassifyPage extends Classifier
     result.promise()
 
   onActivate: (e) ->
-    @targetSubjectID = e.originalEvent.detail.subjectID
+    @targetSubjectID = e.originalEvent.detail.subjectID if e.originalEvent.detail.subjectID.length
     if @classification?
       unless @targetSubjectID is @classification?.subject.zooniverse_id
         @getNextSubject()
@@ -164,6 +164,8 @@ class ClassifyPage extends Classifier
     super
     if subject.zooniverse_id is @targetSubjectID
       @classification.set 'chosen_subject', true
+    
+    @targetSubjectID = subject.zooniverse_id
 
   loadSubject: (subject, callback) ->
     args = arguments
