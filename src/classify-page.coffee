@@ -105,18 +105,17 @@ class ClassifyPage extends Classifier
           roles: projectRoles
           scientist: 'scientist' in projectRoles
           admin: 'admin' in projectRoles
-          'brian-c': talkUser.name is 'brian-c'
+          'brian-c': talkUser.name in ['brian-c', 'eatyourgreens']
         console?.log 'Can you pick your own subject?', JSON.stringify details, null, 2
-        result.resolve 'scientist' in projectRoles or 'admin' in projectRoles or talkUser.name is 'brian-c'
+        result.resolve 'scientist' in projectRoles or 'admin' in projectRoles or talkUser.name in ['brian-c', 'eatyourgreens']
     else
       result.resolve false
     result.promise()
 
   onActivate: (e) ->
-    @targetSubjectID = e.originalEvent.detail.subjectID if e.originalEvent.detail.subjectID.length
-    if @classification?
-      unless @targetSubjectID is @classification?.subject.zooniverse_id
-        @getNextSubject()
+    @targetSubjectID = e.originalEvent.detail.subjectID
+    if @targetSubjectID
+      @getNextSubject() unless @targetSubjectID is @Subject.current?.zooniverse_id
 
   onUserChange: (user) ->
     super
@@ -164,8 +163,6 @@ class ClassifyPage extends Classifier
     super
     if subject.zooniverse_id is @targetSubjectID
       @classification.set 'chosen_subject', true
-    
-    @targetSubjectID = subject.zooniverse_id
 
   loadSubject: (subject, callback) ->
     args = arguments
