@@ -99,10 +99,12 @@ class Project
         for title, content of page
           if content instanceof Array
             newContent = @makeStackFromPages content, [dash title]
-          else
+          else if typeof content is 'string'
             newContent = """
               <div class='readymade-generic-page' data-readymade-page='#{dash title}'>#{content}</div>
             """
+          else
+            newContent = content
 
           hash = "#/#{dash title}"
           @addPage hash, title, newContent
