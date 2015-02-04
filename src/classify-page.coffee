@@ -259,7 +259,9 @@ class ClassifyPage extends Classifier
         Dialog::hide.call this
         setTimeout (=> @destroy()), 600
 
-    prompt.show()
+    prompt.show() 
+    setTimeout ->
+      prompt.el[0].querySelector('button[name=sign-in]').focus()
 
   events:
     'change input[name="favorite"]': (e) ->
