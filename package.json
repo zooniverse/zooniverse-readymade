@@ -1,6 +1,6 @@
 {
   "name": "zooniverse-readymade",
-  "version": "0.6.3",
+  "version": "0.6.4",
   "bin": "./bin/zooniverse-readymade",
   "dependencies": {
     "coffee-script": "^1.8.0",
