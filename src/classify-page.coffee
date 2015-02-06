@@ -210,9 +210,8 @@ class ClassifyPage extends Classifier
     for {mark} in @subjectViewer.markingSurface.tools
       # A drawing task's value is the last-selected tool, which is not terribly
       # useful. Replace it with the task's marks.
-      unless annotations[mark._taskIndex].value instanceof Array
-        annotations[mark._taskIndex].value = []
-      annotations[mark._taskIndex].value.push mark
+      task = annotations[mark._taskIndex]
+      task?.value.push mark
 
     annotations
 
