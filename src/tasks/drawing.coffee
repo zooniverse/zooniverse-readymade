@@ -2,6 +2,8 @@ RadioTask = require './radio'
 
 class DrawingTask extends RadioTask
   @type: 'drawing'
+  
+  value = []
 
   tools:
     point: require '../drawing-tools/point'
@@ -16,13 +18,10 @@ class DrawingTask extends RadioTask
     @el.addEventListener 'change', this, false
 
     if @choices.length is 1
-      @reset @choices[0].value
-      @selectTool @choices[0].type, @choices[0]
+      @check @choices[0]
     else
       for choice in @choices
-        if choice.checked
-          @reset choice.value
-          @selectTool choice.type, choice
+        @check choice if choice.checked
 
   exit: ->
     super
@@ -39,5 +38,21 @@ class DrawingTask extends RadioTask
   selectTool: (tool, choice) ->
     tool = @tools[tool] if typeof tool is 'string'
     @dispatchEvent @SELECT_TOOL, {tool, choice}
+  
+  check: (choice) ->
+    @el.querySelector('input:checked')?.checked = false
+
+    @el.querySelector("[value=#{choice.value}]").checked = true if choice?
+    
+    @selectTool choice.type, choice
+  
+  reset: (value = []) ->
+    @value = value
+  
+  getValue: ->
+    @value
+    
+  addMark: (mark) ->
+    @value.push mark
 
 module.exports = DrawingTask
