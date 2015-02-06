@@ -18,13 +18,10 @@ class DrawingTask extends RadioTask
     @el.addEventListener 'change', this, false
 
     if @choices.length is 1
-      @check @choices[0].value
-      @selectTool @choices[0].type, @choices[0]
+      @check @choices[0]
     else
       for choice in @choices
-        if choice.checked
-          @check choice.value
-          @selectTool choice.type, choice
+        @check choice if choice.checked
 
   exit: ->
     super
@@ -42,10 +39,12 @@ class DrawingTask extends RadioTask
     tool = @tools[tool] if typeof tool is 'string'
     @dispatchEvent @SELECT_TOOL, {tool, choice}
   
-  check: (value) ->
+  check: (choice) ->
     @el.querySelector('input:checked')?.checked = false
 
-    @el.querySelector("[value=#{value}]").checked = true if value?
+    @el.querySelector("[value=#{choice.value}]").checked = true if choice?
+    
+    @selectTool choice.type, choice
   
   reset: (value = []) ->
     @value = value
