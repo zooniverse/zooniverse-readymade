@@ -208,12 +208,6 @@ class ClassifyPage extends Classifier
 
   composeAnnotations: ->
     annotations = []
-    
-    for {mark} in @subjectViewer.markingSurface.tools
-      # A drawing task's value is the last-selected tool, which is not terribly
-      # useful. Replace it with the task's marks.
-      task = annotations[mark._taskIndex]
-      task.addMark mark if task?
 
     decisionTreeValues = @decisionTree.getValues()
     for keyAndValue in decisionTreeValues then for key, value of keyAndValue
