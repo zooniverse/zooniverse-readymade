@@ -78,6 +78,12 @@ class ClassifyPage extends Classifier
       @finishSubject()
 
     @decisionTreeContainer.append @decisionTree.el
+    
+    @listenTo @subjectViewer.markingSurface, 'marking-surface:add-tool', =>
+      @updateDrawingTask()
+      
+    @listenTo @subjectViewer.markingSurface, 'marking-surface:remove-tool', =>
+      @updateDrawingTask()
 
     @summary = new ClassificationSummary
 
@@ -202,22 +208,10 @@ class ClassifyPage extends Classifier
 
   composeAnnotations: ->
     annotations = []
-    
-    for {mark} in @subjectViewer.markingSurface.tools
-      # A drawing task's value is the last-selected tool, which is not terribly
-      # useful. Replace it with the task's marks.
-      task = annotations[mark._taskIndex]
-      task.addMark mark if task?
 
     decisionTreeValues = @decisionTree.getValues()
     for keyAndValue in decisionTreeValues then for key, value of keyAndValue
       annotations.push {key, value}
-
-    for {mark} in @subjectViewer.markingSurface.tools
-      # A drawing task's value is the last-selected tool, which is not terribly
-      # useful. Replace it with the task's marks.
-      task = annotations[mark._taskIndex]
-      task?.value.push mark
 
     annotations
 
@@ -250,6 +244,13 @@ class ClassifyPage extends Classifier
         setTimeout (=> @destroy()), 600
 
     prompt.show()
+  
+  updateDrawingTask: ->
+    marks = []
+    for {mark} in @subjectViewer.markingSurface.tools
+      marks.push mark if mark._taskIndex is @subjectViewer.taskIndex
+    
+    @decisionTree.currentTask?.reset marks
 
   events:
     'change input[name="favorite"]': (e) ->
