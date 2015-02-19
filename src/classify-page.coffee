@@ -89,6 +89,12 @@ class ClassifyPage extends Classifier
       document.querySelector('button[name=readymade-dont-talk]').focus()
 
     @decisionTreeContainer.append @decisionTree.el
+    
+    @listenTo @subjectViewer.markingSurface, 'marking-surface:add-tool', =>
+      @updateDrawingTask()
+      
+    @listenTo @subjectViewer.markingSurface, 'marking-surface:remove-tool', =>
+      @updateDrawingTask()
 
     @summary = new ClassificationSummary
 
@@ -221,13 +227,6 @@ class ClassifyPage extends Classifier
     for keyAndValue in decisionTreeValues then for key, value of keyAndValue
       annotations.push {key, value}
 
-    for {mark} in @subjectViewer.markingSurface.tools
-      # A drawing task's value is the last-selected tool, which is not terribly
-      # useful. Replace it with the task's marks.
-      unless annotations[mark._taskIndex].value instanceof Array
-        annotations[mark._taskIndex].value = []
-      annotations[mark._taskIndex].value.push mark
-
     annotations
 
   promptToLogIn: ->
@@ -261,6 +260,13 @@ class ClassifyPage extends Classifier
     prompt.show() 
     setTimeout ->
       prompt.el[0].querySelector('button[name=sign-in]').focus()
+  
+  updateDrawingTask: ->
+    marks = []
+    for {mark} in @subjectViewer.markingSurface.tools
+      marks.push mark if mark._taskIndex is @subjectViewer.taskIndex
+    
+    @decisionTree.currentTask?.reset marks
 
   events:
     'change input[name="favorite"]': (e) ->
