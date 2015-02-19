@@ -68,6 +68,7 @@ class ClassifyPage extends Classifier
     @listenTo @decisionTree.el, @decisionTree.LOAD_TASK, (e) =>
       @subjectViewer.setTool null, null
       @subjectViewer.setTaskIndex e.detail.index
+      @updateDrawingTask() if e.detail.task.type is 'drawing'
       
       unless @decisionTree.autofocus
         @decisionTree.autofocus = true
