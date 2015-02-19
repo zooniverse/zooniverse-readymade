@@ -67,6 +67,7 @@ class ClassifyPage extends Classifier
     @listenTo @decisionTree.el, @decisionTree.LOAD_TASK, (e) =>
       @subjectViewer.setTool null, null
       @subjectViewer.setTaskIndex e.detail.index
+      @updateDrawingTask() if e.detail.task.type is 'drawing'
 
     @listenTo @decisionTree.el, DrawingTask::SELECT_TOOL, (e) =>
       # Delay so the default is preserved instead of cleared with the LOAD_TASK event.
