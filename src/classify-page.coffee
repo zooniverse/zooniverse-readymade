@@ -104,7 +104,7 @@ class ClassifyPage extends Classifier
     if User.current?
       # TODO: Cache some of this? Pretty nasty.
       project = Api.current.get "/projects/#{Api.current.project}"
-      talkUser = Api.current.get "/projects/penguin/talk/users/#{User.current.name}"
+      talkUser = Api.current.get "/projects/#{Api.current.project}/talk/users/#{User.current.name}"
       $.when(project, talkUser).then (project, talkUser) =>
         projectRoles = talkUser.talk?.roles?[project.id] ? []
         details =
