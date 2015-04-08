@@ -17,9 +17,10 @@ class SiteHeader extends Controller
     link.innerHTML = label
     link.className = 'readymade-site-link'
     
-    li = document.createElement li
-  
-    @linksList.append li.appendChild link
+    li = document.createElement 'li'
+    li.appendChild link
+    
+    @linksList.append li
   
     link
 
