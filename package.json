@@ -11,7 +11,7 @@
     "jquery": "^2.1.0",
     "marking-surface": "^0.6.4",
     "stack-of-pages": "~0.1.3",
-    "zooniverse": "^0.7.4",
+    "zooniverse": "^0.7.5",
     "zooniverse-decision-tree": "0.0.2"
   },
   "scripts": {
