@@ -63,11 +63,21 @@ class ClassifyPage extends Classifier
         drawing: DrawingTask
       tasks: @tasks
       firstTask: @firstTask || Object.keys(@tasks)[0]
-
+      autofocus: false
+    
     @listenTo @decisionTree.el, @decisionTree.LOAD_TASK, (e) =>
       @subjectViewer.setTool null, null
       @subjectViewer.setTaskIndex e.detail.index
       @updateDrawingTask() if e.detail.task.type is 'drawing'
+      
+      unless @decisionTree.autofocus
+        @decisionTree.autofocus = true
+        return
+    
+      if e.detail.index > 0
+        @decisionTree.backButton.focus()
+      else
+        @decisionTree.el.querySelector('input').focus()
 
     @listenTo @decisionTree.el, DrawingTask::SELECT_TOOL, (e) =>
       # Delay so the default is preserved instead of cleared with the LOAD_TASK event.
@@ -77,6 +87,7 @@ class ClassifyPage extends Classifier
 
     @listenTo @decisionTree.el, @decisionTree.COMPLETE, =>
       @finishSubject()
+      document.querySelector('button[name=readymade-dont-talk]').focus()
 
     @decisionTreeContainer.append @decisionTree.el
     
@@ -123,6 +134,9 @@ class ClassifyPage extends Classifier
     @targetSubjectID = e.originalEvent.detail.subjectID
     if @targetSubjectID
       @getNextSubject() unless @targetSubjectID is @Subject.current?.zooniverse_id
+    
+    if @tutorial.el.getAttribute('aria-hidden') is 'false'
+      setTimeout => @tutorial.active_button?.focus()
 
   onUserChange: (user) ->
     super
@@ -244,8 +258,10 @@ class ClassifyPage extends Classifier
         Dialog::hide.call this
         setTimeout (=> @destroy()), 600
 
-    prompt.show()
-  
+    prompt.show() 
+    setTimeout ->
+      prompt.el[0].querySelector('button[name=sign-in]').focus()
+
   updateDrawingTask: ->
     marks = []
     for {mark} in @subjectViewer.markingSurface.tools

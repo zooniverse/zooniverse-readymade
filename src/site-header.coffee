@@ -1,5 +1,4 @@
 Controller = require 'zooniverse/controllers/base-controller'
-$ = window.jQuery
 
 class SiteHeader extends Controller
   className: 'readymade-site-header'
@@ -13,16 +12,22 @@ class SiteHeader extends Controller
     setTimeout @onHashChange
 
   addNavLink: (href, label) ->
-    @linksList.append "<a href='#{href}' class='readymade-site-link'>#{label}</a>\n"
+    link = document.createElement 'a'
+    link.href = href
+    link.innerHTML = label
+    link.className = 'readymade-site-link'
+    
+    li = document.createElement 'li'
+    li.appendChild link
+    
+    @linksList.append li
+  
+    link
 
   onHashChange: =>
-    for link in @linksList.find 'a'
-      href = link.getAttribute 'href'
-      match = if href.length is 2 # Probably only "#/"
-        location.hash is href
-      else
-        location.hash.indexOf(href) is 0
-
-      $(link).toggleClass 'active', match
+    unless window.location.hash == '' || window.location.hash[0..1] == '#/'
+      panel = document.querySelector window.location.hash
+      e = new CustomEvent 'activate-in-stack'
+      panel?.dispatchEvent e
 
 module.exports = SiteHeader

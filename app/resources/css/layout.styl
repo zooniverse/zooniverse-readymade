@@ -6,6 +6,12 @@ html
 body
   margin: 0
 
+h1
+  margin: 0
+
+h2
+  line-height: inherit
+
 .readymade-site-background
   background-color: MEDIUM_GRAY
   background-position: 50% 33%
@@ -110,3 +116,10 @@ a
     display: block
     margin: 0 auto
     max-width: 80%
+
+[role=tabPanel]
+  &[aria-selected=false]
+    display: none
+
+  &[aria-selected=true]
+    display: block

@@ -4,10 +4,10 @@ module.exports = (context) ->
       <div class='readymade-creator'>
         <a href='#/'>
           <div class='readymade-project-producer'>#{@producer}</div>
-          <div class='readymade-project-title'>#{@title}</div>
+          <h1 class='readymade-project-title'>#{@title}</h1>
         </a>
       </div>
 
-      <div class='readymade-site-links'></div>
+      <ul class='readymade-site-links' role='navigation'></ul>
     "
   template.call context
