@@ -87,7 +87,7 @@ class ClassifyPage extends Classifier
 
     @listenTo @decisionTree.el, @decisionTree.COMPLETE, =>
       @finishSubject()
-      document.querySelector('button[name=readymade-dont-talk]').focus()
+      @summary.el.find('button[name=readymade-dont-talk]').focus()
 
     @decisionTreeContainer.append @decisionTree.el
     
