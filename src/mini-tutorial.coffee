@@ -1,4 +1,5 @@
 $ = window.jQuery
+TabSet = require './tab-control'
 
 class MiniTutorial
   CLOSE_EVENT: 'mini-tutorial:close'
@@ -13,17 +14,14 @@ class MiniTutorial
   index: 0
 
   template: -> "
-    <button type='button' name='readymade-mini-tutorial-close'>#{@closeLabel}</button>
-
-    <div class='readymade-mini-tutorial-images'>
-      #{("
-        <img src='#{step.image}' class='readymade-mini-tutorial-image' />
-      " for step in @steps).join '\n'}
-    </div>
+    <button type='button' name='readymade-mini-tutorial-close' aria-label='Close'>#{@closeLabel}</button>
 
     <div class='readymade-mini-tutorial-contents'>
       #{("
-        <div class='readymade-mini-tutorial-content'>#{step.content}</div>
+        <div>
+          <div class='readymade-mini-tutorial-images'><img src='#{step.image}' alt='#{step.alt}' class='readymade-mini-tutorial-image' /></div>
+          <div class='readymade-mini-tutorial-content'>#{step.content}</div>
+        </div>
       " for step in @steps).join '\n'}
     </div>
 
@@ -43,7 +41,7 @@ class MiniTutorial
 
     <div class='readymade-mini-tutorial-steppers'>
       #{("
-        <button type='button' name='readymade-mini-tutorial-stepper' value='#{i}'>
+        <button id='tut-tab-#{i}' type='button' name='readymade-mini-tutorial-stepper'>
           <span class='readymade-mini-tutorial-button-label'>#{i + 1}</span>
         </button>
       " for step, i in @steps).join '\n'}
@@ -56,29 +54,53 @@ class MiniTutorial
 
     @el ?= document.createElement 'div'
     @el.classList.add 'readymade-mini-tutorial-underlay'
+    @el.setAttribute 'aria-hidden', true
 
     @close()
 
     @dialog ?= document.createElement 'div'
     @dialog.classList.add 'readymade-mini-tutorial-dialog'
+    @dialog.setAttribute 'role', 'dialog'
 
     @dialog.insertAdjacentHTML 'afterBegin', @template()
 
-    @images = @dialog.querySelectorAll '.readymade-mini-tutorial-image'
-    @contents = @dialog.querySelectorAll '.readymade-mini-tutorial-content'
     @previousButton = @dialog.querySelector '[name="readymade-mini-tutorial-previous"]'
     @nextButton = @dialog.querySelector '[name="readymade-mini-tutorial-next"]'
     @finishButton = @dialog.querySelector '[name="readymade-mini-tutorial-finish"]'
-    @steppers = @dialog.querySelectorAll '[name="readymade-mini-tutorial-stepper"]'
+    
+    $el = $ @el
 
-    $(@el).on 'click', '[name="readymade-mini-tutorial-close"]', @close.bind this
+    $el.on 'click', '[name="readymade-mini-tutorial-close"]', @close.bind this
 
-    $(@el).on 'click', '[name="readymade-mini-tutorial-previous"]', @previous.bind this
-    $(@el).on 'click', '[name="readymade-mini-tutorial-next"]', @next.bind this
-    $(@el).on 'click', '[name="readymade-mini-tutorial-finish"]', @close.bind this
+    $el.on 'click', '[name="readymade-mini-tutorial-previous"]', @previous.bind this
+    $el.on 'click', '[name="readymade-mini-tutorial-next"]', @next.bind this
+    $el.on 'click', '[name="readymade-mini-tutorial-finish"]', @close.bind this
+    $el.on 'focus', 'button[role=tab]', @handleTabClick
 
-    $(@el).on 'click', '[name="readymade-mini-tutorial-stepper"]', (e) =>
-      @goTo parseFloat e.target.value
+    step_controls = new TabSet
+    for slide, i in @dialog.querySelectorAll('.readymade-mini-tutorial-contents > div')
+      tab = @dialog.querySelector "#tut-tab-#{i}"
+      step_controls.add tab, slide, i is 0
+      
+      $(tab).on 'click', i, (e)=>
+        @goTo e.data
+      
+    
+    last_step = step_controls.tabcontrols[ step_controls.tabcontrols.length - 1 ]
+    close = @dialog.querySelector '[name="readymade-mini-tutorial-close"]'
+    # tab to close button from last stepper button
+    $el.on 'keydown', '[name="readymade-mini-tutorial-stepper"]:last', (e) =>
+      if e.which == 9 && !e.shiftKey
+        e.preventDefault()
+        close.focus()
+    
+    # shift-tab to last stepper button from close button
+    $el.on 'keydown', '[name="readymade-mini-tutorial-close"]', (e) =>
+      if e.which == 9 && e.shiftKey
+        e.preventDefault()
+        last_step.tab.focus()
+    
+    @step_controls = step_controls
 
     @el.appendChild @dialog
 
@@ -86,43 +108,49 @@ class MiniTutorial
 
   goTo: (@index) ->
     @index %%= @steps.length
-
-    for elements in [@images, @contents, @steppers]
-      for element, i in elements
-        if i is @index
-          element.setAttribute 'data-readymade-active', true
-        else
-          element.removeAttribute 'data-readymade-active'
+    
+    @step_controls.goTo @index
 
     @previousButton.disabled = @index is 0
 
     lastStep = @steps.length - 1
     @nextButton.disabled = @index is lastStep
     @finishButton.disabled = @index isnt lastStep
+    
+    @active_button = if @index is lastStep then @finishButton else @nextButton
 
     return
 
+  handleTabClick: (e) =>
+    index = e.target.id.replace 'tut-tab-', ''
+    @goTo index
+    
   previous: ->
     @goTo @index - 1
+    @active_button?.focus()
     return
 
   next: ->
     @goTo @index + 1
+    @active_button?.focus()
     return
-    @dialog.querySelector('button').focus()
 
   open: ->
     @el.setAttribute 'data-transitioning', true
+    @current_focus = document.activeElement ? document.body
     setTimeout =>
-      @el.setAttribute 'data-open', true
+      @el.setAttribute 'aria-hidden', false
       @el.removeAttribute 'data-transitioning'
+      @active_button?.focus()
+    , 250
     return
 
   close: ->
     @el.setAttribute 'data-transitioning', true
-    @el.removeAttribute 'data-open'
+    @el.setAttribute 'aria-hidden', true
     setTimeout @el.removeAttribute.bind(@el, 'data-transitioning'), 250
     $(@el).trigger @CLOSE_EVENT
+    @current_focus?.focus()
     return
 
 module.exports = MiniTutorial

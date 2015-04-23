@@ -1,4 +1,5 @@
 $ = window.jQuery
+TabSet = require './tab-control'
 
 class FieldGuide
   examples: null
@@ -6,7 +7,7 @@ class FieldGuide
   template: (examples) -> "
     <div class='readymade-field-guide-tabs'>
       #{("
-        <button name='readymade-field-guide-tab' value='#{i}'>#{page.label}</button>
+        <button id='fg-tab-#{i}' name='readymade-field-guide-tab'>#{page.label}</button>
       " for page, i in examples).join '\n'}
     </div>
 
@@ -17,13 +18,13 @@ class FieldGuide
           <div class='readymade-field-guide-examples'>
             #{("
               <div class='readymade-field-guide-example'>
-                <img src='#{figure.image}' class='readymade-field-guide-image' />
+                <img src='#{figure.image}' alt='#{figure.alt}' class='readymade-field-guide-image' />
                 <div class='readymade-field-guide-caption'>#{figure.label}</div>
               </div>
             " for figure in page.figures).join '\n'}
           </div>
         </div>
-      " for page in examples).join '\n'}
+      " for page, i in examples).join '\n'}
     </div>
   "
 
@@ -39,21 +40,27 @@ class FieldGuide
 
     renderedHTML = @template @examples
     @el.append renderedHTML
+    
+    @tabs = new TabSet
+    
+    @el.find('.readymade-field-guide-page').each (i, panel) =>
+      tab = @el.find "#fg-tab-#{i}"
+      @tabs.add tab, panel, i is 0
 
-    @el.on 'click', '[name="readymade-field-guide-tab"]', @handleTabClick
+    @el.on 'focus', 'button[role=tab]', @handleTabClick
 
     @goTo 0
 
   handleTabClick: (e) =>
-    @goTo parseFloat $(e.target).closest('[value]').val()
+    index = e.target.id.replace 'fg-tab-', ''
+    @goTo index
 
-  goTo: (index) ->
-    for tab, i in @el.find('[name="readymade-field-guide-tab"]')
-      $(tab).toggleClass 'active', i is index
-    for page, i in @el.find('.readymade-field-guide-page')
-      $(page).toggle i is index
+  goTo: (index) =>
+    @tabs.goTo parseInt index
+      
 
   destroy: ->
-    @el.off 'click', '[readymade-field-guide-tab]', @handleTabClick
+    @el.off 'focus', 'button[role=tab]', @handleTabClick
+    @tabs.destroy()
 
 module.exports = FieldGuide
