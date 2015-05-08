@@ -106,7 +106,7 @@ If you need more than one type of classification, instead of defining `tasks` an
 Misc. pages
 -----------
 
-`pages`: Any additional pages you want to include can be defined here as an array of maps. Keys will be the page titles (and URLs), values will be page content (as HTML).
+`pages`: Any additional pages you want to include can be defined here as an array of hashes. Each page hash needs `key` (used in URLs and element IDs), `title` (page title) and `content` (page content, usually a HTML string. Can be an instance of a Controller).
 
 Team page
 ---------

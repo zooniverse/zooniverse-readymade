@@ -95,19 +95,19 @@ class Project
       @addPage '#/profile', translate('readymade.profile'), @profile
 
     if @pages?
+      tmp = document.createElement 'div'
       for page in @pages
-        for title, content of page
-          if content instanceof Array
-            newContent = @makeStackFromPages content, [dash title]
-          else if typeof content is 'string'
-            newContent = """
-              <div class='readymade-generic-page' data-readymade-page='#{dash title}'>#{content}</div>
-            """
-          else
-            newContent = content
+        if page.content instanceof Array
+          newContent = @makeStackFromPages page.content, [page.key]
+        else if typeof page.content is 'string'
+          newContent = """
+            <div class='readymade-generic-page' data-readymade-page='#{page.key}'>#{page.content}</div>
+          """
+        else
+          newContent = page.content
 
-          hash = "#/#{dash title}"
-          @addPage hash, title, newContent
+        hash = "#/#{page.key}"
+        @addPage hash, page.title, newContent
 
     if @organizations or @scientists or @developers
       @addPage '#/team', translate('readymade.team'), teamPageTemplate @
@@ -129,28 +129,27 @@ class Project
     nav = document.createElement 'nav'
     nav.className = 'readymade-subnav'
 
-    for description, i in pages
-      for title, content of description
-        id = dash title
-        currentPath.push id
+    for page, i in pages
+      id = page.key
+      currentPath.push id
 
-        hash = ['#', currentPath...].join '/'
-        mapOfHashes.default ?= hash
-      
-        nav.appendChild @navLink id, hash, title
-      
-        mapOfHashes[hash] = if content instanceof Array
-          @makeStackFromPages content, currentPath
-        else if typeof content is 'string'
-          """
-            <div id='#{id}' class='readymade-generic-page' data-readymade-page='#{dash title}'>#{content}</div>
-          """
-        else
-          container = document.createElement 'div'
-          # TODO: Add sub-navigation.
-          content
+      hash = ['#', currentPath...].join '/'
+      mapOfHashes.default ?= hash
+    
+      nav.appendChild @navLink id, hash, page.title
+    
+      mapOfHashes[hash] = if page.content instanceof Array
+        @makeStackFromPages page.content, currentPath
+      else if typeof page.content is 'string'
+        """
+          <div id='#{id}' class='readymade-generic-page' data-readymade-page='#{page.key}'>#{page.content}</div>
+        """
+      else
+        container = document.createElement 'div'
+        # TODO: Add sub-navigation.
+        page.content
 
-        currentPath.pop()
+      currentPath.pop()
 
     stack = new StackOfPages mapOfHashes
     stack.el.insertBefore nav, stack.el.firstChild
