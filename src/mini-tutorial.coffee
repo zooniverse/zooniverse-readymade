@@ -1,5 +1,6 @@
 $ = window.jQuery
 TabSet = require './tab-control'
+translate = require 'zooniverse/lib/translate'
 
 class MiniTutorial
   CLOSE_EVENT: 'mini-tutorial:close'
@@ -7,9 +8,9 @@ class MiniTutorial
   steps = []
 
   closeLabel: '&times;'
-  previousLabel: 'Previous'
-  nextLabel: 'Next'
-  finishLabel: 'Finished'
+  previousLabel: translate('readymade.previous')
+  nextLabel: translate('readymade.next')
+  finishLabel: translate('readymade.finished')
 
   index: 0
 
