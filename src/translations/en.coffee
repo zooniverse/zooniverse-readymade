@@ -15,6 +15,7 @@ module.exports =
   next: 'Next'
   previous: 'Previous'
   finished: 'Finished'
+  back: 'Back'
 
   favorite: 'Favorite'
   favoriteIcon: '<i class="fa fa-heart-o readymade-clickable-not-checked"></i>'
