@@ -1,24 +1,26 @@
+translate = require 'zooniverse/lib/translate'
+
 module.exports = -> "
-  <p>Thank you. Your classification has been recorded.</p>
+  #{ translate('p','readymade.thankYou') }
 
   <div>
     <p>
-      Do you want to talk about this image?
+      #{ translate('readymade.talkQuestion') }
       <span class='readymade-existing-comments'>
-        There are already <span class='readymade-existing-comments-count'>&mdash;</span> comments.
+        #{ translate('readymade.existingComments')}
       </span>
     </p>
 
     <p class='readymade-talk'>
-      <button type='button' name='readymade-dont-talk'>No</button>
-      <a href='#' class='readymade-talk-link'>Yes</a>
+      <button type='button' name='readymade-dont-talk'>#{ translate('readymade.no') }</button>
+      <a href='#' class='readymade-talk-link'>#{ translate('readymade.yes') }</a>
     </p>
   </div>
 
     #{if location.href.indexOf('beta') is -1 then "
     <div>
       <p>
-        Share this image:
+        #{ translate('readymade.share') }
       </p>
 
       <p class='readymade-social'>

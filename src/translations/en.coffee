@@ -6,6 +6,16 @@ module.exports =
   team: 'Team'
 
   getStarted: 'Get started!'
+  thankYou: 'Thank you. Your classification has been recorded.'
+  yes: 'Yes'
+  no: 'No'
+  talkQuestion: 'Do you want to talk about this image?'
+  existingComments: 'There are already <span class="readymade-existing-comments-count">&mdash;</span> comments.'
+  share: 'Share this image:'
+  next: 'Next'
+  previous: 'Previous'
+  finished: 'Finished'
+  back: 'Back'
 
   favorite: 'Favorite'
   favoriteIcon: '<i class="fa fa-heart-o readymade-clickable-not-checked"></i>'

@@ -13,6 +13,7 @@ User = require 'zooniverse/models/user'
 $ = window.jQuery
 StackOfPages = require 'stack-of-pages'
 Api = require 'zooniverse/lib/api'
+translate = require 'zooniverse/lib/translate'
 
 class ClassifyPage extends Classifier
   START_TUTORIAL: "zooniverse-readymade:classifier:start_tutorial"
@@ -64,6 +65,7 @@ class ClassifyPage extends Classifier
       tasks: @tasks
       firstTask: @firstTask || Object.keys(@tasks)[0]
       autofocus: false
+      backLabel: translate 'readymade.back'
     
     @listenTo @decisionTree.el, @decisionTree.LOAD_TASK, (e) =>
       @subjectViewer.setTool null, null
