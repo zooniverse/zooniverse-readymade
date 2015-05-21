@@ -1,5 +1,13 @@
 # Change Log
 
+## [Unreleased](https://github.com/zooniverse/zooniverse-readymade/tree/HEAD)
+
+[Full Changelog](https://github.com/zooniverse/zooniverse-readymade/compare/0.7.0...HEAD)
+
+**Merged pull requests:**
+
+- Translation update [\#32](https://github.com/zooniverse/zooniverse-readymade/pull/32) ([eatyourgreens](https://github.com/eatyourgreens))
+
 ## [0.7.0](https://github.com/zooniverse/zooniverse-readymade/tree/0.7.0) (2015-04-23)
 
 [Full Changelog](https://github.com/zooniverse/zooniverse-readymade/compare/0.6.7...0.7.0)
