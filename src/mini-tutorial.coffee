@@ -8,9 +8,6 @@ class MiniTutorial
   steps = []
 
   closeLabel: '&times;'
-  previousLabel: translate('readymade.previous')
-  nextLabel: translate('readymade.next')
-  finishLabel: translate('readymade.finished')
 
   index: 0
 
@@ -50,6 +47,10 @@ class MiniTutorial
   "
 
   constructor: (options) ->
+    @previousLabel = translate 'readymade.previous'
+    @nextLabel = translate 'readymade.next'
+    @finishLabel = translate 'readymade.finished'
+    
     for key, value of options
       @[key] = value
 
