@@ -1,5 +1,13 @@
 # Change Log
 
+## [0.8.2](https://github.com/zooniverse/zooniverse-readymade/tree/0.8.2) (2015-09-11)
+
+- Fixes tutorial buttons.
+
+- Updates example project
+
+[Full Changelog](https://github.com/zooniverse/zooniverse-readymade/compare/0.8.1...0.8.2)
+
 ## [0.8.1](https://github.com/zooniverse/zooniverse-readymade/tree/0.8.1) (2015-09-01)
 
 [Full Changelog](https://github.com/zooniverse/zooniverse-readymade/compare/0.8.0...0.8.1)
