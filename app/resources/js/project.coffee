@@ -3,6 +3,8 @@ translations =
   en: require '../../../lib/translations/en'
   ja: require '../../../lib/translations/ja'
   es: require '../../../lib/translations/es'
+  cs: require '../../../lib/translations/cs'
+  ru: require '../../../lib/translations/ru'
 
 Project = require '../../../lib/project'
 projectConfiguration = require 'zooniverse-readymade/current-configuration'
