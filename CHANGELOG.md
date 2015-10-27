@@ -1,10 +1,14 @@
 # Change Log
 
+## [0.8.3](https://github.com/zooniverse/zooniverse-readymade/tree/0.8.3) (2015-10-27)
+
+[Full Changelog](https://github.com/zooniverse/zooniverse-readymade/compare/0.8.2...0.8.3)
+
+**Merged pull requests:**
+
+- Czech [\#33](https://github.com/zooniverse/zooniverse-readymade/pull/33) ([eatyourgreens](https://github.com/eatyourgreens))
+
 ## [0.8.2](https://github.com/zooniverse/zooniverse-readymade/tree/0.8.2) (2015-09-11)
-
-- Fixes tutorial buttons.
-
-- Updates example project
 
 [Full Changelog](https://github.com/zooniverse/zooniverse-readymade/compare/0.8.1...0.8.2)
 
