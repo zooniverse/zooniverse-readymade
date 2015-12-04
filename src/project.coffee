@@ -18,6 +18,8 @@ class Project
 
   background: ''
   id: ''
+  apiHost: null
+  apiProxyPath: null
 
   producer: ''
   title: ''
@@ -47,8 +49,7 @@ class Project
         src: @background
         el: '#site-background'
 
-    if @id
-      @connect @id
+    @connect() if @id
 
     @header = new SiteHeader
       el: '#main-header'
@@ -157,8 +158,8 @@ class Project
     @buildNavTabs nav, prefix, stack
     stack
 
-  connect: (project) ->
-    @api = new Api {project}
+  connect: ->
+    @api = new Api project: @id, host: @apiHost, path: @apiProxyPath
     @topBar = new TopBar el: '#top-bar'
 
   addPage: (href, label, content) ->
