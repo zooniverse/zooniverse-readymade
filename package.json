@@ -4,7 +4,7 @@
   "bin": "./bin/zooniverse-readymade",
   "dependencies": {
     "coffee-script": "^1.8.0",
-    "haw": "^0.5.0",
+    "haw": "^0.5.1",
     "publisssh": "~1.0.0"
   },
   "peerDependencies": {
