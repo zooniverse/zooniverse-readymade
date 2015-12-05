@@ -1,5 +1,13 @@
 # Change Log
 
+## [1.0.0](https://github.com/zooniverse/zooniverse-readymade/tree/1.0.0) (2015-12-04)
+
+[Full Changelog](https://github.com/zooniverse/zooniverse-readymade/compare/0.8.3...1.0.0)
+
+**Merged pull requests:**
+
+- Api configuration [\#35](https://github.com/zooniverse/zooniverse-readymade/pull/35) ([parrish](https://github.com/parrish))
+
 ## [0.8.3](https://github.com/zooniverse/zooniverse-readymade/tree/0.8.3) (2015-10-27)
 
 [Full Changelog](https://github.com/zooniverse/zooniverse-readymade/compare/0.8.2...0.8.3)
