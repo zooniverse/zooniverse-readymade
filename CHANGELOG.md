@@ -1,5 +1,9 @@
 # Change Log
 
+## [1.1.0](https://github.com/zooniverse/zooniverse-readymade/tree/1.1.0) (2016-03-16)
+
+[Full Changelog](https://github.com/zooniverse/zooniverse-readymade/compare/1.0.0...1.1.0)
+
 ## [1.0.0](https://github.com/zooniverse/zooniverse-readymade/tree/1.0.0) (2015-12-04)
 
 [Full Changelog](https://github.com/zooniverse/zooniverse-readymade/compare/0.8.3...1.0.0)
