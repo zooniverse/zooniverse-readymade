@@ -1,5 +1,5 @@
 RadioTask = require './radio'
-Dropdown = require 'zooniverse/controllers/dropdown'
+Dropdown = window.zooniverse?.controllers?.Dropdown or require('zooniverse/controllers/dropdown')
 choiceTemplate = require '../templates/choice'
 
 class FilterTask extends RadioTask

@@ -1,8 +1,8 @@
 flags = require './lib/flags'
-Controller = require 'zooniverse/controllers/base-controller'
-User = require 'zooniverse/models/user'
-Subject = require 'zooniverse/models/subject'
-Classification = require 'zooniverse/models/classification'
+Controller = window.zooniverse?.controllers?.BaseController or require('zooniverse/controllers/base-controller')
+User = window.zooniverse?.models?.User or require('zooniverse/models/user')
+Subject = window.zooniverse?.models?.Subject or require('zooniverse/models/subject')
+Classification = window.zooniverse?.models?.Classification or require('zooniverse/models/classification')
 
 IS_DEV = if flags.dev?
   flags.dev is 1

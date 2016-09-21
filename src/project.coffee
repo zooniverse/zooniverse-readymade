@@ -1,16 +1,16 @@
-Api = require 'zooniverse/lib/api'
-TopBar = require 'zooniverse/controllers/top-bar'
+Api = window.zooniverse?.Api or require('zooniverse/lib/api')
+TopBar = window.zooniverse?.controllers?.TopBar or require('zooniverse/controllers/top-bar')
 SiteBackground = require './site-background'
 SiteHeader = require './site-header'
 StackOfPages = require 'stack-of-pages'
-translate = require 'zooniverse/lib/translate'
+translate = window.zooniverse?.translate or require('zooniverse/lib/translate')
 homePageTemplate = require './templates/home-page'
-ZooniverseFooter = require 'zooniverse/controllers/footer'
+ZooniverseFooter = window.zooniverse?.controllers?.Footer or require('zooniverse/controllers/footer')
 dash = require './lib/dash'
 ClassifyPage = require './classify-page'
-Profile = require 'zooniverse/controllers/profile'
+Profile = window.zooniverse?.controllers?.Profile or require('zooniverse/controllers/profile')
 teamPageTemplate = require './templates/team-page'
-User = require 'zooniverse/models/user'
+User = window.zooniverse?.models?.User or require('zooniverse/models/user')
 TabSet = require './tab-control'
 
 class Project

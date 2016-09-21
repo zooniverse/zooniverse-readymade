@@ -1,6 +1,6 @@
 $ = window.jQuery
 TabSet = require './tab-control'
-translate = require 'zooniverse/lib/translate'
+translate = window.zooniverse?.translate or require('zooniverse/lib/translate')
 
 class MiniTutorial
   CLOSE_EVENT: 'mini-tutorial:close'

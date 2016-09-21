@@ -1,6 +1,6 @@
-Dialog = require 'zooniverse/controllers/dialog'
-loginDialog = require 'zooniverse/controllers/login-dialog'
-signupDialog = require 'zooniverse/controllers/signup-dialog'
+Dialog = window.zooniverse?.controllers?.Dialog or require('zooniverse/controllers/dialog')
+loginDialog = window.zooniverse?.controllers?.loginDialog or require('zooniverse/controllers/login-dialog')
+signupDialog = window.zooniverse?.controllers?.signupDialog or require('zooniverse/controllers/signup-dialog')
 Classifier = require './classifier'
 MiniTutorial = require './mini-tutorial'
 SubjectViewer = require './subject-viewer'
@@ -9,11 +9,11 @@ ClassificationSummary = require './classification-summary'
 DrawingTask = require './tasks/drawing'
 FieldGuide = require './field-guide'
 currentConfig = require 'zooniverse-readymade/current-configuration'
-User = require 'zooniverse/models/user'
+User = window.zooniverse?.models?.User or require('zooniverse/models/user')
 $ = window.jQuery
 StackOfPages = require 'stack-of-pages'
-Api = require 'zooniverse/lib/api'
-translate = require 'zooniverse/lib/translate'
+Api = window.zooniverse?.Api or require('zooniverse/lib/api')
+translate = window.zooniverse?.translate or require('zooniverse/lib/translate')
 
 class ClassifyPage extends Classifier
   START_TUTORIAL: "zooniverse-readymade:classifier:start_tutorial"
