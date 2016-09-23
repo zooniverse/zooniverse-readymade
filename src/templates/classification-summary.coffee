@@ -1,4 +1,4 @@
-translate = require 'zooniverse/lib/translate'
+translate = window.zooniverse?.translate or require('zooniverse/lib/translate')
 
 module.exports = -> "
   #{ translate('p','readymade.thankYou') }

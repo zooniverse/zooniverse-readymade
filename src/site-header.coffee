@@ -1,4 +1,4 @@
-Controller = require 'zooniverse/controllers/base-controller'
+Controller = window.zooniverse?.controllers?.BaseController or require('zooniverse/controllers/base-controller')
 
 class SiteHeader extends Controller
   className: 'readymade-site-header'

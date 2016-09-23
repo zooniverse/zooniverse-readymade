@@ -1,4 +1,4 @@
-Controller = require 'zooniverse/controllers/base-controller'
+Controller = window.zooniverse?.controllers?.BaseController or require('zooniverse/controllers/base-controller')
 
 class ClassificationSumary extends Controller
   DISMISS: 'zooniverse-readymade:classification-summary:dismiss'
