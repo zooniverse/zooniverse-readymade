@@ -1,5 +1,12 @@
 # Change Log
 
+## [v1.3.0](https://github.com/zooniverse/zooniverse-readymade/tree/v1.3.0) (2017-02-08)
+[Full Changelog](https://github.com/zooniverse/zooniverse-readymade/compare/1.2.0...v1.3.0)
+
+**Merged pull requests:**
+
+- Fix build [\#38](https://github.com/zooniverse/zooniverse-readymade/pull/38) ([eatyourgreens](https://github.com/eatyourgreens))
+
 ## [1.2.0](https://github.com/zooniverse/zooniverse-readymade/tree/1.2.0) (2016-09-25)
 [Full Changelog](https://github.com/zooniverse/zooniverse-readymade/compare/1.1.3...1.2.0)
 
