@@ -6,6 +6,8 @@ translations =
   cs: require '../../../lib/translations/cs'
   ru: require '../../../lib/translations/ru'
   el: require '../../../lib/translations/el'
+  it: require '../../../lib/translations/it'
+  zh_tw: require '../../../lib/translations/zh-tw'
 
 Project = require '../../../lib/project'
 projectConfiguration = require 'zooniverse-readymade/current-configuration'
