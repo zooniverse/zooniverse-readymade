@@ -1,8 +1,7 @@
 # Change Log
 
-## [Unreleased](https://github.com/zooniverse/zooniverse-readymade/tree/HEAD)
-
-[Full Changelog](https://github.com/zooniverse/zooniverse-readymade/compare/v1.4.0...HEAD)
+## [v1.5.0](https://github.com/zooniverse/zooniverse-readymade/tree/v1.5.0) (2017-03-07)
+[Full Changelog](https://github.com/zooniverse/zooniverse-readymade/compare/v1.4.0...v1.5.0)
 
 **Merged pull requests:**
 
