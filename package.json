@@ -4,11 +4,7 @@
   "bin": "./bin/zooniverse-readymade",
   "dependencies": {
     "coffee-script": "^1.10.0",
-    "haw": "^0.5.1",
-    "image-min": "^0.3.2",
-    "imagemin-gifsicle": "^5.1.0",
-    "imagemin-optipng": "^5.2.1",
-    "imagemin-pngquant": "^5.0.0",
+    "haw": "^0.6.0",
     "jquery": "^2.1.0",
     "marking-surface": "^0.6.4",
     "publisssh": "~1.0.0",
