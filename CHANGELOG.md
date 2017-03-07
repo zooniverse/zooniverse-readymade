@@ -1,5 +1,12 @@
 # Change Log
 
+## [v1.4.0](https://github.com/zooniverse/zooniverse-readymade/tree/v1.4.0) (2017-03-07)
+[Full Changelog](https://github.com/zooniverse/zooniverse-readymade/compare/v1.3.0...v1.4.0)
+
+**Merged pull requests:**
+
+- Add Chinese and Italian translations [\#39](https://github.com/zooniverse/zooniverse-readymade/pull/39) ([eatyourgreens](https://github.com/eatyourgreens))
+
 ## [v1.3.0](https://github.com/zooniverse/zooniverse-readymade/tree/v1.3.0) (2017-02-08)
 [Full Changelog](https://github.com/zooniverse/zooniverse-readymade/compare/1.2.0...v1.3.0)
 
