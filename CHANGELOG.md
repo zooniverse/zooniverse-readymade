@@ -1,5 +1,19 @@
 # Change Log
 
+## [v1.6.2](https://github.com/zooniverse/zooniverse-readymade/tree/v1.6.2) (2017-07-04)
+[Full Changelog](https://github.com/zooniverse/zooniverse-readymade/compare/v1.6.1...v1.6.2)
+
+**Merged pull requests:**
+
+- Add some more Russian translations [\#43](https://github.com/zooniverse/zooniverse-readymade/pull/43) ([eatyourgreens](https://github.com/eatyourgreens))
+
+## [v1.6.1](https://github.com/zooniverse/zooniverse-readymade/tree/v1.6.1) (2017-04-04)
+[Full Changelog](https://github.com/zooniverse/zooniverse-readymade/compare/v1.6.0...v1.6.1)
+
+**Merged pull requests:**
+
+- Add Italian [\#42](https://github.com/zooniverse/zooniverse-readymade/pull/42) ([simoneduca](https://github.com/simoneduca))
+
 ## [v1.6.0](https://github.com/zooniverse/zooniverse-readymade/tree/v1.6.0) (2017-03-07)
 [Full Changelog](https://github.com/zooniverse/zooniverse-readymade/compare/v1.5.0...v1.6.0)
 
