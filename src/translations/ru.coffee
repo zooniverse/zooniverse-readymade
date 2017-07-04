@@ -1,11 +1,11 @@
 module.exports =
-  home: 'Нome'
-  classify: 'Classify'
-  profile: 'Profile'
+  home: 'Главная'
+  classify: 'Классификация'
+  profile: 'Профиль'
   science: 'Наука'
   team: 'Team'
 
-  getStarted: 'Get started!'
+  getStarted: 'Начать!'
   thankYou: 'Thank you. Your classification has been recorded.'
   yes: 'Да'
   no: 'No'
