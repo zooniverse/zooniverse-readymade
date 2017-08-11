@@ -1,0 +1,27 @@
+module.exports =
+  home: 'Accueil'
+  classify: 'Classement'
+  profile: 'Profil'
+  science: 'Recherche'
+  team: 'Equipe'
+
+  getStarted: "C'est parti!"
+  thankYou: 'Merci, votre classement a été enregistré.'
+  yes: 'Oui'
+  no: 'Non'
+  talkQuestion: 'Discussion Questions'
+  existingComments: '<span class="readymade-existing-comments-count">&mdash;</span> commentaires présents.'
+  share: 'Partager:'
+  next: 'Suivant'
+  previous: 'Précédent'
+  finished: 'Terminé'
+  back: 'Retour'
+
+  favorite: 'Favoris'
+  favoriteIcon: '<i class="fa fa-heart-o readymade-clickable-not-checked"></i>'
+  favoriteIconChecked: '<i class="fa fa-heart readymade-clickable-checked" style="color: orangered;"></i>'
+  hideOldMarks: 'Effacer les marques'
+  hideOldMarksIcon: '<i class="fa fa-eye-slash readymade-clickable-not-checked"></i>'
+  hideOldMarksIconChecked: '<i class="fa fa-eye-slash readymade-clickable-checked" style="color: orangered;"></i>'
+  restartTutorial: 'Recommencer le tutoriel'
+  tutorialIcon: '<i class="fa fa-graduation-cap"></i>'
