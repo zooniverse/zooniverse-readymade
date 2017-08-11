@@ -9,6 +9,7 @@ translations =
   it: require '../../../lib/translations/it'
   zh_tw: require '../../../lib/translations/zh-tw'
   de: require '../../../lib/translations/de'
+  fr: require '../../../lib/translations/fr'
 
 Project = require '../../../lib/project'
 projectConfiguration = require 'zooniverse-readymade/current-configuration'
