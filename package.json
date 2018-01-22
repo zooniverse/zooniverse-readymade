@@ -5,7 +5,7 @@
   "dependencies": {
     "coffee-script": "^1.10.0",
     "haw": "^0.6.0",
-    "jquery": "^2.1.0",
+    "jquery": "^3.3.1",
     "marking-surface": "^0.6.4",
     "publisssh": "~1.0.0",
     "stack-of-pages": "~0.1.3",
