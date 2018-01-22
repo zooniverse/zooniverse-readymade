@@ -1,5 +1,12 @@
 # Change Log
 
+## [v1.7.1](https://github.com/zooniverse/zooniverse-readymade/tree/v1.7.1) (2018-01-22)
+[Full Changelog](https://github.com/zooniverse/zooniverse-readymade/compare/v1.7.0...v1.7.1)
+
+**Merged pull requests:**
+
+- Actually upgrade jQuery to version 3 [\#47](https://github.com/zooniverse/zooniverse-readymade/pull/47) ([eatyourgreens](https://github.com/eatyourgreens))
+
 ## [v1.7.0](https://github.com/zooniverse/zooniverse-readymade/tree/v1.7.0) (2018-01-22)
 [Full Changelog](https://github.com/zooniverse/zooniverse-readymade/compare/v1.6.3...v1.7.0)
 
